@@ -134,6 +134,101 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    let globalAudio = null;
+    let isGlobalPlaying = false;
+
+    const handlePodcastPlayer = () => {
+        const playBtn = document.getElementById('play-btn');
+        const tracks = document.querySelectorAll('.podcast-track');
+        const progress = document.getElementById('player-progress');
+        const timeDisplay = document.getElementById('player-time');
+        const durationDisplay = document.getElementById('player-duration');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const titleDisplay = document.getElementById('current-track-title');
+        const authorDisplay = document.getElementById('current-track-author');
+        const disc = document.getElementById('disc-cover');
+
+        if (!playBtn) return;
+
+        const updateUI = () => {
+            if (isGlobalPlaying) {
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
+                disc.classList.add('animate-[spin_10s_linear_infinite]');
+            } else {
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+                disc.classList.remove('animate-[spin_10s_linear_infinite]');
+            }
+        };
+
+        const formatTime = (secs) => {
+            if (isNaN(secs)) return "0:00";
+            const mins = Math.floor(secs / 60);
+            const s = Math.floor(secs % 60);
+            return `${mins}:${s < 10 ? '0' : ''}${s}`;
+        };
+
+        const loadTrack = (url, title, author) => {
+            if (globalAudio) {
+                globalAudio.pause();
+                globalAudio = null;
+            }
+            globalAudio = new Audio(url);
+            titleDisplay.innerText = title;
+            authorDisplay.innerText = author;
+            
+            globalAudio.addEventListener('loadedmetadata', () => {
+                durationDisplay.innerText = formatTime(globalAudio.duration);
+            });
+
+            globalAudio.addEventListener('timeupdate', () => {
+                const percent = (globalAudio.currentTime / globalAudio.duration) * 100;
+                if (progress) progress.style.width = `${percent}%`;
+                if (timeDisplay) timeDisplay.innerText = formatTime(globalAudio.currentTime);
+            });
+
+            globalAudio.addEventListener('ended', () => {
+                isGlobalPlaying = false;
+                updateUI();
+                if (progress) progress.style.width = '0%';
+            });
+
+            if (isGlobalPlaying) globalAudio.play().catch(e => console.warn("Autoplay blocked"));
+        };
+
+        if (!globalAudio && tracks.length > 0) {
+            const first = tracks[0];
+            loadTrack(first.dataset.url, first.dataset.title, first.dataset.author);
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (!globalAudio) return;
+            if (isGlobalPlaying) {
+                globalAudio.pause();
+            } else {
+                globalAudio.play().catch(e => console.warn("Play failed"));
+            }
+            isGlobalPlaying = !isGlobalPlaying;
+            updateUI();
+        });
+
+        tracks.forEach(track => {
+            track.addEventListener('click', trackHandler);
+        });
+
+        function trackHandler() {
+            tracks.forEach(t => t.classList.remove('bg-white/5', 'border-emerald-500/30'));
+            this.classList.add('bg-white/5', 'border-emerald-500/30');
+            isGlobalPlaying = true;
+            loadTrack(this.dataset.url, this.dataset.title, this.dataset.author);
+            updateUI();
+        }
+
+        updateUI();
+    };
+
     const initApp = () => {
         // Re-attach listeners because document.body.innerHTML was replaced
         const internalLinks = document.querySelectorAll('a[href^="/"], a[href*=".html"], a[href^="about"], a[href^="articles"]');
@@ -158,6 +253,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Handle Daily Challenge
         handleDailyChallenge();
+        
+        // Handle Podcast Academy
+        handlePodcastPlayer();
         
         // Update Active States
         const currentPath = window.location.pathname.replace(/^\/|\/$/g, '') || '/';
