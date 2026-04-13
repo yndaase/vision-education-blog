@@ -136,14 +136,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const initApp = () => {
         // Re-attach listeners because document.body.innerHTML was replaced
-        const internalLinks = document.querySelectorAll('a[href^="/"], a[href^="about"], a[href^="articles"]');
+        const internalLinks = document.querySelectorAll('a[href^="/"], a[href*=".html"], a[href^="about"], a[href^="articles"]');
         internalLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 const href = link.getAttribute('href');
                 if (href.startsWith('http') || href.startsWith('mailto') || href.includes('visionedu.online')) return;
                 
                 e.preventDefault();
-                const targetUrl = href === '/' ? 'index.html' : `${href}.html`;
+                const targetUrl = href === '/' ? 'index.html' : (href.endsWith('.html') ? href : `${href}.html`);
                 history.pushState(null, '', href);
                 loadPage(targetUrl);
             });
