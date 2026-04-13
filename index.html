@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vision Education Blog</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            navy: '#0A2342',
+            vibrantBlue: '#0066CC',
+            lightGray: '#F4F4F5',
+            darkGray: '#4B5563', /* Slightly lighter dark gray for paragraph readability */
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Ensure no border radius globally for strict boxy aesthetic */
+    * {
+      border-radius: 0 !important;
+    }
+  </style>
+</head>
+<body class="bg-white font-sans text-navy antialiased">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-20">
+        <!-- Logo -->
+        <div class="flex items-center gap-3">
+          <!-- Geometric/Globe Icon -->
+          <svg class="w-6 h-6 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
+          </svg>
+          <span class="font-bold text-xl tracking-tight text-navy">VISION EDUCATION BLOG</span>
+        </div>
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex space-x-8">
+          <a href="#" class="text-navy hover:text-vibrantBlue font-medium text-sm transition-colors cursor-pointer flex items-center">HOME</a>
+          <a href="#" class="text-navy hover:text-vibrantBlue font-medium text-sm transition-colors flex items-center gap-1 cursor-pointer">
+            ABOUT US <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </a>
+          <a href="#" class="text-navy hover:text-vibrantBlue font-medium text-sm transition-colors flex items-center gap-1 cursor-pointer">
+            ARTICLES <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </a>
+          <a href="#" class="text-navy hover:text-vibrantBlue font-medium text-sm transition-colors flex items-center gap-1 cursor-pointer">
+            CATEGORIES <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </a>
+          <a href="#" class="text-navy hover:text-vibrantBlue font-medium text-sm transition-colors flex items-center gap-1 cursor-pointer">
+            RESOURCES <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </a>
+          <a href="#" class="text-navy hover:text-vibrantBlue font-medium text-sm transition-colors cursor-pointer flex items-center">CONTACT</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="w-full">
+    <div class="flex flex-col lg:flex-row min-h-[600px]">
+      <!-- Left Half: Image -->
+      <div class="w-full lg:w-1/2 bg-cover bg-center min-h-[350px] lg:min-h-full" style="background-image: url('./assets/hero-image.png');">
+      </div>
+      <!-- Right Half: Columns -->
+      <div class="w-full lg:w-1/2 flex flex-col sm:flex-row bg-navy">
+        <!-- Column A (Mission) -->
+        <div class="w-full sm:w-1/2 p-10 lg:p-14 xl:p-16 flex flex-col justify-center relative overflow-hidden border-b sm:border-b-0 sm:border-r border-white/5">
+          <div class="absolute inset-0 flex items-center justify-center opacity-[0.03] select-none pointer-events-none transform -rotate-12">
+            <span class="text-white font-black text-[6rem] md:text-[8rem] tracking-tighter">Mission</span>
+          </div>
+          <div class="relative z-10 w-full">
+            <h2 class="text-white text-3xl xl:text-4xl font-bold mb-6 tracking-tight">Our Mission</h2>
+            <p class="text-gray-300 leading-relaxed text-sm xl:text-base">
+              To provide forward-thinking perspectives on global educational systems, empowering the next generation of learners, educators, and dynamic policy-makers to tackle complex modern challenges head-on.
+            </p>
+          </div>
+        </div>
+        <!-- Column B (Vision) -->
+        <div class="w-full sm:w-1/2 p-10 lg:p-14 xl:p-16 flex flex-col justify-center relative overflow-hidden">
+          <div class="absolute inset-0 flex items-center justify-center opacity-[0.03] select-none pointer-events-none transform -rotate-12">
+            <span class="text-white font-black text-[6rem] md:text-[8rem] tracking-tighter">Vision</span>
+          </div>
+          <div class="relative z-10 w-full">
+            <h2 class="text-white text-3xl xl:text-4xl font-bold mb-6 tracking-tight">Our Vision</h2>
+            <p class="text-gray-300 leading-relaxed text-sm xl:text-base">
+              To inspire a global community by fostering an inclusive, technologically advanced educational landscape where innovation and traditional learning principles harmonize to unlock student potential.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Section (Know More) -->
+  <section class="py-24 lg:py-32 px-6 lg:px-8 bg-white">
+    <div class="max-w-6xl mx-auto flex flex-col lg:flex-row gap-16 lg:gap-24">
+      
+      <!-- Left Column -->
+      <div class="w-full lg:w-1/2 flex flex-col justify-center pl-0 lg:pl-4">
+        <div class="flex items-center gap-4 mb-6">
+          <div class="h-[2px] w-10 bg-vibrantBlue"></div>
+          <span class="text-vibrantBlue font-bold tracking-widest text-sm uppercase">KNOW MORE</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-navy leading-[1.2] mb-8">
+          Exploring Global Educational Frontiers
+        </h2>
+        <p class="text-darkGray text-lg leading-relaxed">
+          We focus on identifying the most critical shifts in pedagogy, decoding complex policy changes, and highlighting groundbreaking applications of educational technology. Join us as we synthesize high-level research into actionable insights for teaching professionals worldwide.
+        </p>
+      </div>
+
+      <!-- Right Column -->
+      <div class="w-full lg:w-1/2 flex flex-col justify-center pr-0 lg:pr-4">
+        <!-- Feature Boxes -->
+        <div class="w-full flex flex-col gap-[2px]">
+          <div class="w-full bg-lightGray border border-[#E5E7EB] p-6 lg:p-8 flex items-center gap-6 cursor-pointer hover:bg-[#EBEBEF] transition-colors group">
+            <span class="text-darkGray text-3xl font-light leading-none mb-1 group-hover:text-vibrantBlue transition-colors">+</span>
+            <h3 class="text-navy font-semibold text-lg lg:text-xl">EdTech Innovations</h3>
+          </div>
+          
+          <div class="w-full bg-lightGray border border-[#E5E7EB] p-6 lg:p-8 flex items-center gap-6 cursor-pointer hover:bg-[#EBEBEF] transition-colors group">
+            <span class="text-darkGray text-3xl font-light leading-none mb-1 group-hover:text-vibrantBlue transition-colors">+</span>
+            <h3 class="text-navy font-semibold text-lg lg:text-xl">Policy Analysis</h3>
+          </div>
+          
+          <div class="w-full bg-lightGray border border-[#E5E7EB] p-6 lg:p-8 flex items-center gap-6 cursor-pointer hover:bg-[#EBEBEF] transition-colors group">
+            <span class="text-darkGray text-3xl font-light leading-none mb-1 group-hover:text-vibrantBlue transition-colors">+</span>
+            <h3 class="text-navy font-semibold text-lg lg:text-xl">Global Pedagogy</h3>
+          </div>
+          
+          <div class="w-full bg-lightGray border border-[#E5E7EB] p-6 lg:p-8 flex items-center gap-6 cursor-pointer hover:bg-[#EBEBEF] transition-colors group">
+            <span class="text-darkGray text-3xl font-light leading-none mb-1 group-hover:text-vibrantBlue transition-colors">+</span>
+            <h3 class="text-navy font-semibold text-lg lg:text-xl">Case Studies</h3>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</body>
+</html>
