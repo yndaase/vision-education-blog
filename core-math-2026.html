@@ -233,33 +233,7 @@ New Style: A market vendor increases prices by 10%... find the net profit after 
     </div>
   </footer>
 
-  <script>
-    (function() {
-      const listenBtn = document.getElementById('listen-btn');
-      const ttsPlayer = document.getElementById('tts-player');
-      const ttsPlayPause = document.getElementById('tts-play-pause');
-      const ttsStop = document.getElementById('tts-stop');
-      const ttsPlayIcon = document.getElementById('tts-play-icon');
-      const ttsPauseIcon = document.getElementById('tts-pause-icon');
-      const ttsProgress = document.getElementById('tts-progress');
-      const ttsLabel = document.getElementById('tts-label');
-      if (!('speechSynthesis' in window)) { if (listenBtn) listenBtn.style.display = 'none'; return; }
-      const articleText = document.getElementById('article-text');
-      let isPlaying = false;
-      let totalChars = articleText ? articleText.innerText.length : 1;
-      function getCleanText() { return articleText ? articleText.innerText.replace(/\s+/g, ' ').trim() : ''; }
-      function startReading() {
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(getCleanText());
-        utterance.rate = 0.95; utterance.pitch = 1; utterance.lang = 'en-GH';
-        utterance.onboundary = (e) => { if (e.name === 'word') { ttsProgress.style.width = Math.min(100,(e.charIndex/totalChars)*100)+'%'; } };
-        utterance.onend = () => { isPlaying=false; ttsPlayIcon.classList.remove('hidden'); ttsPauseIcon.classList.add('hidden'); ttsProgress.style.width='100%'; ttsLabel.textContent='Finished reading'; listenBtn.innerHTML=`<svg class="w-5 h-5 text-indigo-400" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg> Listen Again`; };
-        window.speechSynthesis.speak(utterance); isPlaying=true;
-      }
-      listenBtn && listenBtn.addEventListener('click', () => { ttsPlayer.classList.add('visible'); ttsLabel.textContent='Reading article…'; ttsProgress.style.width='0%'; startReading(); ttsPlayIcon.classList.add('hidden'); ttsPauseIcon.classList.remove('hidden'); listenBtn.innerHTML=`<svg class="w-5 h-5 text-indigo-400" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg> Listening...`; });
-      ttsPlayPause && ttsPlayPause.addEventListener('click', () => { if (window.speechSynthesis.paused) { window.speechSynthesis.resume(); isPlaying=true; ttsPlayIcon.classList.add('hidden'); ttsPauseIcon.classList.remove('hidden'); } else if (isPlaying) { window.speechSynthesis.pause(); isPlaying=false; ttsPlayIcon.classList.remove('hidden'); ttsPauseIcon.classList.add('hidden'); } else { ttsProgress.style.width='0%'; startReading(); ttsPlayIcon.classList.add('hidden'); ttsPauseIcon.classList.remove('hidden'); } });
-      ttsStop && ttsStop.addEventListener('click', () => { window.speechSynthesis.cancel(); isPlaying=false; ttsPlayer.classList.remove('visible'); ttsProgress.style.width='0%'; listenBtn.innerHTML=`<svg class="w-5 h-5 text-indigo-400" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg> Listen to Article`; });
-    })();
-  </script>
+  <script src="tts.js" defer></script>
 </body>
 </html>
+

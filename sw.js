@@ -1,4 +1,4 @@
-const CACHE_NAME = 'vision-blog-v2';
+const CACHE_NAME = 'vision-blog-v3';
 const ASSETS = [
   '/',
   '/index.html',
@@ -9,6 +9,7 @@ const ASSETS = [
   '/cs-integration.html',
   '/parent-guide.html',
   '/nav.js',
+  '/tts.js',
   '/manifest.json',
   '/assets/logo-512.png',
   '/assets/logo-192.png',
