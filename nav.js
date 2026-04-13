@@ -78,11 +78,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         form.style.display = 'none';
                         successMessage.classList.remove('hidden');
                     } else {
-                        throw new Error('Subscription failed');
+                        const errorBody = await response.json().catch(() => ({}));
+                        console.error('API Error Response:', response.status, errorBody);
+                        throw new Error(`Subscription failed: ${errorBody.error || response.statusText}`);
                     }
                 } catch (error) {
-                    console.error('Newsletter error:', error);
-                    alert('Something went wrong. Please try again later.');
+                    console.error('Newsletter error detailed:', error);
+                    alert(`Submission failed: ${error.message}. Please check if RESEND_API_KEY is set in Vercel.`);
                     submitBtn.disabled = false;
                     submitBtn.innerText = originalBtnText;
                 }
@@ -96,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
         internalLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 const href = link.getAttribute('href');
-                if (href.startsWith('http') || href.startsWith('mailto')) return;
+                if (href.startsWith('http') || href.startsWith('mailto') || href.includes('visionedu.online')) return;
                 
                 e.preventDefault();
                 const targetUrl = href === '/' ? 'index.html' : `${href}.html`;
