@@ -21,21 +21,21 @@ document.addEventListener('DOMContentLoaded', () => {
     if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMenu);
 
     // --- SPA Routing Logic ---
+    const ARTICLE_PAGES = ['ai-test-prep', 'core-math-2026', 'cs-integration', 'parent-guide'];
+
     const loadPage = async (url) => {
-        // Show a simple loading state or progress bar if needed
+        // Article pages are full standalone documents — never load them via innerHTML
+        if (ARTICLE_PAGES.some(p => url.includes(p))) {
+            window.location.href = url;
+            return;
+        }
+
         try {
             const response = await fetch(url);
             const html = await response.text();
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
             
-            // Only update the main body content and title
-            // Note: We avoid replacing the header/footer to keep the "App" state
-            // However, for a simple static site, replacing the body content is often enough.
-            // For a true SPA feel, we'd wrap content in a <main id="app"> tag.
-            // Since we don't have that yet, we'll do a full swap of the main body content
-            // but keep the scripts running.
-
             const newContent = doc.body.innerHTML;
             document.body.innerHTML = newContent;
             document.title = doc.title;
@@ -242,12 +242,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const initApp = () => {
         // Re-attach listeners because document.body.innerHTML was replaced
-        const internalLinks = document.querySelectorAll('a[href^="/"], a[href*=".html"], a[href^="about"], a[href^="articles"]');
+        const internalLinks = document.querySelectorAll('a[href="/"], a[href="about"], a[href="articles"], a[href="about.html"], a[href="articles.html"], a[href="index.html"]');
         internalLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 const href = link.getAttribute('href');
-                if (href.startsWith('http') || href.startsWith('mailto') || href.includes('visionedu.online')) return;
-                
+
+                // Never intercept: external links, mailto, or article pages
+                if (
+                    href.startsWith('http') ||
+                    href.startsWith('mailto') ||
+                    href.includes('visionedu.online') ||
+                    href.includes('ai-test-prep') ||
+                    href.includes('core-math') ||
+                    href.includes('cs-integration') ||
+                    href.includes('parent-guide')
+                ) return;
+
                 e.preventDefault();
                 const targetUrl = href === '/' ? 'index.html' : (href.endsWith('.html') ? href : `${href}.html`);
                 history.pushState(null, '', href);
