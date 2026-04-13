@@ -1,315 +1,225 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Mobile Menu Toggle ---
+
+    // ─────────────────────────────────────────
+    // Mobile Menu Toggle
+    // ─────────────────────────────────────────
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const menuIcon = document.getElementById('menu-icon');
-    const closeIcon = document.getElementById('close-icon');
+    const mobileMenu    = document.getElementById('mobile-menu');
+    const menuIcon      = document.getElementById('menu-icon');
+    const closeIcon     = document.getElementById('close-icon');
 
-    const toggleMenu = () => {
-        const isOpen = !mobileMenu.classList.contains('hidden');
-        if (!isOpen) {
-            mobileMenu.classList.remove('hidden');
-            menuIcon.classList.add('hidden');
-            closeIcon.classList.remove('hidden');
-        } else {
-            mobileMenu.classList.add('hidden');
-            menuIcon.classList.remove('hidden');
-            closeIcon.classList.add('hidden');
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+            const isOpen = !mobileMenu.classList.contains('hidden');
+            mobileMenu.classList.toggle('hidden', isOpen);
+            menuIcon  && menuIcon.classList.toggle('hidden', !isOpen);
+            closeIcon && closeIcon.classList.toggle('hidden', isOpen);
+        });
+    }
+
+    // ─────────────────────────────────────────
+    // Active Nav Link Highlight
+    // ─────────────────────────────────────────
+    const currentFile = window.location.pathname.split('/').pop() || 'index.html';
+    const allNavLinks = document.querySelectorAll('nav a, #mobile-menu a, .fixed.bottom-0 a');
+    allNavLinks.forEach(link => {
+        const linkHref    = link.getAttribute('href') || '';
+        const linkFile    = linkHref.replace('.html', '');
+        const currentBase = currentFile.replace('.html', '');
+        if (
+            linkFile === currentBase ||
+            (currentBase === '' && linkFile === '/') ||
+            (currentBase === 'index' && linkFile === '/')
+        ) {
+            link.classList.add('text-vibrantBlue');
+            link.classList.remove('text-gray-400', 'text-gray-600');
         }
-    };
+    });
 
-    if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMenu);
+    // ─────────────────────────────────────────
+    // Newsletter Form
+    // ─────────────────────────────────────────
+    const form           = document.getElementById('newsletter-form');
+    const successMessage = document.getElementById('newsletter-success');
 
-    // --- SPA Routing Logic ---
-    const ARTICLE_PAGES = ['ai-test-prep', 'core-math-2026', 'cs-integration', 'parent-guide'];
+    if (form && successMessage) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const emailInput  = form.querySelector('input[type="email"]');
+            const submitBtn   = form.querySelector('button[type="submit"]');
+            const roleInput   = form.querySelector('input[name="role"]:checked');
+            const email       = emailInput ? emailInput.value : '';
+            const role        = roleInput  ? roleInput.value  : 'student';
 
-    const loadPage = async (url) => {
-        // Article pages are full standalone documents — never load them via innerHTML
-        if (ARTICLE_PAGES.some(p => url.includes(p))) {
-            window.location.href = url;
-            return;
-        }
+            const originalText  = submitBtn.innerText;
+            submitBtn.disabled  = true;
+            submitBtn.innerText = 'Sending...';
 
-        try {
-            const response = await fetch(url);
-            const html = await response.text();
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-            
-            const newContent = doc.body.innerHTML;
-            document.body.innerHTML = newContent;
-            document.title = doc.title;
-            
-            // Re-initialize scripts for the new content
-            initApp();
-            
-            // Scroll to top
-            window.scrollTo(0, 0);
-        } catch (error) {
-            console.error('Failed to load page:', error);
-            window.location.href = url; // Fallback to normal navigation
-        }
-    };
+            try {
+                const response = await fetch('/api/subscribe', {
+                    method:  'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body:    JSON.stringify({ email, role })
+                });
 
-    const handleNewsletterForm = () => {
-        const form = document.getElementById('newsletter-form');
-        const successMessage = document.getElementById('newsletter-success');
-        
-        if (form && successMessage) {
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const emailInput = form.querySelector('input[type="email"]');
-                const submitBtn = form.querySelector('button[type="submit"]');
-                const roleInput = form.querySelector('input[name="role"]:checked');
-                const email = emailInput.value;
-                const role = roleInput ? roleInput.value : 'student';
-                
-                // Loading state
-                const originalBtnText = submitBtn.innerText;
-                submitBtn.disabled = true;
-                submitBtn.innerText = 'Sending...';
-                
-                try {
-                    const response = await fetch('/api/subscribe', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ email, role })
-                    });
-                    
-                    if (response.ok) {
-                        form.style.display = 'none';
-                        successMessage.classList.remove('hidden');
-                    } else {
-                        const errorBody = await response.json().catch(() => ({}));
-                        console.error('API Error Response:', response.status, errorBody);
-                        throw new Error(`Subscription failed: ${errorBody.error || response.statusText}`);
-                    }
-                } catch (error) {
-                    console.error('Newsletter error detailed:', error);
-                    alert(`Submission failed: ${error.message}. Please check if RESEND_API_KEY is set in Vercel.`);
-                    submitBtn.disabled = false;
-                    submitBtn.innerText = originalBtnText;
+                if (response.ok) {
+                    form.style.display = 'none';
+                    successMessage.classList.remove('hidden');
+                } else {
+                    const err = await response.json().catch(() => ({}));
+                    throw new Error(err.error || response.statusText);
                 }
-            });
-        }
-    };
+            } catch (error) {
+                console.error('Newsletter error:', error);
+                alert(`Submission failed: ${error.message}`);
+                submitBtn.disabled  = false;
+                submitBtn.innerText = originalText;
+            }
+        });
+    }
 
-    const handleDailyChallenge = () => {
-        const options = document.querySelectorAll('.challenge-option');
-        const feedback = document.getElementById('challenge-feedback');
-        const optionsContainer = document.getElementById('challenge-options');
-        const feedbackBox = document.getElementById('feedback-box');
-        const feedbackIcon = document.getElementById('feedback-icon');
-        const feedbackTitle = document.getElementById('feedback-title');
-        const feedbackText = document.getElementById('feedback-text');
+    // ─────────────────────────────────────────
+    // Daily Challenge
+    // ─────────────────────────────────────────
+    const options            = document.querySelectorAll('.challenge-option');
+    const challengeFeedback  = document.getElementById('challenge-feedback');
+    const optionsContainer   = document.getElementById('challenge-options');
+    const feedbackBox        = document.getElementById('feedback-box');
+    const feedbackIcon       = document.getElementById('feedback-icon');
+    const feedbackTitle      = document.getElementById('feedback-title');
+    const feedbackText       = document.getElementById('feedback-text');
 
-        if (!options.length || !feedback) return;
-
+    if (options.length && challengeFeedback) {
         options.forEach(option => {
             option.addEventListener('click', () => {
                 const isCorrect = option.getAttribute('data-correct') === 'true';
-                
-                // Hide options
-                optionsContainer.classList.add('hidden');
-                
-                // Show feedback
-                feedback.classList.remove('hidden');
-                
+                optionsContainer && optionsContainer.classList.add('hidden');
+                challengeFeedback.classList.remove('hidden');
+
                 if (isCorrect) {
-                    feedbackBox.className = 'p-8 rounded-3xl flex flex-col items-center text-center bg-emerald-50 border border-emerald-100';
-                    feedbackIcon.className = 'w-16 h-16 rounded-full flex items-center justify-center mb-6 bg-emerald-500 text-white text-2xl';
-                    feedbackIcon.innerHTML = '✓';
+                    feedbackBox.className   = 'p-8 rounded-3xl flex flex-col items-center text-center bg-emerald-50 border border-emerald-100';
+                    feedbackIcon.className  = 'w-16 h-16 rounded-full flex items-center justify-center mb-6 bg-emerald-500 text-white text-2xl';
+                    feedbackIcon.innerHTML  = '✓';
                     feedbackTitle.innerText = 'Brilliant! Correct Answer.';
                     feedbackTitle.className = 'text-2xl font-black mb-3 text-emerald-700';
-                    feedbackText.innerText = 'You definitely have a Vision for excellence. Only 2% of students solve this on their first try.';
+                    feedbackText.innerText  = 'You definitely have a Vision for excellence. Only 2% of students solve this on their first try.';
                 } else {
-                    feedbackBox.className = 'p-8 rounded-3xl flex flex-col items-center text-center bg-rose-50 border border-rose-100';
-                    feedbackIcon.className = 'w-16 h-16 rounded-full flex items-center justify-center mb-6 bg-rose-500 text-white text-2xl';
-                    feedbackIcon.innerHTML = '✕';
+                    feedbackBox.className   = 'p-8 rounded-3xl flex flex-col items-center text-center bg-rose-50 border border-rose-100';
+                    feedbackIcon.className  = 'w-16 h-6 rounded-full flex items-center justify-center mb-6 bg-rose-500 text-white text-2xl';
+                    feedbackIcon.innerHTML  = '✕';
                     feedbackTitle.innerText = 'Not quite! Mathematics is about the journey.';
                     feedbackTitle.className = 'text-2xl font-black mb-3 text-rose-700';
-                    feedbackText.innerText = 'Don\'t worry, the detailed explanation and 20,000+ similar questions are waiting for you.';
+                    feedbackText.innerText  = "Don't worry, the detailed explanation and 20,000+ similar questions are waiting for you.";
                 }
             });
         });
-    };
+    }
 
-    let globalAudio = null;
+    // ─────────────────────────────────────────
+    // Podcast Player
+    // ─────────────────────────────────────────
+    let globalAudio     = null;
     let isGlobalPlaying = false;
 
-    const handlePodcastPlayer = () => {
-        const playBtn = document.getElementById('play-btn');
-        const tracks = document.querySelectorAll('.podcast-track');
-        const progress = document.getElementById('player-progress');
-        const timeDisplay = document.getElementById('player-time');
-        const durationDisplay = document.getElementById('player-duration');
-        const playIcon = document.getElementById('play-icon');
-        const pauseIcon = document.getElementById('pause-icon');
-        const titleDisplay = document.getElementById('current-track-title');
-        const authorDisplay = document.getElementById('current-track-author');
-        const disc = document.getElementById('disc-cover');
+    const playBtn         = document.getElementById('play-btn');
+    const tracks          = document.querySelectorAll('.podcast-track');
+    const progressBar     = document.getElementById('player-progress');
+    const timeDisplay     = document.getElementById('player-time');
+    const durationDisplay = document.getElementById('player-duration');
+    const playIcon        = document.getElementById('play-icon');
+    const pauseIcon       = document.getElementById('pause-icon');
+    const titleDisplay    = document.getElementById('current-track-title');
+    const authorDisplay   = document.getElementById('current-track-author');
+    const disc            = document.getElementById('disc-cover');
+    const seeker          = document.getElementById('player-seeker');
 
-        if (!playBtn) return;
-
-        const updateUI = () => {
-            if (isGlobalPlaying) {
-                playIcon.classList.add('hidden');
-                pauseIcon.classList.remove('hidden');
-                disc.classList.add('animate-[spin_10s_linear_infinite]');
-            } else {
-                playIcon.classList.remove('hidden');
-                pauseIcon.classList.add('hidden');
-                disc.classList.remove('animate-[spin_10s_linear_infinite]');
-            }
+    if (playBtn) {
+        const formatTime = (secs) => {
+            if (isNaN(secs)) return '0:00';
+            const m = Math.floor(secs / 60);
+            const s = Math.floor(secs % 60);
+            return `${m}:${s < 10 ? '0' : ''}${s}`;
         };
 
-        const formatTime = (secs) => {
-            if (isNaN(secs)) return "0:00";
-            const mins = Math.floor(secs / 60);
-            const s = Math.floor(secs % 60);
-            return `${mins}:${s < 10 ? '0' : ''}${s}`;
+        const updatePlayerUI = () => {
+            if (isGlobalPlaying) {
+                playIcon  && playIcon.classList.add('hidden');
+                pauseIcon && pauseIcon.classList.remove('hidden');
+                disc      && disc.classList.add('animate-[spin_10s_linear_infinite]');
+            } else {
+                playIcon  && playIcon.classList.remove('hidden');
+                pauseIcon && pauseIcon.classList.add('hidden');
+                disc      && disc.classList.remove('animate-[spin_10s_linear_infinite]');
+            }
         };
 
         const loadTrack = (url, title, author) => {
-            if (globalAudio) {
-                globalAudio.pause();
-                globalAudio = null;
-            }
+            if (globalAudio) { globalAudio.pause(); globalAudio = null; }
             globalAudio = new Audio(url);
-            titleDisplay.innerText = title;
-            authorDisplay.innerText = author;
-            
+            if (titleDisplay)  titleDisplay.innerText  = title;
+            if (authorDisplay) authorDisplay.innerText = author;
+
             globalAudio.addEventListener('loadedmetadata', () => {
-                durationDisplay.innerText = formatTime(globalAudio.duration);
+                if (durationDisplay) durationDisplay.innerText = formatTime(globalAudio.duration);
             });
-
             globalAudio.addEventListener('timeupdate', () => {
-                const percent = (globalAudio.currentTime / globalAudio.duration) * 100;
-                if (progress) progress.style.width = `${percent}%`;
-                if (timeDisplay) timeDisplay.innerText = formatTime(globalAudio.currentTime);
+                const pct = (globalAudio.currentTime / globalAudio.duration) * 100;
+                if (progressBar) progressBar.style.width  = `${pct}%`;
+                if (timeDisplay) timeDisplay.innerText    = formatTime(globalAudio.currentTime);
             });
-
             globalAudio.addEventListener('ended', () => {
                 isGlobalPlaying = false;
-                updateUI();
-                if (progress) progress.style.width = '0%';
+                updatePlayerUI();
+                if (progressBar) progressBar.style.width = '0%';
             });
 
-            if (isGlobalPlaying) globalAudio.play().catch(e => console.warn("Autoplay blocked"));
+            if (isGlobalPlaying) globalAudio.play().catch(() => {});
         };
 
-        const seeker = document.getElementById('player-seeker');
         if (seeker) {
             seeker.addEventListener('click', (e) => {
                 if (!globalAudio || !globalAudio.duration) return;
-                const rect = seeker.getBoundingClientRect();
-                const clickX = e.clientX - rect.left;
-                const percent = clickX / rect.width;
+                const rect    = seeker.getBoundingClientRect();
+                const percent = (e.clientX - rect.left) / rect.width;
                 globalAudio.currentTime = percent * globalAudio.duration;
             });
         }
 
-        if (!globalAudio && tracks.length > 0) {
+        if (tracks.length > 0) {
             const first = tracks[0];
             loadTrack(first.dataset.url, first.dataset.title, first.dataset.author);
         }
 
         playBtn.addEventListener('click', () => {
             if (!globalAudio) return;
-            if (isGlobalPlaying) {
-                globalAudio.pause();
-            } else {
-                globalAudio.play().catch(e => console.warn("Play failed"));
-            }
+            if (isGlobalPlaying) { globalAudio.pause(); } 
+            else { globalAudio.play().catch(() => {}); }
             isGlobalPlaying = !isGlobalPlaying;
-            updateUI();
+            updatePlayerUI();
         });
 
         tracks.forEach(track => {
-            track.addEventListener('click', trackHandler);
-        });
-
-        function trackHandler() {
-            tracks.forEach(t => t.classList.remove('bg-white/5', 'border-emerald-500/30'));
-            this.classList.add('bg-white/5', 'border-emerald-500/30');
-            isGlobalPlaying = true;
-            loadTrack(this.dataset.url, this.dataset.title, this.dataset.author);
-            updateUI();
-        }
-
-        updateUI();
-    };
-
-    const initApp = () => {
-        // Re-attach listeners because document.body.innerHTML was replaced
-        const internalLinks = document.querySelectorAll('a[href="/"], a[href="about"], a[href="articles"], a[href="about.html"], a[href="articles.html"], a[href="index.html"]');
-        internalLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                const href = link.getAttribute('href');
-
-                // Never intercept: external links, mailto, or article pages
-                if (
-                    href.startsWith('http') ||
-                    href.startsWith('mailto') ||
-                    href.includes('visionedu.online') ||
-                    href.includes('ai-test-prep') ||
-                    href.includes('core-math') ||
-                    href.includes('cs-integration') ||
-                    href.includes('parent-guide')
-                ) return;
-
-                e.preventDefault();
-                const targetUrl = href === '/' ? 'index.html' : (href.endsWith('.html') ? href : `${href}.html`);
-                history.pushState(null, '', href);
-                loadPage(targetUrl);
+            track.addEventListener('click', function () {
+                tracks.forEach(t => t.classList.remove('bg-white/5', 'border-emerald-500/30'));
+                this.classList.add('bg-white/5', 'border-emerald-500/30');
+                isGlobalPlaying = true;
+                loadTrack(this.dataset.url, this.dataset.title, this.dataset.author);
+                updatePlayerUI();
             });
         });
 
-        // Re-attach mobile menu listeners
-        const newMobileMenuBtn = document.getElementById('mobile-menu-btn');
-        if (newMobileMenuBtn) newMobileMenuBtn.addEventListener('click', toggleMenu);
-        
-        // Handle Newsletter Form
-        handleNewsletterForm();
-        
-        // Handle Daily Challenge
-        handleDailyChallenge();
-        
-        // Handle Podcast Academy
-        handlePodcastPlayer();
-        
-        // Update Active States
-        const currentPath = window.location.pathname.replace(/^\/|\/$/g, '') || '/';
-        const allNavLinks = document.querySelectorAll('nav a, #mobile-menu a, .fixed.bottom-0 a');
-        
-        allNavLinks.forEach(link => {
-            const linkPath = link.getAttribute('href').replace(/^\/|\/$/g, '') || '/';
-            if (currentPath === linkPath) {
-                link.classList.add('text-vibrantBlue');
-                link.classList.remove('text-gray-400', 'text-gray-600');
-            } else {
-                link.classList.remove('text-vibrantBlue');
-                // link.classList.add('text-gray-400');
-            }
-        });
-    };
+        updatePlayerUI();
+    }
 
-    // Initial run
-    initApp();
-
-    // Handle back/forward buttons
-    window.addEventListener('popstate', () => {
-        const path = window.location.pathname;
-        const targetUrl = path === '/' ? 'index.html' : `${path.substring(1)}.html`;
-        loadPage(targetUrl);
-    });
-
-    // --- Service Worker Registration (PWA) ---
+    // ─────────────────────────────────────────
+    // Service Worker (PWA)
+    // ─────────────────────────────────────────
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('/sw.js')
-                .then(reg => console.log('SW Registered', reg))
-                .catch(err => console.log('SW Failed', err));
+                .then(reg => console.log('SW registered', reg))
+                .catch(err => console.warn('SW failed', err));
         });
     }
+
 });
