@@ -237,6 +237,64 @@
     </div>
   </section>
 
+  <!-- Daily Challenge Section -->
+  <section id="daily-challenge" class="py-32 bg-white relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="max-w-3xl mx-auto text-center mb-16">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 text-emerald-600 font-bold text-xs tracking-widest uppercase mb-6 border border-emerald-100">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                Daily Practice
+            </div>
+            <h2 class="text-4xl md:text-6xl font-black text-navy mb-6 tracking-tighter">Daily WASSCE Challenge</h2>
+            <p class="text-xl text-gray-500 font-medium leading-relaxed">Only 2% of students get this right on the first try. Can you solve it?</p>
+        </div>
+
+        <div class="max-w-2xl mx-auto">
+            <div class="bg-gray-50 rounded-[3rem] p-8 md:p-12 border border-gray-100 shadow-sm relative group hover:shadow-2xl transition-all duration-500">
+                <div class="flex justify-between items-center mb-8">
+                    <span class="text-sm font-black text-indigo-600 uppercase tracking-widest">Mathematics</span>
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Question #422</span>
+                </div>
+                
+                <p class="text-2xl md:text-3xl font-bold text-navy mb-10 leading-tight">
+                    A boy is 5 years older than his sister. In 4 years' time, the sum of their ages will be 25. Find the age of the sister now.
+                </p>
+
+                <div id="challenge-options" class="grid grid-cols-1 gap-4 mb-2">
+                    <button data-correct="true" class="challenge-option w-full p-6 bg-white border-2 border-gray-100 rounded-2xl text-left font-bold text-lg hover:border-emerald-500 hover:bg-emerald-50/30 transition-all flex justify-between items-center group/opt">
+                        <span>A) 6 years</span>
+                        <div class="w-6 h-6 rounded-full border-2 border-gray-200 group-hover/opt:border-emerald-500 transition-colors"></div>
+                    </button>
+                    <button data-correct="false" class="challenge-option w-full p-6 bg-white border-2 border-gray-100 rounded-2xl text-left font-bold text-lg hover:border-emerald-500 hover:bg-emerald-50/30 transition-all flex justify-between items-center group/opt">
+                        <span>B) 7 years</span>
+                        <div class="w-6 h-6 rounded-full border-2 border-gray-200 group-hover/opt:border-emerald-500 transition-colors"></div>
+                    </button>
+                    <button data-correct="false" class="challenge-option w-full p-6 bg-white border-2 border-gray-100 rounded-2xl text-left font-bold text-lg hover:border-emerald-500 hover:bg-emerald-50/30 transition-all flex justify-between items-center group/opt">
+                        <span>C) 8 years</span>
+                        <div class="w-6 h-6 rounded-full border-2 border-gray-200 group-hover/opt:border-emerald-500 transition-colors"></div>
+                    </button>
+                    <button data-correct="false" class="challenge-option w-full p-6 bg-white border-2 border-gray-100 rounded-2xl text-left font-bold text-lg hover:border-emerald-500 hover:bg-emerald-50/30 transition-all flex justify-between items-center group/opt">
+                        <span>D) 10 years</span>
+                        <div class="w-6 h-6 rounded-full border-2 border-gray-200 group-hover/opt:border-emerald-500 transition-colors"></div>
+                    </button>
+                </div>
+
+                <!-- Feedback State -->
+                <div id="challenge-feedback" class="hidden animate-fade-in-up mt-8">
+                    <div class="p-8 rounded-3xl flex flex-col items-center text-center" id="feedback-box">
+                        <div id="feedback-icon" class="w-16 h-16 rounded-full flex items-center justify-center mb-6 text-white text-2xl"></div>
+                        <h4 id="feedback-title" class="text-2xl font-black mb-3 text-navy"></h4>
+                        <p id="feedback-text" class="text-lg font-medium text-gray-500 mb-8"></p>
+                        <a href="https://visionedu.online" class="px-10 py-5 bg-navy text-white font-black rounded-2xl hover:bg-emerald-500 transition-all shadow-xl active:scale-95">
+                            Practice More on Vision Platform
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+
   <!-- Newsletter Section -->
   <section id="newsletter" class="py-24 bg-navy relative overflow-hidden">
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.1),transparent)] opacity-50"></div>

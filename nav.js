@@ -94,6 +94,46 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    const handleDailyChallenge = () => {
+        const options = document.querySelectorAll('.challenge-option');
+        const feedback = document.getElementById('challenge-feedback');
+        const optionsContainer = document.getElementById('challenge-options');
+        const feedbackBox = document.getElementById('feedback-box');
+        const feedbackIcon = document.getElementById('feedback-icon');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackText = document.getElementById('feedback-text');
+
+        if (!options.length || !feedback) return;
+
+        options.forEach(option => {
+            option.addEventListener('click', () => {
+                const isCorrect = option.getAttribute('data-correct') === 'true';
+                
+                // Hide options
+                optionsContainer.classList.add('hidden');
+                
+                // Show feedback
+                feedback.classList.remove('hidden');
+                
+                if (isCorrect) {
+                    feedbackBox.className = 'p-8 rounded-3xl flex flex-col items-center text-center bg-emerald-50 border border-emerald-100';
+                    feedbackIcon.className = 'w-16 h-16 rounded-full flex items-center justify-center mb-6 bg-emerald-500 text-white text-2xl';
+                    feedbackIcon.innerHTML = '✓';
+                    feedbackTitle.innerText = 'Brilliant! Correct Answer.';
+                    feedbackTitle.className = 'text-2xl font-black mb-3 text-emerald-700';
+                    feedbackText.innerText = 'You definitely have a Vision for excellence. Only 2% of students solve this on their first try.';
+                } else {
+                    feedbackBox.className = 'p-8 rounded-3xl flex flex-col items-center text-center bg-rose-50 border border-rose-100';
+                    feedbackIcon.className = 'w-16 h-16 rounded-full flex items-center justify-center mb-6 bg-rose-500 text-white text-2xl';
+                    feedbackIcon.innerHTML = '✕';
+                    feedbackTitle.innerText = 'Not quite! Mathematics is about the journey.';
+                    feedbackTitle.className = 'text-2xl font-black mb-3 text-rose-700';
+                    feedbackText.innerText = 'Don\'t worry, the detailed explanation and 20,000+ similar questions are waiting for you.';
+                }
+            });
+        });
+    };
+
     const initApp = () => {
         // Re-attach listeners because document.body.innerHTML was replaced
         const internalLinks = document.querySelectorAll('a[href^="/"], a[href^="about"], a[href^="articles"]');
@@ -115,6 +155,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Handle Newsletter Form
         handleNewsletterForm();
+        
+        // Handle Daily Challenge
+        handleDailyChallenge();
         
         // Update Active States
         const currentPath = window.location.pathname.replace(/^\/|\/$/g, '') || '/';
