@@ -25,6 +25,37 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#05080f">
+  
+  <!-- Structured Data (Schema.org) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Vision Education",
+    "url": "https://visionedu.site/",
+    "logo": "https://visionedu.site/assets/logo-512.png",
+    "founder": {
+      "@type": "Person",
+      "name": "Yaw Ndaase Mensuoh"
+    },
+    "description": "Ghana's first AI-powered WASSCE preparation platform.",
+    "sameAs": [
+      "https://visionedu.site"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://visionedu.site/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://visionedu.site/articles?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
   <script src="nav.js" defer></script>
   <script>
     tailwind.config = {
