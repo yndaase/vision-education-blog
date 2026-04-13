@@ -1,18 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.visionedu.site/</loc>
+    <loc>https://www.visionedu.online/</loc>
     <lastmod>2026-04-13</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.visionedu.site/about</loc>
+    <loc>https://www.visionedu.online/about</loc>
     <lastmod>2026-04-13</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.visionedu.site/articles</loc>
+    <loc>https://www.visionedu.online/articles</loc>
     <lastmod>2026-04-13</lastmod>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.visionedu.online/ai-test-prep</loc>
+    <lastmod>2026-04-13</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.visionedu.online/core-math-2026</loc>
+    <lastmod>2026-04-13</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.visionedu.online/cs-integration</loc>
+    <lastmod>2026-04-13</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.visionedu.online/parent-guide</loc>
+    <lastmod>2026-04-13</lastmod>
+    <priority>0.6</priority>
   </url>
 </urlset>
