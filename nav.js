@@ -56,14 +56,36 @@ document.addEventListener('DOMContentLoaded', () => {
         const successMessage = document.getElementById('newsletter-success');
         
         if (form && successMessage) {
-            form.addEventListener('submit', (e) => {
+            form.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                const email = form.querySelector('input[type="email"]').value;
-                // In a real app, you would send this to your backend or Mailchimp
-                console.log('Newsletter signup for:', email);
+                const emailInput = form.querySelector('input[type="email"]');
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const email = emailInput.value;
                 
-                form.style.display = 'none';
-                successMessage.classList.remove('hidden');
+                // Loading state
+                const originalBtnText = submitBtn.innerText;
+                submitBtn.disabled = true;
+                submitBtn.innerText = 'Sending...';
+                
+                try {
+                    const response = await fetch('/api/subscribe', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email })
+                    });
+                    
+                    if (response.ok) {
+                        form.style.display = 'none';
+                        successMessage.classList.remove('hidden');
+                    } else {
+                        throw new Error('Subscription failed');
+                    }
+                } catch (error) {
+                    console.error('Newsletter error:', error);
+                    alert('Something went wrong. Please try again later.');
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = originalBtnText;
+                }
             });
         }
     };
