@@ -60,7 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault();
                 const emailInput = form.querySelector('input[type="email"]');
                 const submitBtn = form.querySelector('button[type="submit"]');
+                const roleInput = form.querySelector('input[name="role"]:checked');
                 const email = emailInput.value;
+                const role = roleInput ? roleInput.value : 'student';
                 
                 // Loading state
                 const originalBtnText = submitBtn.innerText;
@@ -71,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const response = await fetch('/api/subscribe', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ email })
+                        body: JSON.stringify({ email, role })
                     });
                     
                     if (response.ok) {
