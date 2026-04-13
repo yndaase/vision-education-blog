@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://visionedu.site/blog/sitemap.xml
