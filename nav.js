@@ -51,6 +51,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    const handleNewsletterForm = () => {
+        const form = document.getElementById('newsletter-form');
+        const successMessage = document.getElementById('newsletter-success');
+        
+        if (form && successMessage) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = form.querySelector('input[type="email"]').value;
+                // In a real app, you would send this to your backend or Mailchimp
+                console.log('Newsletter signup for:', email);
+                
+                form.style.display = 'none';
+                successMessage.classList.remove('hidden');
+            });
+        }
+    };
+
     const initApp = () => {
         // Re-attach listeners because document.body.innerHTML was replaced
         const internalLinks = document.querySelectorAll('a[href^="/"], a[href^="about"], a[href^="articles"]');
@@ -69,6 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Re-attach mobile menu listeners
         const newMobileMenuBtn = document.getElementById('mobile-menu-btn');
         if (newMobileMenuBtn) newMobileMenuBtn.addEventListener('click', toggleMenu);
+        
+        // Handle Newsletter Form
+        handleNewsletterForm();
         
         // Update Active States
         const currentPath = window.location.pathname.replace(/^\/|\/$/g, '') || '/';
