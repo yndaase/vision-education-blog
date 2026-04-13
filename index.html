@@ -3,150 +3,184 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vision Education Blog</title>
+  <title>Yaw Ndaase Mensuoh & Vision Education</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
+            sans: ['Outfit', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
           },
           colors: {
-            navy: '#0A2342',
-            vibrantBlue: '#0066CC',
-            lightGray: '#F4F4F5',
-            darkGray: '#4B5563', /* Slightly lighter dark gray for paragraph readability */
+            navy: '#05080f',
+            vibrantBlue: '#6366f1',
+            lightGray: '#f8fafc',
+            darkGray: '#94a3b8',
+            emerald: '#10b981',
           },
         }
       }
     }
   </script>
-  <style>
-    /* Ensure no border radius globally for strict boxy aesthetic */
-    * {
-      border-radius: 0 !important;
-    }
-  </style>
 </head>
-<body class="bg-white font-sans text-navy antialiased">
+<body class="bg-gray-50 font-sans text-navy antialiased">
 
   <!-- Header -->
-  <header class="sticky top-0 z-50 bg-white border-b border-gray-200">
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-20">
         <!-- Logo -->
         <div class="flex items-center gap-3">
-          <!-- Geometric/Globe Icon -->
-          <svg class="w-6 h-6 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
-          </svg>
-          <span class="font-bold text-xl tracking-tight text-navy">VISION EDUCATION BLOG</span>
+          <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-indigo-500 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg">
+            V
+          </div>
+          <span class="font-bold text-xl tracking-tight text-navy">Vision Education</span>
         </div>
         <!-- Desktop Navigation -->
-        <nav class="hidden md:flex space-x-8">
-          <a href="#" class="text-navy hover:text-vibrantBlue font-medium text-sm transition-colors cursor-pointer flex items-center">HOME</a>
-          <a href="#" class="text-navy hover:text-vibrantBlue font-medium text-sm transition-colors flex items-center gap-1 cursor-pointer">
-            ABOUT US <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        <nav class="hidden md:flex space-x-8 items-center">
+          <a href="#" class="text-navy hover:text-vibrantBlue font-semibold text-sm transition-colors cursor-pointer">Platform</a>
+          <a href="#" class="text-navy hover:text-vibrantBlue font-semibold text-sm transition-colors cursor-pointer">About</a>
+          <a href="#" class="text-navy hover:text-vibrantBlue font-semibold text-sm transition-colors cursor-pointer">Contact</a>
+          <a href="https://visionedu.online" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-indigo-500 text-white text-sm font-bold rounded-lg hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex items-center gap-2">
+            Visit VisionEdu
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
           </a>
-          <a href="#" class="text-navy hover:text-vibrantBlue font-medium text-sm transition-colors flex items-center gap-1 cursor-pointer">
-            ARTICLES <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-          </a>
-          <a href="#" class="text-navy hover:text-vibrantBlue font-medium text-sm transition-colors flex items-center gap-1 cursor-pointer">
-            CATEGORIES <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-          </a>
-          <a href="#" class="text-navy hover:text-vibrantBlue font-medium text-sm transition-colors flex items-center gap-1 cursor-pointer">
-            RESOURCES <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-          </a>
-          <a href="#" class="text-navy hover:text-vibrantBlue font-medium text-sm transition-colors cursor-pointer flex items-center">CONTACT</a>
         </nav>
       </div>
     </div>
   </header>
 
   <!-- Hero Section -->
-  <section class="w-full">
-    <div class="flex flex-col lg:flex-row min-h-[600px]">
-      <!-- Left Half: Image -->
-      <div class="w-full lg:w-1/2 bg-cover bg-center min-h-[350px] lg:min-h-full" style="background-image: url('./assets/hero-image.png');">
-      </div>
-      <!-- Right Half: Columns -->
-      <div class="w-full lg:w-1/2 flex flex-col sm:flex-row bg-navy">
-        <!-- Column A (Mission) -->
-        <div class="w-full sm:w-1/2 p-10 lg:p-14 xl:p-16 flex flex-col justify-center relative overflow-hidden border-b sm:border-b-0 sm:border-r border-white/5">
-          <div class="absolute inset-0 flex items-center justify-center opacity-[0.03] select-none pointer-events-none transform -rotate-12">
-            <span class="text-white font-black text-[6rem] md:text-[8rem] tracking-tighter">Mission</span>
+  <section class="w-full bg-navy relative overflow-hidden">
+    <!-- Decorative background elements -->
+    <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 rounded-full bg-indigo-500/10 blur-3xl"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32 relative z-10">
+      <div class="flex flex-col lg:flex-row gap-16 items-center">
+        <!-- Text Content -->
+        <div class="w-full lg:w-3/5 text-left">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 font-semibold text-xs tracking-wider uppercase mb-6">
+            <span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
+            The Story Behind the Platform
           </div>
-          <div class="relative z-10 w-full">
-            <h2 class="text-white text-3xl xl:text-4xl font-bold mb-6 tracking-tight">Our Mission</h2>
-            <p class="text-gray-300 leading-relaxed text-sm xl:text-base">
-              To provide forward-thinking perspectives on global educational systems, empowering the next generation of learners, educators, and dynamic policy-makers to tackle complex modern challenges head-on.
-            </p>
-          </div>
+          <h1 class="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-white leading-tight mb-6 tracking-tight">
+            Democratizing <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-indigo-400">WASSCE Prep</span>
+          </h1>
+          <p class="text-lg lg:text-xl text-gray-400 leading-relaxed mb-10 max-w-2xl">
+            Vision Education was built to bridge the gap between available study materials and the cognitive demands of the actual examination for Ghanaian students.
+          </p>
         </div>
-        <!-- Column B (Vision) -->
-        <div class="w-full sm:w-1/2 p-10 lg:p-14 xl:p-16 flex flex-col justify-center relative overflow-hidden">
-          <div class="absolute inset-0 flex items-center justify-center opacity-[0.03] select-none pointer-events-none transform -rotate-12">
-            <span class="text-white font-black text-[6rem] md:text-[8rem] tracking-tighter">Vision</span>
-          </div>
-          <div class="relative z-10 w-full">
-            <h2 class="text-white text-3xl xl:text-4xl font-bold mb-6 tracking-tight">Our Vision</h2>
-            <p class="text-gray-300 leading-relaxed text-sm xl:text-base">
-              To inspire a global community by fostering an inclusive, technologically advanced educational landscape where innovation and traditional learning principles harmonize to unlock student potential.
-            </p>
+        
+        <!-- Creator Card -->
+        <div class="w-full lg:w-2/5">
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-sm shadow-2xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-indigo-500/5"></div>
+            <div class="relative z-10 flex flex-col items-center text-center">
+              <div class="w-28 h-28 bg-gradient-to-br from-emerald-500 to-indigo-500 rounded-2xl mb-6 shadow-xl flex items-center justify-center text-3xl font-black text-white">
+                YN
+              </div>
+              <h3 class="text-2xl font-bold text-white mb-2">Yaw Ndaase Mensuoh</h3>
+              <p class="text-indigo-400 font-semibold text-sm tracking-widest uppercase mb-4">Founder & Systems Architect</p>
+              <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                Proud student of St. Augustine's College. Passionate about leveraging artificial intelligence and modern web technologies to uplift the educational standards in Ghana.
+              </p>
+              <a href="mailto:mensuohyaw@gmail.com" class="w-full py-3 bg-white text-navy font-bold rounded-xl hover:bg-emerald-400 transition-colors shadow-lg">Contact Yaw</a>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Main Content Section (Know More) -->
-  <section class="py-24 lg:py-32 px-6 lg:px-8 bg-white">
-    <div class="max-w-6xl mx-auto flex flex-col lg:flex-row gap-16 lg:gap-24">
+  <!-- Detailed Content Section -->
+  <section class="py-24 bg-white relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <!-- Left Column -->
-      <div class="w-full lg:w-1/2 flex flex-col justify-center pl-0 lg:pl-4">
-        <div class="flex items-center gap-4 mb-6">
-          <div class="h-[2px] w-10 bg-vibrantBlue"></div>
-          <span class="text-vibrantBlue font-bold tracking-widest text-sm uppercase">KNOW MORE</span>
-        </div>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-navy leading-[1.2] mb-8">
-          Exploring Global Educational Frontiers
-        </h2>
-        <p class="text-darkGray text-lg leading-relaxed">
-          We focus on identifying the most critical shifts in pedagogy, decoding complex policy changes, and highlighting groundbreaking applications of educational technology. Join us as we synthesize high-level research into actionable insights for teaching professionals worldwide.
-        </p>
-      </div>
-
-      <!-- Right Column -->
-      <div class="w-full lg:w-1/2 flex flex-col justify-center pr-0 lg:pr-4">
-        <!-- Feature Boxes -->
-        <div class="w-full flex flex-col gap-[2px]">
-          <div class="w-full bg-lightGray border border-[#E5E7EB] p-6 lg:p-8 flex items-center gap-6 cursor-pointer hover:bg-[#EBEBEF] transition-colors group">
-            <span class="text-darkGray text-3xl font-light leading-none mb-1 group-hover:text-vibrantBlue transition-colors">+</span>
-            <h3 class="text-navy font-semibold text-lg lg:text-xl">EdTech Innovations</h3>
-          </div>
-          
-          <div class="w-full bg-lightGray border border-[#E5E7EB] p-6 lg:p-8 flex items-center gap-6 cursor-pointer hover:bg-[#EBEBEF] transition-colors group">
-            <span class="text-darkGray text-3xl font-light leading-none mb-1 group-hover:text-vibrantBlue transition-colors">+</span>
-            <h3 class="text-navy font-semibold text-lg lg:text-xl">Policy Analysis</h3>
-          </div>
-          
-          <div class="w-full bg-lightGray border border-[#E5E7EB] p-6 lg:p-8 flex items-center gap-6 cursor-pointer hover:bg-[#EBEBEF] transition-colors group">
-            <span class="text-darkGray text-3xl font-light leading-none mb-1 group-hover:text-vibrantBlue transition-colors">+</span>
-            <h3 class="text-navy font-semibold text-lg lg:text-xl">Global Pedagogy</h3>
-          </div>
-          
-          <div class="w-full bg-lightGray border border-[#E5E7EB] p-6 lg:p-8 flex items-center gap-6 cursor-pointer hover:bg-[#EBEBEF] transition-colors group">
-            <span class="text-darkGray text-3xl font-light leading-none mb-1 group-hover:text-vibrantBlue transition-colors">+</span>
-            <h3 class="text-navy font-semibold text-lg lg:text-xl">Case Studies</h3>
+      <div class="flex flex-col lg:flex-row gap-16">
+        
+        <!-- About Vision Education -->
+        <div class="w-full lg:w-1/2">
+          <h2 class="text-3xl font-bold text-navy mb-8 flex items-center gap-4">
+            <div class="w-12 h-1 bg-indigo-500 rounded-full"></div>
+            About the Website
+          </h2>
+          <div class="space-y-6 text-lg text-gray-600 leading-relaxed">
+            <p>
+              <strong>Vision Education</strong> is Ghana's premier 2026 WASSCE preparation hub. The platform applies real-world Ghanaian data contexts—like Mobile Money transactions and ECG utility billing—to abstract academic concepts, making high-difficulty questions genuinely accessible to every Senior High School student.
+            </p>
+            <p>
+              Unlike traditional study platforms, Vision integrates a proprietary AI feedback engine. Every question answered, whether correct or incorrect, triggers a full explanation of the working steps and the Chief Examiner's reasoning to ensure true conceptual mastery.
+            </p>
+            <div class="bg-gray-50 border border-gray-100 rounded-2xl p-6 mt-8">
+              <h4 class="font-bold text-navy mb-4 text-xl">Core Principles:</h4>
+              <ul class="space-y-4">
+                <li class="flex items-start gap-3">
+                  <svg class="w-6 h-6 text-emerald-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                  <span><strong>Academic Accuracy:</strong> 100% aligned with the official 2026 WAEC syllabus.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <svg class="w-6 h-6 text-emerald-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                  <span><strong>Zero Data Collection:</strong> All practice sessions remain strictly private and stored completely inside the browser using LocalStorage encryption.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <svg class="w-6 h-6 text-emerald-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                  <span><strong>Cloud-First Sync:</strong> Optional Firebase integration for seamless hand-off between a student's mobile device and the Parent Dashboard.</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
 
+        <!-- About Yaw -->
+        <div class="w-full lg:w-1/2">
+          <h2 class="text-3xl font-bold text-navy mb-8 flex items-center gap-4">
+            <div class="w-12 h-1 bg-emerald-500 rounded-full"></div>
+            About the Creator
+          </h2>
+          <div class="space-y-6 text-lg text-gray-600 leading-relaxed">
+             <p>
+              I am <strong>Yaw Ndaase Mensuoh</strong>, an education technologist and proud student of St. Augustine's College. I built Vision Education entirely from the ground up, combining my passion for software engineering with a deep desire to help my fellow students succeed globally.
+            </p>
+            <p>
+              My goal was never just to build another quiz app, but rather to construct a robust, high-performance ecosystem. Over the course of development, I engineered custom UI/UX design systems, implemented a real-time Firestore database for Parent-Student syncing, and integrated AI-driven mock exam features specifically tuned for Ghanaian SHS standards.
+            </p>
+            <p>
+              When I'm not coding or studying Core Mathematics, I am continuously researching new pedagogical models to integrate into the Vision ecosystem. The ultimate dream is that any student, regardless of background, can have access to a world-class, premium preparation experience.
+            </p>
+            
+            <div class="flex flex-wrap gap-4 mt-8">
+              <a href="https://www.instagram.com/yndaase/" target="_blank" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-navy font-semibold rounded-xl transition-colors flex items-center gap-2">
+                Instagram
+              </a>
+              <a href="https://www.youtube.com/channel/UCo4k-_8Q92hXOcUdbAtwabg" target="_blank" class="px-6 py-3 bg-gray-100 hover:bg-red-50 hover:text-red-600 text-navy font-semibold rounded-xl transition-colors flex items-center gap-2">
+                YouTube
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
+
+  <!-- Footer -->
+  <footer class="bg-navy py-12 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="flex items-center justify-center gap-3 mb-6">
+        <div class="w-8 h-8 bg-gradient-to-br from-emerald-500 to-indigo-500 rounded-lg flex items-center justify-center text-white font-bold text-sm">
+          V
+        </div>
+        <span class="font-bold text-lg text-white">Vision Education</span>
+      </div>
+      <p class="text-sm text-gray-500">
+        &copy; 2026 Yaw Ndaase Mensuoh. Built for the students of Ghana. 
+      </p>
+    </div>
+  </footer>
 
 </body>
 </html>
