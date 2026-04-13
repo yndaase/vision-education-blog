@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://visionedu.site/sitemap.xml
+Sitemap: https://www.visionedu.site/sitemap.xml
