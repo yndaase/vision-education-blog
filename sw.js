@@ -1,10 +1,18 @@
-const CACHE_NAME = 'vision-blog-v1';
+const CACHE_NAME = 'vision-blog-v2';
 const ASSETS = [
   '/',
   '/index.html',
   '/about.html',
   '/articles.html',
-  '/nav.js'
+  '/ai-test-prep.html',
+  '/core-math-2026.html',
+  '/cs-integration.html',
+  '/parent-guide.html',
+  '/nav.js',
+  '/manifest.json',
+  '/assets/logo-512.png',
+  '/assets/logo-192.png',
+  '/assets/hero-image.png'
 ];
 
 self.addEventListener('install', (event) => {

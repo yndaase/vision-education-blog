@@ -198,6 +198,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isGlobalPlaying) globalAudio.play().catch(e => console.warn("Autoplay blocked"));
         };
 
+        const seeker = document.getElementById('player-seeker');
+        if (seeker) {
+            seeker.addEventListener('click', (e) => {
+                if (!globalAudio || !globalAudio.duration) return;
+                const rect = seeker.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                const percent = clickX / rect.width;
+                globalAudio.currentTime = percent * globalAudio.duration;
+            });
+        }
+
         if (!globalAudio && tracks.length > 0) {
             const first = tracks[0];
             loadTrack(first.dataset.url, first.dataset.title, first.dataset.author);

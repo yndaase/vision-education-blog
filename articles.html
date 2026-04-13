@@ -127,25 +127,25 @@
 
   <section class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <!-- Category Filters -->
-      <div class="flex flex-wrap justify-center gap-4 mb-20 animate-fade-in-up">
-        <button class="px-8 py-3 bg-navy text-white font-bold rounded-2xl shadow-xl shadow-navy/20">All Insights</button>
-        <button class="px-8 py-3 bg-white text-gray-500 hover:text-navy font-bold rounded-2xl border border-gray-100 transition-all hover:bg-gray-50">Syllabus Updates</button>
-        <button class="px-8 py-3 bg-white text-gray-500 hover:text-navy font-bold rounded-2xl border border-gray-100 transition-all hover:bg-gray-50">AI & Tech</button>
-        <button class="px-8 py-3 bg-white text-emerald-600 font-bold rounded-2xl border border-emerald-100 transition-all hover:bg-emerald-50/50 flex items-center gap-2">
+      <div class="flex flex-wrap justify-center gap-4 mb-20 animate-fade-in-up" id="filter-bar">
+        <button data-filter="all" class="filter-btn px-8 py-3 bg-navy text-white font-bold rounded-2xl shadow-xl shadow-navy/20 transition-all">All Insights</button>
+        <button data-filter="syllabus" class="filter-btn px-8 py-3 bg-white text-gray-500 hover:text-navy font-bold rounded-2xl border border-gray-100 transition-all hover:bg-gray-50">Syllabus Updates</button>
+        <button data-filter="tech" class="filter-btn px-8 py-3 bg-white text-gray-500 hover:text-navy font-bold rounded-2xl border border-gray-100 transition-all hover:bg-gray-50">AI &amp; Tech</button>
+        <button data-filter="parents" class="filter-btn px-8 py-3 bg-white text-emerald-600 font-bold rounded-2xl border border-emerald-100 transition-all hover:bg-emerald-50/50 flex items-center gap-2">
           <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
           For Parents
         </button>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" id="articles-grid">
         
         <!-- Parent Featured Article -->
-        <a href="parent-guide.html" class="lg:col-span-3 bg-navy rounded-[3rem] overflow-hidden border border-white/5 shadow-2xl flex flex-col lg:flex-row group mb-10 cursor-pointer block">
+        <a href="parent-guide.html" data-category="parents" class="article-card lg:col-span-3 bg-navy rounded-[3rem] overflow-hidden border border-white/5 shadow-2xl flex flex-col lg:flex-row group mb-10 cursor-pointer block">
           <div class="lg:w-1/2 h-[400px] bg-gradient-to-br from-emerald-500/20 to-indigo-600/20 relative flex items-center justify-center">
              <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')] opacity-30"></div>
              <div class="relative z-10 glass p-8 rounded-3xl border-emerald-500/20 text-center">
                 <span class="block text-emerald-400 font-black text-xs uppercase tracking-[0.2em] mb-4">Parent Exclusive</span>
-                <h2 class="text-3xl md:text-5xl font-black text-white leading-tight tracking-tighter">The Visionary Parent’s Guide to 2026 WASSCE</h2>
+                <h2 class="text-3xl md:text-5xl font-black text-white leading-tight tracking-tighter">The Visionary Parent's Guide to 2026 WASSCE</h2>
              </div>
           </div>
           <div class="lg:w-1/2 p-12 lg:p-20 flex flex-col justify-center">
@@ -168,7 +168,7 @@
         </a>
         
         <!-- Article Card 1 -->
-        <a href="core-math-2026.html" class="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 flex flex-col group cursor-pointer block">
+        <a href="core-math-2026.html" data-category="syllabus" class="article-card bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 flex flex-col group cursor-pointer block">
           <div class="h-56 bg-gradient-to-br from-indigo-500/10 to-emerald-500/10 relative flex items-center justify-center overflow-hidden">
             <div class="absolute inset-0 bg-white/10 backdrop-blur-[1px]"></div>
             <span class="relative z-10 font-black text-indigo-700/20 text-4xl tracking-tighter uppercase group-hover:scale-110 transition-transform duration-700">EDUCATION</span>
@@ -188,7 +188,7 @@
         </a>
 
         <!-- Article Card 2 -->
-        <a href="ai-test-prep.html" class="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 flex flex-col group cursor-pointer block">
+        <a href="ai-test-prep.html" data-category="tech" class="article-card bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 flex flex-col group cursor-pointer block">
           <div class="h-56 bg-navy relative flex items-center justify-center overflow-hidden">
             <div class="absolute inset-0 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px] opacity-10"></div>
             <span class="relative z-10 font-black text-emerald-500/30 text-4xl tracking-tighter uppercase group-hover:scale-110 transition-transform duration-700">TECH</span>
@@ -208,7 +208,7 @@
         </a>
 
         <!-- Article Card 3 -->
-        <a href="cs-integration.html" class="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 flex flex-col group cursor-pointer block">
+        <a href="cs-integration.html" data-category="syllabus" class="article-card bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 flex flex-col group cursor-pointer block">
           <div class="h-56 bg-gradient-to-br from-blue-500/10 to-indigo-500/10 relative flex items-center justify-center overflow-hidden">
             <span class="relative z-10 font-black text-blue-500/20 text-4xl tracking-tighter uppercase group-hover:scale-110 transition-transform duration-700">POLICY</span>
           </div>
@@ -228,6 +228,36 @@
 
       </div>
   </section>
+
+  <script>
+    // Category filter logic
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const articleCards = document.querySelectorAll('.article-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter;
+
+        // Update button active states
+        filterBtns.forEach(b => {
+          b.classList.remove('bg-navy', 'text-white', 'shadow-xl', 'shadow-navy/20');
+          b.classList.add('bg-white', 'text-gray-500', 'border', 'border-gray-100');
+        });
+        btn.classList.add('bg-navy', 'text-white', 'shadow-xl', 'shadow-navy/20');
+        btn.classList.remove('bg-white', 'text-gray-500', 'border', 'border-gray-100');
+
+        // Show/hide articles
+        articleCards.forEach(card => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.style.display = '';
+            card.style.opacity = '1';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>n>
 
   <!-- Newsletter Section -->
   <section id="newsletter" class="py-24 bg-navy relative overflow-hidden">
