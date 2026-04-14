@@ -212,6 +212,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ─────────────────────────────────────────
+    // Native Share Button Logic
+    // ─────────────────────────────────────────
+    const shareBtn = document.getElementById('share-btn');
+    if (shareBtn) {
+        shareBtn.addEventListener('click', async () => {
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: document.title,
+                        text: document.querySelector('meta[name="description"]')?.content || 'Check out this article from Vision Education',
+                        url: window.location.href,
+                    });
+                } catch (err) {
+                    if (err.name !== 'AbortError') {
+                        console.log('Error sharing:', err);
+                    }
+                }
+            } else {
+                // Fallback: copy to clipboard
+                try {
+                    await navigator.clipboard.writeText(window.location.href);
+                    const originalHTML = shareBtn.innerHTML;
+                    shareBtn.innerHTML = `<svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Copied!`;
+                    setTimeout(() => { shareBtn.innerHTML = originalHTML; }, 2000);
+                } catch (err) {
+                    console.error('Failed to copy link', err);
+                }
+            }
+        });
+    }
+
+    // ─────────────────────────────────────────
     // Service Worker (PWA)
     // ─────────────────────────────────────────
     if ('serviceWorker' in navigator) {
