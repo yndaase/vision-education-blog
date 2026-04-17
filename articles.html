@@ -152,6 +152,22 @@
           <p class="text-lg md:text-xl text-gray-400 mb-10 font-medium">Join 2,000+ Ghanaian students and parents receiving weekly WASSCE tips and AI-powered study strategies.</p>
           
           <form id="newsletter-form" class="space-y-6">
+            <!-- Role Selection -->
+            <div class="flex justify-center gap-4 mb-8">
+              <label class="relative flex-1 max-w-[150px] cursor-pointer group">
+                <input type="radio" name="role" value="student" checked class="peer sr-only">
+                <div class="px-4 py-3 rounded-2xl border border-white/10 bg-white/5 text-gray-400 font-bold text-sm text-center transition-all peer-checked:bg-emerald-500 peer-checked:text-navy peer-checked:border-emerald-500 group-hover:bg-white/10">
+                  Student
+                </div>
+              </label>
+              <label class="relative flex-1 max-w-[150px] cursor-pointer group">
+                <input type="radio" name="role" value="parent" class="peer sr-only">
+                <div class="px-4 py-3 rounded-2xl border border-white/10 bg-white/5 text-gray-400 font-bold text-sm text-center transition-all peer-checked:bg-emerald-500 peer-checked:text-navy peer-checked:border-emerald-500 group-hover:bg-white/10">
+                  Parent
+                </div>
+              </label>
+            </div>
+
             <div class="flex flex-col sm:flex-row gap-4">
               <input type="email" placeholder="Enter your email" required class="flex-1 px-6 py-4 rounded-2xl border border-white/10 focus:border-emerald-500 focus:outline-none text-lg font-bold transition-all bg-white/5 text-white backdrop-blur-sm" aria-label="Email address">
               <button type="submit" class="px-10 py-4 bg-emerald-500 text-navy font-black rounded-2xl hover:bg-emerald-400 transition-all shadow-xl shadow-emerald-500/20 active:scale-95 text-lg">
