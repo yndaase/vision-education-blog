@@ -1,0 +1,56 @@
+[
+  {
+    "title": "About",
+    "description": "Learn about the mission of Vision Education and its founder, Yaw Ndaase Mensuoh. Discover how we're leveraging AI to uplift educational standards in Ghana.",
+    "category": "About",
+    "url": "about.html"
+  },
+  {
+    "title": "How AI is Flipping the Script on Test Prep",
+    "description": "Exploring how artificial intelligence and large language models are transforming WASSCE preparation for Ghanaian students.",
+    "category": "Guide",
+    "url": "ai-test-prep.html"
+  },
+  {
+    "title": "Articles",
+    "description": "Latest Insights",
+    "category": "Archive",
+    "url": "articles.html"
+  },
+  {
+    "title": "Decoding the 2026 Core Math Syllabus Changes",
+    "description": "A technical breakdown of the 2026 WASSCE Core Mathematics syllabus and expert prep strategies for Ghanaian students.",
+    "category": "Guide",
+    "url": "core-math-2026.html"
+  },
+  {
+    "title": "The Integration of Computer Science in SHS",
+    "description": "Analyzing the 2026 WAEC structural shifts towards computer science and logical thinking in Ghana Senior High Schools.",
+    "category": "Guide",
+    "url": "cs-integration.html"
+  },
+  {
+    "title": "Blog Post Editor",
+    "description": "Blog Post Editor",
+    "category": "Guide",
+    "url": "editor.html"
+  },
+  {
+    "title": "Vision Education",
+    "description": "Vision Education is Ghana's first AI-powered WASSCE preparation platform. Access core subject mock exams aligned with the 2026 WAEC syllabus.",
+    "category": "Home",
+    "url": "index.html"
+  },
+  {
+    "title": "Education News",
+    "description": "Trending Education News",
+    "category": "Intelligence",
+    "url": "news.html"
+  },
+  {
+    "title": "The Visionary Parent's Guide to 2026 WASSCE",
+    "description": "A comprehensive guide for parents on supporting their children through the 2026 WASSCE using AI-powered study habits and leadership.",
+    "category": "Guide",
+    "url": "parent-guide.html"
+  }
+]
