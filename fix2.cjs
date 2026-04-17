@@ -96,7 +96,7 @@ function processPage(file) {
       html = html.replace(/<section[\s\S]*?(?:Latest <span|\${title})[\s\S]*?<\/section>/, hero);
       
       // Update Switcher: Properly remove Archive V2.0 and apply seamless design
-      html = html.replace(/<div class="hidden md:flex items-center justify-between mb-16[\s\S]*?ARCHIVE_V2\.0[\s\S]*?<\/div>[\s\S]*?<\/div>/, seamlessSwitcher);
+      html = html.replace(/<div class="hidden md:flex items-center (?:justify-between|justify-center) mb-16[\s\S]*?(?:ARCHIVE_V2\.0|<\/div>)[\s\S]*?<\/div>/, seamlessSwitcher);
   }
 
   // Handle multiple newsletter sections or comments
