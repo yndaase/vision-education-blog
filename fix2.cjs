@@ -68,6 +68,8 @@ const getPremiumHero = (title, subtitle) => {
     '</section>';
 };
 
+const seamlessSwitcher = '<div class="hidden md:flex items-center justify-center mb-16"><div class="inline-flex p-1.5 bg-white rounded-[2rem] shadow-xl shadow-navy/5 border border-gray-100 backdrop-blur-xl"><button onclick="filterArticles(\'all\')" id="tab-all" class="px-10 py-3.5 rounded-[1.5rem] text-xs font-black uppercase tracking-widest transition-all bg-navy text-white shadow-lg shadow-navy/20">All Insights</button><button onclick="filterArticles(\'student\')" id="tab-student" class="px-10 py-3.5 rounded-[1.5rem] text-xs font-black uppercase tracking-widest transition-all text-gray-400 hover:text-navy">Student Hub</button><button onclick="filterArticles(\'parent\')" id="tab-parent" class="px-10 py-3.5 rounded-[1.5rem] text-xs font-black uppercase tracking-widest transition-all text-gray-400 hover:text-navy">Parent Hub</button></div></div>';
+
 const footerHtml = '<footer class="bg-navy py-20 border-t border-white/5"><div class="max-w-7xl mx-auto px-4 text-center text-gray-400 font-bold text-sm">&copy; 2026 Vision Education. All rights reserved.</div></footer>';
 
 function processPage(file) {
@@ -92,6 +94,9 @@ function processPage(file) {
   if (basename === 'articles.html') {
       const hero = getPremiumHero("Latest Insights", "Explore research, syllabus breakdowns, and EdTech innovations shaping our future.");
       html = html.replace(/<section[\s\S]*?(?:Latest <span|\${title})[\s\S]*?<\/section>/, hero);
+      
+      // Update Switcher: Remove Archive V2.0 and apply seamless design
+      html = html.replace(/<div class="hidden md:flex items-center justify-between mb-16 px-8 py-4 bg-white rounded-3xl border border-gray-100 shadow-sm">[\s\S]*?<\/div>/, seamlessSwitcher);
   }
 
   // Handle multiple newsletter sections or comments
@@ -110,4 +115,4 @@ function processPage(file) {
 
 const filesToProcess = ['index.html', 'about.html', 'news.html', 'articles.html', 'core-math-2026.html', 'ai-test-prep.html', 'cs-integration.html', 'parent-guide.html'];
 filesToProcess.forEach(processPage);
-console.log('Final Site-wide Theme & Nav Update Complete.');
+console.log('Seamless Switcher & Site-wide Update Complete.');
