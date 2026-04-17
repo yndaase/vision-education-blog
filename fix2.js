@@ -92,7 +92,7 @@ const articlesHtml = `<!DOCTYPE html>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         
         <!-- Article Card 1 -->
-        <article onclick="location.href='core-math-2026'" class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
+        <article onclick="location.href='core-math-2026.html'" class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
           <div class="h-48 bg-gradient-to-br from-indigo-500/20 to-emerald-500/20 relative flex items-center justify-center overflow-hidden">
             <div class="absolute inset-0 bg-white/10 backdrop-blur-[2px]"></div>
             <span class="relative z-10 font-bold text-indigo-700 text-xl tracking-widest uppercase opacity-30">EDUCATION</span>
@@ -112,7 +112,7 @@ const articlesHtml = `<!DOCTYPE html>
         </article>
 
         <!-- Article Card 2 -->
-        <article onclick="location.href='ai-test-prep'" class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
+        <article onclick="location.href='ai-test-prep.html'" class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
           <div class="h-48 bg-gray-900 relative flex items-center justify-center overflow-hidden">
             <div class="absolute inset-0 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px] opacity-10"></div>
             <span class="relative z-10 font-bold text-emerald-500 text-2xl tracking-widest uppercase opacity-70">TECH</span>
@@ -132,7 +132,7 @@ const articlesHtml = `<!DOCTYPE html>
         </article>
 
         <!-- Article Card 3 -->
-        <article onclick="location.href='cs-integration'" class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
+        <article onclick="location.href='cs-integration.html'" class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
           <div class="h-48 bg-gradient-to-br from-blue-500/10 to-indigo-500/10 relative flex items-center justify-center overflow-hidden">
             <span class="relative z-10 font-bold text-blue-500 text-xl tracking-widest uppercase opacity-40">POLICY</span>
           </div>
@@ -151,7 +151,7 @@ const articlesHtml = `<!DOCTYPE html>
         </article>
 
         <!-- Article Card 4 (Parent Guide) -->
-        <article onclick="location.href='parent-guide'" class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
+        <article onclick="location.href='parent-guide.html'" class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
           <div class="h-48 bg-gradient-to-br from-orange-500/10 to-pink-500/10 relative flex items-center justify-center overflow-hidden">
             <span class="relative z-10 font-bold text-orange-500 text-xl tracking-widest uppercase opacity-40">GUIDANCE</span>
           </div>
@@ -211,7 +211,7 @@ const articlesHtml = `<!DOCTYPE html>
   </footer>
   <script src="nav.js" defer></script>
 </body>
-</html>\`;
+</html>`;
 
 fs.writeFileSync('articles.html', articlesHtml);
 console.log('Successfully updated nav button and created articles.html');
