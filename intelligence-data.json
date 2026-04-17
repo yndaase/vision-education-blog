@@ -1,0 +1,82 @@
+{
+  "core-math-2026.html": {
+    "insights": [
+      "Focus on Numerical Reasoning: 2026 Shift.",
+      "3D Geometry visualization is now high-priority.",
+      "Step-by-step expression is critical for full marks."
+    ],
+    "difficulty": 4,
+    "frequency": "High",
+    "quiz": {
+      "question": "Which topic is seeing a significant shift in focus for the 2026 Core Math exam?",
+      "options": [
+        "Basic Algebra",
+        "Numerical Reasoning",
+        "Circle Theorems",
+        "Quadratic Equations"
+      ],
+      "answer": 1,
+      "explanation": "The 2026 examiners are leaning heavily into interpreting real-world data and applying mathematical models."
+    }
+  },
+  "ai-test-prep.html": {
+    "insights": [
+      "AI models provide objective, instant grading.",
+      "Deductive reasoning questions are increasing.",
+      "Tech-assisted prep is no longer optional."
+    ],
+    "difficulty": 3,
+    "frequency": "Medium",
+    "quiz": {
+      "question": "What is a primary benefit of using AI for WASSCE test preparation?",
+      "options": [
+        "Cheating in exams",
+        "Instant, objective grading",
+        "Generating fake news",
+        "Replacing teachers"
+      ],
+      "answer": 1,
+      "explanation": "AI provides immediate and unbiased feedback on student performance metrics."
+    }
+  },
+  "cs-integration.html": {
+    "insights": [
+      "AI extracted insight 1",
+      "AI extracted insight 2",
+      "AI extracted insight 3"
+    ],
+    "difficulty": 3,
+    "frequency": "Medium",
+    "quiz": {
+      "question": "Sample Question?",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": 0,
+      "explanation": "Sample Explanation."
+    }
+  },
+  "parent-guide.html": {
+    "insights": [
+      "AI extracted insight 1",
+      "AI extracted insight 2",
+      "AI extracted insight 3"
+    ],
+    "difficulty": 3,
+    "frequency": "Medium",
+    "quiz": {
+      "question": "Sample Question?",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": 0,
+      "explanation": "Sample Explanation."
+    }
+  }
+}

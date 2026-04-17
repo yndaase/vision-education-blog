@@ -111,6 +111,90 @@ function buildSearchIndex() {
     console.log('Search Index Rebuilt.');
 }
 
+const intelligenceData = JSON.parse(fs.readFileSync(path.join(__dirname, 'intelligence-data.json'), 'utf8'));
+
+const getIntelligenceInsights = (file) => {
+    const data = intelligenceData[file];
+    if (!data) return '';
+
+    const points = data.insights.map(p => `<li class="flex gap-3 text-sm text-gray-400 leading-relaxed mb-3">
+        <svg class="w-5 h-5 text-emerald-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-width="3" stroke-linecap="round"></path></svg>
+        <span>${p}</span>
+    </li>`).join('');
+
+    const difficultyPct = (data.difficulty / 5) * 100;
+
+    return `<div class="mb-16 p-8 rounded-[2rem] bg-white/[0.03] border border-white/10 backdrop-blur-xl relative overflow-hidden group">
+      <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+        <svg class="w-24 h-24 text-indigo-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+      </div>
+      <div class="relative z-10">
+        <div class="flex items-center gap-3 mb-8">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-indigo-500 flex items-center justify-center text-navy shadow-lg">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-width="2" stroke-linecap="round"></path></svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-black text-white tracking-tight">Vision Intelligence</h3>
+            <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">AI-Curated Syllabus Insights</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div>
+            <ul class="list-none p-0 m-0">${points}</ul>
+          </div>
+          <div class="space-y-6">
+            <div>
+              <div class="flex justify-between text-[10px] font-black uppercase text-gray-500 mb-2">
+                <span>Syllabus Difficulty</span>
+                <span class="text-white">${data.difficulty}/5</span>
+              </div>
+              <div class="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                <div class="h-full bg-emerald-500 rounded-full" style="width: ${difficultyPct}%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-[10px] font-black uppercase text-gray-500 mb-2">
+                <span>Exam Frequency</span>
+                <span class="text-emerald-400">${data.frequency}</span>
+              </div>
+              <div class="flex gap-1">
+                ${[1, 2, 3].map(i => `<div class="h-1 flex-1 rounded-full ${data.frequency === 'High' || (data.frequency === 'Medium' && i < 3) || (data.frequency === 'Low' && i === 1) ? 'bg-indigo-500' : 'bg-white/5'}"></div>`).join('')}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+const getIntelligenceQuiz = (file) => {
+    const data = intelligenceData[file];
+    if (!data || !data.quiz) return '';
+
+    const options = data.quiz.options.map((opt, i) => `
+        <button onclick="handleQuizAnswer(${i === data.quiz.answer}, '${data.quiz.explanation.replace(/'/g, "\\'")}', this)" 
+            class="quiz-option w-full p-6 bg-white/5 border border-white/10 rounded-2xl text-left text-white/80 hover:bg-white/10 hover:border-emerald-500/50 transition-all font-bold group flex items-start gap-4">
+            <span class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-black group-hover:bg-emerald-500 group-hover:text-navy transition-all">${String.fromCharCode(65 + i)}</span>
+            <span class="flex-1">${opt}</span>
+        </button>
+    `).join('');
+
+    return `<div id="recall-quiz" class="mt-24 py-16 px-8 rounded-[3rem] bg-[#0a0f1a] border border-white/10 relative overflow-hidden">
+      <div class="absolute -top-24 -right-24 w-64 h-64 bg-indigo-500/10 blur-[100px] pointer-events-none"></div>
+      <div class="relative z-10 max-w-2xl mx-auto">
+        <div class="text-center mb-12">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-bold text-[10px] uppercase tracking-widest mb-4">Instant Recall</div>
+          <h2 class="text-3xl font-black text-white tracking-tighter">${data.quiz.question}</h2>
+        </div>
+        <div class="space-y-3 mb-8">${options}</div>
+        <div id="quiz-feedback" class="hidden animate-fade-in p-6 rounded-2xl bg-white/5 border border-white/10">
+          <p id="feedback-text" class="text-white font-bold mb-2"></p>
+          <p id="feedback-explanation" class="text-gray-400 text-sm leading-relaxed"></p>
+        </div>
+      </div>
+    </div>`;
+}
+
 function processPage(file) {
   if (!fs.existsSync(file)) return;
   let html = fs.readFileSync(file, 'utf8');
@@ -136,6 +220,20 @@ function processPage(file) {
       html = html.replace(/<div class="hidden md:flex items-center (?:justify-between|justify-center) mb-16[\s\S]*?(?:ARCHIVE_V2\.0|<\/div>)[\s\S]*?<\/div>/, seamlessSwitcher);
   }
 
+  // Vision Intelligence
+  if (intelligenceData[basename]) {
+    const insights = getIntelligenceInsights(basename);
+    const quiz = getIntelligenceQuiz(basename);
+    
+    // Inject insights at start of article content
+    if (html.includes('id="article-text"')) {
+        html = html.replace(/(<div id="article-text"[\s\S]*?>)/, `$1${insights}`);
+        
+        // Inject quiz at end of article text
+        html = html.replace(/(<\/div>\s*<!-- CTA -->)/, `${quiz}$1`);
+    }
+  }
+
   html = html.replace(/(?:<!-- Newsletter Section -->\s*)+/g, '');
   if (html.includes('id="newsletter"')) {
     html = html.replace(/<section id="newsletter"[\s\S]*?<\/section>/, newsletterHtml);
@@ -146,10 +244,7 @@ function processPage(file) {
   html = html.replace(/<footer[\s\S]*?<\/footer>/, footerHtml);
 
   // Search Integration
-  // Robustly remove existing search blocks to prevent tag accumulation
   html = html.replace(/<div id="search-modal"[\s\S]*?<script src="search\.js"[\s\S]*?<\/script>/, '');
-  
-  // Re-inject search components
   html = html.replace('</body>', searchModalHtml + searchScriptTag + '</body>');
 
   fs.writeFileSync(file, html);
@@ -159,4 +254,4 @@ function processPage(file) {
 const filesToProcess = ['index.html', 'about.html', 'news.html', 'articles.html', 'core-math-2026.html', 'ai-test-prep.html', 'cs-integration.html', 'parent-guide.html'];
 buildSearchIndex();
 filesToProcess.forEach(processPage);
-console.log('Search & Command Center Integration Complete.');
+console.log('Vision Intelligence Integration Complete.');

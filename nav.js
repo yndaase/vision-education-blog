@@ -261,5 +261,41 @@ document.addEventListener('DOMContentLoaded', () => {
                 .catch(err => console.warn('SW failed', err));
         });
     }
-
 });
+
+/**
+ * Controller for Vision Intelligence 'Instant Recall' Quizzes
+ * Provides real-time feedback and reveals AI-generated explanations.
+ */
+window.handleQuizAnswer = function(isCorrect, explanation, btn) {
+    const feedback = document.getElementById('quiz-feedback');
+    const feedbackText = document.getElementById('feedback-text');
+    const feedbackExplanation = document.getElementById('feedback-explanation');
+    const quizContainer = btn.closest('#recall-quiz');
+    const options = quizContainer.querySelectorAll('.quiz-option');
+
+    // Disable all options in this specific quiz
+    options.forEach(opt => {
+        opt.disabled = true;
+        opt.classList.add('opacity-50', 'pointer-events-none');
+    });
+
+    // Reset selected button state
+    btn.classList.remove('opacity-50');
+    
+    if (isCorrect) {
+        btn.classList.add('ring-2', 'ring-emerald-500', 'bg-emerald-500/10', 'border-emerald-500/50');
+        feedbackText.innerText = "✨ Precision Achieved!";
+        feedbackText.className = "text-emerald-400 font-black mb-2";
+    } else {
+        btn.classList.add('ring-2', 'ring-red-500', 'bg-red-500/10', 'border-red-500/50');
+        feedbackText.innerText = "🎯 Keep Refining";
+        feedbackText.className = "text-red-400 font-black mb-2";
+    }
+
+    feedbackExplanation.innerText = explanation;
+    feedback.classList.remove('hidden');
+    
+    // Smooth scroll to the feedback
+    feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+};

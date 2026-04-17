@@ -125,7 +125,44 @@
         <p>Before AI, elite test preparation was a luxury of the few. Today, we can scale that luxury to every student in Ghana. Whether you are in Accra or a remote village, the AI provides the same high-standard expertise. We are democratizing A1s.</p>
         
         <p>Technology is the tool, but your dedication is the engine. Harness the power of AI to work smarter, not just harder.</p>
+      <div id="recall-quiz" class="mt-24 py-16 px-8 rounded-[3rem] bg-[#0a0f1a] border border-white/10 relative overflow-hidden">
+      <div class="absolute -top-24 -right-24 w-64 h-64 bg-indigo-500/10 blur-[100px] pointer-events-none"></div>
+      <div class="relative z-10 max-w-2xl mx-auto">
+        <div class="text-center mb-12">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-bold text-[10px] uppercase tracking-widest mb-4">Instant Recall</div>
+          <h2 class="text-3xl font-black text-white tracking-tighter">What is a primary benefit of using AI for WASSCE test preparation?</h2>
+        </div>
+        <div class="space-y-3 mb-8">
+        <button onclick="handleQuizAnswer(false, 'AI provides immediate and unbiased feedback on student performance metrics.', this)" 
+            class="quiz-option w-full p-6 bg-white/5 border border-white/10 rounded-2xl text-left text-white/80 hover:bg-white/10 hover:border-emerald-500/50 transition-all font-bold group flex items-start gap-4">
+            <span class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-black group-hover:bg-emerald-500 group-hover:text-navy transition-all">A</span>
+            <span class="flex-1">Cheating in exams</span>
+        </button>
+    
+        <button onclick="handleQuizAnswer(true, 'AI provides immediate and unbiased feedback on student performance metrics.', this)" 
+            class="quiz-option w-full p-6 bg-white/5 border border-white/10 rounded-2xl text-left text-white/80 hover:bg-white/10 hover:border-emerald-500/50 transition-all font-bold group flex items-start gap-4">
+            <span class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-black group-hover:bg-emerald-500 group-hover:text-navy transition-all">B</span>
+            <span class="flex-1">Instant, objective grading</span>
+        </button>
+    
+        <button onclick="handleQuizAnswer(false, 'AI provides immediate and unbiased feedback on student performance metrics.', this)" 
+            class="quiz-option w-full p-6 bg-white/5 border border-white/10 rounded-2xl text-left text-white/80 hover:bg-white/10 hover:border-emerald-500/50 transition-all font-bold group flex items-start gap-4">
+            <span class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-black group-hover:bg-emerald-500 group-hover:text-navy transition-all">C</span>
+            <span class="flex-1">Generating fake news</span>
+        </button>
+    
+        <button onclick="handleQuizAnswer(false, 'AI provides immediate and unbiased feedback on student performance metrics.', this)" 
+            class="quiz-option w-full p-6 bg-white/5 border border-white/10 rounded-2xl text-left text-white/80 hover:bg-white/10 hover:border-emerald-500/50 transition-all font-bold group flex items-start gap-4">
+            <span class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-black group-hover:bg-emerald-500 group-hover:text-navy transition-all">D</span>
+            <span class="flex-1">Replacing teachers</span>
+        </button>
+    </div>
+        <div id="quiz-feedback" class="hidden animate-fade-in p-6 rounded-2xl bg-white/5 border border-white/10">
+          <p id="feedback-text" class="text-white font-bold mb-2"></p>
+          <p id="feedback-explanation" class="text-gray-400 text-sm leading-relaxed"></p>
+        </div>
       </div>
+    </div></div>
 
       <!-- CTA -->
       <div class="mt-24 pt-16 border-t border-gray-100 text-center">

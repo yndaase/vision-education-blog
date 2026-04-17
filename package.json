@@ -5,7 +5,9 @@
   "main": "api/news.js",
   "type": "module",
   "dependencies": {
-    "rss-parser": "^3.13.0",
-    "node-cache": "^5.1.2"
+    "dotenv": "^17.4.2",
+    "node-cache": "^5.1.2",
+    "openai": "^6.34.0",
+    "rss-parser": "^3.13.0"
   }
 }
