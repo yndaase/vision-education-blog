@@ -95,8 +95,8 @@ function processPage(file) {
       const hero = getPremiumHero("Latest Insights", "Explore research, syllabus breakdowns, and EdTech innovations shaping our future.");
       html = html.replace(/<section[\s\S]*?(?:Latest <span|\${title})[\s\S]*?<\/section>/, hero);
       
-      // Update Switcher: Remove Archive V2.0 and apply seamless design
-      html = html.replace(/<div class="hidden md:flex items-center justify-between mb-16 px-8 py-4 bg-white rounded-3xl border border-gray-100 shadow-sm">[\s\S]*?<\/div>/, seamlessSwitcher);
+      // Update Switcher: Properly remove Archive V2.0 and apply seamless design
+      html = html.replace(/<div class="hidden md:flex items-center justify-between mb-16[\s\S]*?ARCHIVE_V2\.0[\s\S]*?<\/div>[\s\S]*?<\/div>/, seamlessSwitcher);
   }
 
   // Handle multiple newsletter sections or comments
