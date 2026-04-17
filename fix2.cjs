@@ -66,7 +66,8 @@ function processPage(file) {
 
   if (basename === 'articles.html') {
       const hero = getPremiumHero("Latest Insights", "Explore research, syllabus breakdowns, and EdTech innovations shaping our future.");
-      html = html.replace(/<section[\s\S]*?Latest <span[\s\S]*?<\/section>/, hero);
+      // Matches the hero section whether it's the old one or the newly mis-evaluated one
+      html = html.replace(/<section[\s\S]*?(?:Latest <span|\${title})[\s\S]*?<\/section>/, hero);
   }
 
   if (html.includes('</footer>')) {
