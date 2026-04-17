@@ -35,6 +35,24 @@ const getHeader = (page) => {
   '</header>';
 };
 
+const getMobileNav = (page) => {
+    const isArticles = page === 'articles.html';
+    const navItems = isArticles ? 
+        '<button onclick="filterArticles(\'all\')" id="m-tab-all" class="flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all bg-emerald-500 text-navy whitespace-nowrap">All Items</button>' +
+        '<button onclick="filterArticles(\'student\')" id="m-tab-student" class="flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all text-white/60 whitespace-nowrap">Students</button>' +
+        '<button onclick="filterArticles(\'parent\')" id="m-tab-parent" class="flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all text-white/60 whitespace-nowrap">Parents</button>' +
+        '<div class="w-[1px] h-6 bg-white/10 mx-1"></div>' :
+        '<a href="index.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ' + (page === 'index.html' ? 'bg-emerald-500 text-navy' : 'text-white/60') + '">Home</a>' +
+        '<a href="about.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ' + (page === 'about.html' ? 'bg-emerald-500 text-navy' : 'text-white/60') + '">About</a>' +
+        '<a href="articles.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ' + (page === 'articles.html' ? 'bg-emerald-500 text-navy' : 'text-white/60') + '">Articles</a>' +
+        '<a href="news.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ' + (page === 'news.html' ? 'bg-emerald-500 text-navy' : 'text-white/60') + '">News</a>';
+
+    return '<!-- Mobile Bottom Navigation --><div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden w-[90%] max-w-sm"><div class="bg-navy/90 backdrop-blur-xl rounded-[2rem] border border-white/10 p-2 shadow-2xl flex items-center justify-between gap-1">' +
+        navItems +
+        '<a href="' + (page === 'index.html' ? '#top' : 'index.html') + '" class="p-3 text-white/40 hover:text-white transition-colors"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>' +
+        '</div></div>';
+};
+
 const getPremiumHero = (title, subtitle) => {
     return '<section class="relative py-28 bg-navy overflow-hidden">' +
       '<div class="hero-glow bg-emerald-500 -top-40 -left-20"></div>' +
@@ -64,17 +82,30 @@ function processPage(file) {
   const headerContent = getHeader(basename);
   html = html.replace(/<header[\s\S]*?<\/header>/, headerContent);
 
+  const mobileNav = getMobileNav(basename);
+  if (html.includes('<!-- Mobile Bottom Navigation -->')) {
+    html = html.replace(/<!-- Mobile Bottom Navigation -->[\s\S]*?<\/div>[\s\S]*?<\/div>/, mobileNav);
+  } else {
+    html = html.replace('</body>', mobileNav + '</body>');
+  }
+
   if (basename === 'articles.html') {
       const hero = getPremiumHero("Latest Insights", "Explore research, syllabus breakdowns, and EdTech innovations shaping our future.");
-      // Matches the hero section whether it's the old one or the newly mis-evaluated one
       html = html.replace(/<section[\s\S]*?(?:Latest <span|\${title})[\s\S]*?<\/section>/, hero);
   }
 
-  if (html.includes('</footer>')) {
-    html = html.replace(/<footer[\s\S]*?<\/footer>/, footerHtml);
+  // Handle multiple newsletter sections or comments
+  html = html.replace(/(?:<!-- Newsletter Section -->\s*)+/g, '');
+  if (html.includes('id="newsletter"')) {
+    html = html.replace(/<section id="newsletter"[\s\S]*?<\/section>/, newsletterHtml);
   } else {
-    html = html.replace('</body>', footerHtml + '</body>');
+    html = html.replace('</body>', newsletterHtml + '</body>');
   }
+
+  html = html.replace(/<footer[\s\S]*?<\/footer>/, footerHtml);
+
+  // Final cleanup of any potential leftover template tags
+  html = html.replace(/\$\{.*?\}/g, '');
 
   fs.writeFileSync(file, html);
   console.log('Processed ' + file);
@@ -82,4 +113,4 @@ function processPage(file) {
 
 const filesToProcess = ['index.html', 'about.html', 'news.html', 'articles.html', 'core-math-2026.html', 'ai-test-prep.html', 'cs-integration.html', 'parent-guide.html'];
 filesToProcess.forEach(processPage);
-console.log('Theme fix executed.');
+console.log('Final Site-wide Theme & Nav Update Complete.');
