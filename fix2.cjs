@@ -53,7 +53,7 @@ const globalHeadTags = `
 `;
 
 const getHeader = (page) => {
-    return \`
+    return `
   <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-100 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-20">
@@ -63,10 +63,10 @@ const getHeader = (page) => {
         </a>
         <div class="flex items-center gap-8">
           <nav class="hidden md:flex space-x-8 items-center">
-            <a href="index.html" class="text-navy hover:text-emerald-500 font-bold text-sm transition-all \${page === 'index.html' ? 'text-emerald-500' : ''}">Platform</a>
-            <a href="about.html" class="text-navy hover:text-emerald-500 font-bold text-sm transition-all \${page === 'about.html' ? 'text-emerald-500' : ''}">About</a>
-            <a href="articles.html" class="text-navy hover:text-emerald-500 font-bold text-sm transition-all \${page === 'articles.html' || (page.includes('.html') && page !== 'index.html' && page !== 'news.html' && page !== 'about.html') ? 'text-emerald-500' : ''}">Articles</a>
-            <a href="news.html" class="text-navy hover:text-emerald-500 font-bold text-sm transition-all \${page === 'news.html' ? 'text-emerald-500' : ''}">News</a>
+            <a href="index.html" class="text-navy hover:text-emerald-500 font-bold text-sm transition-all ${page === 'index.html' ? 'text-emerald-500' : ''}">Platform</a>
+            <a href="about.html" class="text-navy hover:text-emerald-500 font-bold text-sm transition-all ${page === 'about.html' ? 'text-emerald-500' : ''}">About</a>
+            <a href="articles.html" class="text-navy hover:text-emerald-500 font-bold text-sm transition-all ${page === 'articles.html' || (page.includes('.html') && page !== 'index.html' && page !== 'news.html' && page !== 'about.html') ? 'text-emerald-500' : ''}">Articles</a>
+            <a href="news.html" class="text-navy hover:text-emerald-500 font-bold text-sm transition-all ${page === 'news.html' ? 'text-emerald-500' : ''}">News</a>
           </nav>
           <a href="https://visionedu.online" target="_blank" rel="noopener noreferrer" class="hidden sm:flex px-6 py-2.5 bg-navy text-white text-sm font-black rounded-xl hover:bg-emerald-500 hover:shadow-xl hover:shadow-emerald-500/20 transition-all active:scale-95 items-center gap-2">
             Get Started
@@ -75,34 +75,34 @@ const getHeader = (page) => {
         </div>
       </div>
     </div>
-  </header>\`;
+  </header>`;
 };
 
 const getMobileNav = (page) => {
     const isArticles = page === 'articles.html';
-    return \`
+    return `
   <!-- Mobile Bottom Navigation -->
   <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden w-[90%] max-w-sm">
       <div class="bg-navy/90 backdrop-blur-xl rounded-[2rem] border border-white/10 p-2 shadow-2xl flex items-center justify-between gap-1">
-          \${isArticles ? \`
+          ${isArticles ? `
           <button onclick="filterArticles('all')" id="m-tab-all" class="flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all bg-emerald-500 text-navy whitespace-nowrap">All Items</button>
           <button onclick="filterArticles('student')" id="m-tab-student" class="flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all text-white/60 whitespace-nowrap">Students</button>
           <button onclick="filterArticles('parent')" id="m-tab-parent" class="flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all text-white/60 whitespace-nowrap">Parents</button>
           <div class="w-[1px] h-6 bg-white/10 mx-1"></div>
-          \` : \`
-          <a href="index.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all \${page === 'index.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">Home</a>
-          <a href="about.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all \${page === 'about.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">About</a>
-          <a href="articles.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all \${page === 'articles.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">Articles</a>
-          <a href="news.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all \${page === 'news.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">News</a>
-          \`}
-          <a href="\${page === 'index.html' ? '#top' : 'index.html'}" class="p-3 text-white/40 hover:text-white transition-colors">
+          ` : `
+          <a href="index.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ${page === 'index.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">Home</a>
+          <a href="about.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ${page === 'about.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">About</a>
+          <a href="articles.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px) font-black uppercase tracking-tighter transition-all ${page === 'articles.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">Articles</a>
+          <a href="news.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ${page === 'news.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">News</a>
+          `}
+          <a href="${page === 'index.html' ? '#top' : 'index.html'}" class="p-3 text-white/40 hover:text-white transition-colors">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
           </a>
       </div>
-  </div>\`;
+  </div>`;
 };
 
-const getPremiumHero = (title, subtitle) => \`
+const getPremiumHero = (title, subtitle) => `
   <section class="relative py-28 bg-navy overflow-hidden">
     <div class="hero-glow bg-emerald-500 -top-40 -left-20"></div>
     <div class="hero-glow bg-indigo-600 -bottom-40 -right-20"></div>
@@ -114,16 +114,16 @@ const getPremiumHero = (title, subtitle) => \`
           Vision Educational Archive
         </div>
         <h1 class="text-5xl md:text-7xl font-black text-white mb-8 tracking-tighter leading-[0.9]">
-          \${title}
+          ${title}
         </h1>
         <p class="text-xl text-gray-400 font-medium leading-relaxed max-w-2xl">
-          \${subtitle}
+          ${subtitle}
         </p>
       </div>
     </div>
-  </section>\`;
+  </section>`;
 
-const articlesGridSection = \`
+const articlesGridSection = `
   <section class="py-24 bg-slate-50 relative grid-pattern">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="hidden md:flex items-center justify-between mb-16 px-8 py-4 bg-white rounded-3xl border border-gray-100 shadow-sm">
@@ -182,9 +182,9 @@ const articlesGridSection = \`
         </article>
       </div>
     </div>
-  </section>\`;
+  </section>`;
 
-const footerHtml = \`
+const footerHtml = `
   <footer class="bg-navy py-20 border-t border-white/5">
     <div class="max-w-7xl mx-auto px-4">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-16">
@@ -212,7 +212,7 @@ const footerHtml = \`
         </div>
       </div>
     </div>
-  </footer>\`;
+  </footer>`;
 
 function processPage(file) {
   if (!fs.existsSync(file)) return;
