@@ -86,7 +86,8 @@ function processPage(file) {
 
   const mobileNav = getMobileNav(basename);
   if (html.includes('<!-- Mobile Bottom Navigation -->')) {
-    html = html.replace(/<!-- Mobile Bottom Navigation -->[\s\S]*?<\/div>[\s\S]*?<\/div>/, mobileNav);
+    // Aggressive cleanup: Match the comment and everything until the next major block or multiple stray divs
+    html = html.replace(/<!-- Mobile Bottom Navigation -->[\s\S]*?(?:<\/div>\s*)+/, mobileNav);
   } else {
     html = html.replace('</body>', mobileNav + '</body>');
   }
@@ -115,4 +116,4 @@ function processPage(file) {
 
 const filesToProcess = ['index.html', 'about.html', 'news.html', 'articles.html', 'core-math-2026.html', 'ai-test-prep.html', 'cs-integration.html', 'parent-guide.html'];
 filesToProcess.forEach(processPage);
-console.log('Seamless Switcher & Site-wide Update Complete.');
+console.log('Stray Tag Cleanup & theme update complete.');
