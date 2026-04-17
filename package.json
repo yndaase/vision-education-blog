@@ -1,0 +1,11 @@
+{
+  "name": "vision-education-blog",
+  "version": "1.0.0",
+  "description": "Educational blog for Ghana",
+  "main": "api/news.js",
+  "type": "module",
+  "dependencies": {
+    "rss-parser": "^3.13.0",
+    "node-cache": "^5.1.2"
+  }
+}
