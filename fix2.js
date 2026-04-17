@@ -92,7 +92,7 @@ const articlesHtml = `<!DOCTYPE html>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         
         <!-- Article Card 1 -->
-        <article class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
+        <article onclick="location.href='core-math-2026'" class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
           <div class="h-48 bg-gradient-to-br from-indigo-500/20 to-emerald-500/20 relative flex items-center justify-center overflow-hidden">
             <div class="absolute inset-0 bg-white/10 backdrop-blur-[2px]"></div>
             <span class="relative z-10 font-bold text-indigo-700 text-xl tracking-widest uppercase opacity-30">EDUCATION</span>
@@ -112,7 +112,7 @@ const articlesHtml = `<!DOCTYPE html>
         </article>
 
         <!-- Article Card 2 -->
-        <article class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
+        <article onclick="location.href='ai-test-prep'" class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
           <div class="h-48 bg-gray-900 relative flex items-center justify-center overflow-hidden">
             <div class="absolute inset-0 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px] opacity-10"></div>
             <span class="relative z-10 font-bold text-emerald-500 text-2xl tracking-widest uppercase opacity-70">TECH</span>
@@ -132,7 +132,7 @@ const articlesHtml = `<!DOCTYPE html>
         </article>
 
         <!-- Article Card 3 -->
-        <article class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
+        <article onclick="location.href='cs-integration'" class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
           <div class="h-48 bg-gradient-to-br from-blue-500/10 to-indigo-500/10 relative flex items-center justify-center overflow-hidden">
             <span class="relative z-10 font-bold text-blue-500 text-xl tracking-widest uppercase opacity-40">POLICY</span>
           </div>
@@ -150,6 +150,52 @@ const articlesHtml = `<!DOCTYPE html>
           </div>
         </article>
 
+        <!-- Article Card 4 (Parent Guide) -->
+        <article onclick="location.href='parent-guide'" class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
+          <div class="h-48 bg-gradient-to-br from-orange-500/10 to-pink-500/10 relative flex items-center justify-center overflow-hidden">
+            <span class="relative z-10 font-bold text-orange-500 text-xl tracking-widest uppercase opacity-40">GUIDANCE</span>
+          </div>
+          <div class="p-8 flex flex-col flex-1">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="px-3 py-1 bg-orange-50 text-orange-600 text-xs font-bold uppercase tracking-wider rounded-full">Parents</span>
+              <span class="text-gray-400 text-xs font-semibold">6 min read</span>
+            </div>
+            <h3 class="text-xl font-bold text-navy mb-3 leading-snug hover:text-vibrantBlue transition-colors">A Parent's Guide to WASSCE Accountability</h3>
+            <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-1">How parents can use digital tools to monitor progress and support their child's preparation for the 2026 exams.</p>
+            <div class="flex items-center gap-3 pt-6 border-t border-gray-100">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-md">YN</div>
+              <div class="text-sm font-semibold text-navy">Yaw Ndaase Mensuoh</div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section id="newsletter" class="py-24 bg-navy relative overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.1),transparent)] opacity-50"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="bg-white/5 backdrop-blur-md rounded-[3rem] p-10 md:p-20 overflow-hidden group border border-white/10">
+        <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-indigo-600/5"></div>
+        <div class="relative z-10 max-w-2xl mx-auto text-center">
+          <h2 class="text-3xl md:text-5xl font-black text-white mb-6 tracking-tighter">Stay Ahead of the Curve</h2>
+          <p class="text-lg md:text-xl text-gray-400 mb-10 font-medium">Join 2,000+ Ghanaian students and parents receiving weekly WASSCE tips and AI-powered study strategies.</p>
+          
+          <form id="newsletter-form" class="space-y-6">
+            <div class="flex flex-col sm:flex-row gap-4">
+              <input type="email" placeholder="Enter your email" required class="flex-1 px-6 py-4 rounded-2xl border border-white/10 focus:border-emerald-500 focus:outline-none text-lg font-bold transition-all bg-white/5 text-white backdrop-blur-sm" aria-label="Email address">
+              <button type="submit" class="px-10 py-4 bg-emerald-500 text-navy font-black rounded-2xl hover:bg-emerald-400 transition-all shadow-xl shadow-emerald-500/20 active:scale-95 text-lg">
+                Subscribe
+              </button>
+            </div>
+          </form>
+          <div id="newsletter-success" class="hidden text-emerald-400 font-bold mt-6 animate-fade-in-up flex items-center justify-center gap-2">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+            You're on the list! Welcome to the Circle.
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -163,8 +209,9 @@ const articlesHtml = `<!DOCTYPE html>
       <p class="text-sm text-gray-500">&copy; 2026 Yaw Ndaase Mensuoh. Built for the students of Ghana.</p>
     </div>
   </footer>
+  <script src="nav.js" defer></script>
 </body>
-</html>`;
+</html>\`;
 
 fs.writeFileSync('articles.html', articlesHtml);
 console.log('Successfully updated nav button and created articles.html');
