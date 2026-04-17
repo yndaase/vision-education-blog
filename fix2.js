@@ -249,7 +249,7 @@ const articlesHtml = `<!DOCTYPE html>
     }
   </script>
 </body>
-</html>\`;
+</html>`;
 
 fs.writeFileSync('articles.html', articlesHtml);
 console.log('Mobile navigation and bottom Article switcher implemented and pushed!');
