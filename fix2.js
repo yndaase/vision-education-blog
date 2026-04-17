@@ -85,14 +85,28 @@ const articlesHtml = `<!DOCTYPE html>
     </div>
   </section>
 
+  <!-- Article Category Switch -->
+  <div class="bg-gray-50 pt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-6 pb-8 border-b border-gray-200">
+        <div class="flex p-1.5 bg-white rounded-2xl shadow-sm border border-gray-100">
+          <button onclick="filterArticles('all')" id="tab-all" class="px-6 py-2.5 rounded-xl text-sm font-bold transition-all bg-navy text-white shadow-lg shadow-navy/20">All Articles</button>
+          <button onclick="filterArticles('student')" id="tab-student" class="px-6 py-2.5 rounded-xl text-sm font-bold transition-all text-gray-400 hover:text-navy">Student Article</button>
+          <button onclick="filterArticles('parent')" id="tab-parent" class="px-6 py-2.5 rounded-xl text-sm font-bold transition-all text-gray-400 hover:text-navy">Parent Article</button>
+        </div>
+        <p class="text-sm font-semibold text-gray-400">Showing <span id="article-count" class="text-navy">4</span> insights</p>
+      </div>
+    </div>
+  </div>
+
   <!-- Articles Grid -->
-  <section class="py-20 bg-gray-50">
+  <section class="py-12 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         
         <!-- Article Card 1 -->
-        <article onclick="location.href='core-math-2026.html'" class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
+        <article data-category="student" onclick="location.href='core-math-2026.html'" class="article-card bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
           <div class="h-48 bg-gradient-to-br from-indigo-500/20 to-emerald-500/20 relative flex items-center justify-center overflow-hidden">
             <div class="absolute inset-0 bg-white/10 backdrop-blur-[2px]"></div>
             <span class="relative z-10 font-bold text-indigo-700 text-xl tracking-widest uppercase opacity-30">EDUCATION</span>
@@ -112,7 +126,7 @@ const articlesHtml = `<!DOCTYPE html>
         </article>
 
         <!-- Article Card 2 -->
-        <article onclick="location.href='ai-test-prep.html'" class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
+        <article data-category="student" onclick="location.href='ai-test-prep.html'" class="article-card bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
           <div class="h-48 bg-gray-900 relative flex items-center justify-center overflow-hidden">
             <div class="absolute inset-0 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px] opacity-10"></div>
             <span class="relative z-10 font-bold text-emerald-500 text-2xl tracking-widest uppercase opacity-70">TECH</span>
@@ -131,27 +145,8 @@ const articlesHtml = `<!DOCTYPE html>
           </div>
         </article>
 
-        <!-- Article Card 3 -->
-        <article onclick="location.href='cs-integration.html'" class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
-          <div class="h-48 bg-gradient-to-br from-blue-500/10 to-indigo-500/10 relative flex items-center justify-center overflow-hidden">
-            <span class="relative z-10 font-bold text-blue-500 text-xl tracking-widest uppercase opacity-40">POLICY</span>
-          </div>
-          <div class="p-8 flex flex-col flex-1">
-            <div class="flex items-center gap-3 mb-4">
-              <span class="px-3 py-1 bg-blue-50 text-blue-600 text-xs font-bold uppercase tracking-wider rounded-full">Analysis</span>
-              <span class="text-gray-400 text-xs font-semibold">7 min read</span>
-            </div>
-            <h3 class="text-xl font-bold text-navy mb-3 leading-snug hover:text-vibrantBlue transition-colors">The Integration of Computer Science in SHS</h3>
-            <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-1">Analyzing the structural shifts in the WAEC curriculum to prioritize early programming fundamentals and logical thinking.</p>
-            <div class="flex items-center gap-3 pt-6 border-t border-gray-100">
-              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-md">YN</div>
-              <div class="text-sm font-semibold text-navy">Yaw Ndaase Mensuoh</div>
-            </div>
-          </div>
-        </article>
-
         <!-- Article Card 4 (Parent Guide) -->
-        <article onclick="location.href='parent-guide.html'" class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
+        <article data-category="parent" onclick="location.href='parent-guide.html'" class="article-card bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
           <div class="h-48 bg-gradient-to-br from-orange-500/10 to-pink-500/10 relative flex items-center justify-center overflow-hidden">
             <span class="relative z-10 font-bold text-orange-500 text-xl tracking-widest uppercase opacity-40">GUIDANCE</span>
           </div>
@@ -162,6 +157,25 @@ const articlesHtml = `<!DOCTYPE html>
             </div>
             <h3 class="text-xl font-bold text-navy mb-3 leading-snug hover:text-vibrantBlue transition-colors">A Parent's Guide to WASSCE Accountability</h3>
             <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-1">How parents can use digital tools to monitor progress and support their child's preparation for the 2026 exams.</p>
+            <div class="flex items-center gap-3 pt-6 border-t border-gray-100">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-md">YN</div>
+              <div class="text-sm font-semibold text-navy">Yaw Ndaase Mensuoh</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Article Card 3 -->
+        <article data-category="student" onclick="location.href='cs-integration.html'" class="article-card bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
+          <div class="h-48 bg-gradient-to-br from-blue-500/10 to-indigo-500/10 relative flex items-center justify-center overflow-hidden">
+            <span class="relative z-10 font-bold text-blue-500 text-xl tracking-widest uppercase opacity-40">POLICY</span>
+          </div>
+          <div class="p-8 flex flex-col flex-1">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="px-3 py-1 bg-blue-50 text-blue-600 text-xs font-bold uppercase tracking-wider rounded-full">Analysis</span>
+              <span class="text-gray-400 text-xs font-semibold">7 min read</span>
+            </div>
+            <h3 class="text-xl font-bold text-navy mb-3 leading-snug hover:text-vibrantBlue transition-colors">The Integration of Computer Science in SHS</h3>
+            <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-1">Analyzing the structural shifts in the WAEC curriculum to prioritize early programming fundamentals and logical thinking.</p>
             <div class="flex items-center gap-3 pt-6 border-t border-gray-100">
               <div class="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-md">YN</div>
               <div class="text-sm font-semibold text-navy">Yaw Ndaase Mensuoh</div>
@@ -183,21 +197,20 @@ const articlesHtml = `<!DOCTYPE html>
           <h2 class="text-3xl md:text-5xl font-black text-white mb-6 tracking-tighter">Stay Ahead of the Curve</h2>
           <p class="text-lg md:text-xl text-gray-400 mb-10 font-medium">Join 2,000+ Ghanaian students and parents receiving weekly WASSCE tips and AI-powered study strategies.</p>
           
-          <form id="newsletter-form" class="space-y-6">
-            <!-- Role Selection -->
-            <div class="flex justify-center gap-4 mb-8">
-              <label class="relative flex-1 max-w-[150px] cursor-pointer group">
-                <input type="radio" name="role" value="student" checked class="peer sr-only">
-                <div class="px-4 py-3 rounded-2xl border border-white/10 bg-white/5 text-gray-400 font-bold text-sm text-center transition-all peer-checked:bg-emerald-500 peer-checked:text-navy peer-checked:border-emerald-500 group-hover:bg-white/10">
-                  Student
-                </div>
-              </label>
-              <label class="relative flex-1 max-w-[150px] cursor-pointer group">
-                <input type="radio" name="role" value="parent" class="peer sr-only">
-                <div class="px-4 py-3 rounded-2xl border border-white/10 bg-white/5 text-gray-400 font-bold text-sm text-center transition-all peer-checked:bg-emerald-500 peer-checked:text-navy peer-checked:border-emerald-500 group-hover:bg-white/10">
-                  Parent
-                </div>
-              </label>
+          <form id="newsletter-form" class="space-y-10">
+            <!-- Newsletter Role Slider Fix -->
+            <div class="flex justify-center flex-col items-center">
+              <span class="text-white/60 text-xs font-bold uppercase tracking-widest mb-4">I AM A...</span>
+              <div class="inline-flex p-1 bg-white/5 rounded-2xl border border-white/10 relative">
+                  <label class="relative cursor-pointer">
+                      <input type="radio" name="role" value="student" checked class="peer sr-only">
+                      <div class="px-8 py-3 rounded-xl text-sm font-bold transition-all text-gray-400 peer-checked:bg-emerald-500 peer-checked:text-navy peer-checked:shadow-lg peer-checked:shadow-emerald-500/20">Student</div>
+                  </label>
+                  <label class="relative cursor-pointer">
+                      <input type="radio" name="role" value="parent" class="peer sr-only">
+                      <div class="px-8 py-3 rounded-xl text-sm font-bold transition-all text-gray-400 peer-checked:bg-emerald-500 peer-checked:text-navy peer-checked:shadow-lg peer-checked:shadow-emerald-500/20">Parent</div>
+                  </label>
+              </div>
             </div>
 
             <div class="flex flex-col sm:flex-row gap-4">
@@ -225,7 +238,39 @@ const articlesHtml = `<!DOCTYPE html>
       <p class="text-sm text-gray-500">&copy; 2026 Yaw Ndaase Mensuoh. Built for the students of Ghana.</p>
     </div>
   </footer>
+
   <script src="nav.js" defer></script>
+  <script>
+    function filterArticles(category) {
+      const cards = document.querySelectorAll('.article-card');
+      const tabs = {
+        all: document.getElementById('tab-all'),
+        student: document.getElementById('tab-student'),
+        parent: document.getElementById('tab-parent')
+      };
+
+      // Update Tabs styling
+      Object.keys(tabs).forEach(key => {
+        tabs[key].classList.remove('bg-navy', 'text-white', 'shadow-lg', 'shadow-navy/20');
+        tabs[key].classList.add('text-gray-400');
+      });
+      tabs[category].classList.remove('text-gray-400');
+      tabs[category].classList.add('bg-navy', 'text-white', 'shadow-lg', 'shadow-navy/20');
+
+      // Filter Cards
+      let visibleCount = 0;
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      document.getElementById('article-count').innerText = visibleCount;
+    }
+  </script>
 </body>
 </html>`;
 
