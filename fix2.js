@@ -191,8 +191,8 @@ const articlesHtml = `<!DOCTYPE html>
   <section id="newsletter" class="py-24 bg-navy relative overflow-hidden">
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.1),transparent)] opacity-50"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="bg-white/5 backdrop-blur-md rounded-[3rem] p-10 md:p-20 overflow-hidden group border border-white/10">
-        <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-indigo-600/5"></div>
+      <div class="bg-[#0a0f1a] rounded-[3rem] p-10 md:p-20 overflow-hidden group border border-white/5 relative shadow-2xl">
+        <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-indigo-600/10"></div>
         <div class="relative z-10 max-w-2xl mx-auto text-center">
           <h2 class="text-3xl md:text-5xl font-black text-white mb-6 tracking-tighter">Stay Ahead of the Curve</h2>
           <p class="text-lg md:text-xl text-gray-400 mb-10 font-medium">Join 2,000+ Ghanaian students and parents receiving weekly WASSCE tips and AI-powered study strategies.</p>
@@ -200,22 +200,22 @@ const articlesHtml = `<!DOCTYPE html>
           <form id="newsletter-form" class="space-y-10">
             <!-- Newsletter Role Slider Fix -->
             <div class="flex justify-center flex-col items-center">
-              <span class="text-white/60 text-xs font-bold uppercase tracking-widest mb-4">I AM A...</span>
-              <div class="inline-flex p-1 bg-white/5 rounded-2xl border border-white/10 relative">
+              <span class="text-white/40 text-[10px] font-black uppercase tracking-[0.2em] mb-4">Select Your Role</span>
+              <div class="inline-flex p-1.5 bg-white/5 rounded-2xl border border-white/10 relative backdrop-blur-xl">
                   <label class="relative cursor-pointer">
                       <input type="radio" name="role" value="student" checked class="peer sr-only">
-                      <div class="px-8 py-3 rounded-xl text-sm font-bold transition-all text-gray-400 peer-checked:bg-emerald-500 peer-checked:text-navy peer-checked:shadow-lg peer-checked:shadow-emerald-500/20">Student</div>
+                      <div class="px-10 py-3 rounded-xl text-sm font-black transition-all text-gray-400 peer-checked:bg-[#10b981] peer-checked:text-[#05080f] peer-checked:shadow-[0_0_20px_rgba(16,185,129,0.3)]">Student</div>
                   </label>
-                  <label class="relative cursor-pointer">
+                  <label class="relative cursor-pointer ml-2">
                       <input type="radio" name="role" value="parent" class="peer sr-only">
-                      <div class="px-8 py-3 rounded-xl text-sm font-bold transition-all text-gray-400 peer-checked:bg-emerald-500 peer-checked:text-navy peer-checked:shadow-lg peer-checked:shadow-emerald-500/20">Parent</div>
+                      <div class="px-10 py-3 rounded-xl text-sm font-black transition-all text-gray-400 peer-checked:bg-[#10b981] peer-checked:text-[#05080f] peer-checked:shadow-[0_0_20px_rgba(16,185,129,0.3)]">Parent</div>
                   </label>
               </div>
             </div>
 
             <div class="flex flex-col sm:flex-row gap-4">
-              <input type="email" placeholder="Enter your email" required class="flex-1 px-6 py-4 rounded-2xl border border-white/10 focus:border-emerald-500 focus:outline-none text-lg font-bold transition-all bg-white/5 text-white backdrop-blur-sm" aria-label="Email address">
-              <button type="submit" class="px-10 py-4 bg-emerald-500 text-navy font-black rounded-2xl hover:bg-emerald-400 transition-all shadow-xl shadow-emerald-500/20 active:scale-95 text-lg">
+              <input type="email" placeholder="Enter your email" required class="flex-1 px-6 py-4 rounded-2xl border border-white/10 focus:border-[#10b981] focus:outline-none text-lg font-bold transition-all bg-white/5 text-white backdrop-blur-sm" aria-label="Email address">
+              <button type="submit" class="px-10 py-4 bg-[#10b981] text-[#05080f] font-black rounded-2xl hover:bg-[#34d399] transition-all shadow-xl shadow-emerald-500/20 active:scale-95 text-lg">
                 Subscribe
               </button>
             </div>
