@@ -244,7 +244,7 @@ const articlesHtml = `<!DOCTYPE html>
     </div>
   </section>
 
-  $\{newsletterHtml\}
+  ${newsletterHtml}
 
   <footer class="bg-navy py-12 border-t border-white/10">
     <div class="max-w-7xl mx-auto px-4 text-center">
@@ -283,7 +283,7 @@ const articlesHtml = `<!DOCTYPE html>
     }
   </script>
 </body>
-</html>\`;
+</html>`;
 
 fs.writeFileSync('articles.html', articlesHtml);
 console.log('Successfully refined all core pages with unified Newsletter and Navigation.');
