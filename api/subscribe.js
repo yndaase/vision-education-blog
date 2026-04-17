@@ -43,7 +43,7 @@ export default async function handler(req, res) {
         'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: 'Vision Education <onboarding@resend.dev>',
+        from: 'Vision Education <welcome@visionedu.online>',
         to: [email],
         reply_to: 'mensuohyaw@gmail.com',
         subject: subject,
