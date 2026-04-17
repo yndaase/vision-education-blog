@@ -43,6 +43,94 @@ const newsletterHtml = `
     </div>
   </section>`;
 
+const getMobileNav = (page) => {
+    const isArticles = page === 'articles.html';
+    return `
+  <!-- Mobile Bottom Navigation -->
+  <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden w-[90%] max-w-sm">
+      <div class="bg-navy/90 backdrop-blur-xl rounded-[2rem] border border-white/10 p-2 shadow-2xl flex items-center justify-between gap-1">
+          ${isArticles ? `
+          <button onclick="filterArticles('all')" id="m-tab-all" class="flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all bg-emerald-500 text-navy whitespace-nowrap">All Items</button>
+          <button onclick="filterArticles('student')" id="m-tab-student" class="flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all text-white/60 whitespace-nowrap">Students</button>
+          <button onclick="filterArticles('parent')" id="m-tab-parent" class="flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all text-white/60 whitespace-nowrap">Parents</button>
+          <div class="w-[1px] h-6 bg-white/10 mx-1"></div>
+          ` : `
+          <a href="index.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ${page === 'index.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">Home</a>
+          <a href="about.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ${page === 'about.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">About</a>
+          <a href="articles.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ${page === 'articles.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">Articles</a>
+          <a href="news.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ${page === 'news.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">News</a>
+          `}
+          <a href="${page === 'index.html' ? '#top' : 'index.html'}" class="p-3 text-white/40 hover:text-white transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </a>
+      </div>
+  </div>`;
+};
+
+const homepageNewsHtml = `
+  <!-- Latest Intelligence Section (Homepage) -->
+  <section id="latest-news" class="py-24 bg-gray-50 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
+        <div class="max-w-xl">
+          <h2 class="text-4xl md:text-5xl font-black text-navy mb-6 tracking-tighter">Latest <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-indigo-600">Intelligence</span></h2>
+          <p class="text-lg text-gray-500 font-medium leading-relaxed">Streaming real-time educational insights from Google News, analyzed for the Ghanaian classroom.</p>
+        </div>
+        <a href="news.html" class="px-8 py-3 bg-white border border-gray-200 rounded-2xl text-navy font-bold hover:border-emerald-500 transition-all flex items-center gap-2 group">
+          View All Intelligence
+          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </a>
+      </div>
+
+      <div id="home-news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 opacity-0 translate-y-10 transition-all duration-1000">
+        <!-- News items will be injected here -->
+        <div class="animate-pulse bg-white rounded-[2rem] h-[400px] border border-gray-100"></div>
+        <div class="animate-pulse bg-white rounded-[2rem] h-[400px] border border-gray-100"></div>
+        <div class="animate-pulse bg-white rounded-[2rem] h-[400px] border border-gray-100"></div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    async function fetchHomeNews() {
+      try {
+        const res = await fetch('/api/news');
+        const data = await res.json();
+        const grid = document.getElementById('home-news-grid');
+        
+        if (data.news && data.news.length > 0) {
+          grid.innerHTML = data.news.slice(0, 3).map(item => \`
+            <article class="group bg-white rounded-[2rem] border border-gray-100 p-8 hover:shadow-2xl transition-all duration-500 flex flex-col h-full border-b-4 hover:border-b-emerald-500">
+              <div class="flex items-center gap-3 mb-6">
+                <span class="px-4 py-1.5 bg-gray-50 text-navy text-[10px] font-black uppercase tracking-widest rounded-full">\$\{item.category\}</span>
+                <span class="text-gray-400 text-[10px] font-black uppercase tracking-widest">\$\{item.readTime\} READ</span>
+              </div>
+              <h3 class="text-2xl font-black text-navy mb-4 leading-[1.1] group-hover:text-emerald-600 transition-colors">\$\{item.title\}</h3>
+              <p class="text-gray-500 text-sm font-medium leading-relaxed mb-8 flex-1">\$\{item.summary.slice(0, 100)\}...</p>
+              <a href="news.html" class="flex items-center justify-between pt-6 border-t border-gray-50 group/link">
+                <span class="text-navy font-bold text-sm">Full Analysis</span>
+                <div class="w-10 h-10 rounded-full bg-navy text-white flex items-center justify-center group-hover/link:bg-emerald-500 group-hover/link:text-navy transition-all">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                </div>
+              </a>
+            </article>
+          \`).join('');
+          grid.classList.remove('opacity-0', 'translate-y-10');
+        }
+      } catch (err) {
+        console.error('Failed to fetch home news:', err);
+      }
+    }
+    window.addEventListener('scroll', () => {
+        const grid = document.getElementById('home-news-grid');
+        const rect = grid.getBoundingClientRect();
+        if(rect.top < window.innerHeight - 100) {
+            fetchHomeNews();
+        }
+    }, { once: true });
+  </script>
+`;
+
 const fixNav = (html) => {
   return html.replace(
     /<nav class="hidden md:flex space-x-8 items-center">[\s\S]*?<\/nav>/,
@@ -77,8 +165,21 @@ const fixFooter = (html) => {
   if (fs.existsSync(file)) {
     let html = fs.readFileSync(file, 'utf8');
     html = fixNav(html);
+    
+    // Inject News Section on Homepage
+    if (file === 'index.html' && !html.includes('id="latest-news"')) {
+        html = html.replace(/<section id="newsletter"/, homepageNewsHtml + '\n\n<section id="newsletter"');
+    }
+
     html = fixNewsletter(html);
     html = fixFooter(html);
+    
+    // Add Mobile Bar
+    const mobileBar = getMobileNav(file);
+    if (!html.includes('<!-- Mobile Bottom Navigation -->')) {
+        html = html.replace(/<\/body>/, mobileBar + '\n\n<script src="nav.js" defer></script>\n</body>');
+    }
+
     if(file === 'about.html') {
       html = html.replace('<a href="about.html" class="text-navy hover:text-vibrantBlue font-semibold text-sm transition-colors cursor-pointer">About</a>', '<a href="about.html" class="text-vibrantBlue font-semibold text-sm transition-colors cursor-pointer">About</a>');
     }
@@ -89,7 +190,7 @@ const fixFooter = (html) => {
   }
 });
 
-// Articles Page (Restored and Refined)
+// Articles Page (Unified Logic)
 const articlesHtml = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -143,7 +244,6 @@ const articlesHtml = `<!DOCTYPE html>
     </div>
   </section>
 
-  <!-- News Grid -->
   <section class="py-12 bg-gray-50 min-h-[600px]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -178,20 +278,9 @@ const articlesHtml = `<!DOCTYPE html>
     </div>
   </section>
 
-  <!-- Mobile Category & Nav Switcher -->
-  <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden w-[90%] max-w-sm">
-      <div class="bg-navy/90 backdrop-blur-xl rounded-[2rem] border border-white/10 p-2 shadow-2xl flex items-center justify-between gap-1 overflow-hidden">
-          <button onclick="filterArticles('all')" id="m-tab-all" class="flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all bg-emerald-500 text-navy whitespace-nowrap">All Items</button>
-          <button onclick="filterArticles('student')" id="m-tab-student" class="flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all text-white/60 whitespace-nowrap">Students</button>
-          <button onclick="filterArticles('parent')" id="m-tab-parent" class="flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all text-white/60 whitespace-nowrap">Parents</button>
-          <div class="w-[1px] h-6 bg-white/10 mx-1"></div>
-          <a href="index.html" class="p-3 text-white/40 hover:text-white transition-colors">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          </a>
-      </div>
-  </div>
+  ${getMobileNav('articles.html')}
 
-  <!-- Desktop Switcher (At the bottom of Articles) -->
+  <!-- Desktop Switcher -->
   <div class="hidden md:block bg-gray-50 pb-20">
     <div class="max-w-7xl mx-auto px-8">
       <div class="flex items-center justify-center gap-6 py-10 border-t border-gray-200">
@@ -252,4 +341,4 @@ const articlesHtml = `<!DOCTYPE html>
 </html>`;
 
 fs.writeFileSync('articles.html', articlesHtml);
-console.log('Mobile navigation and bottom Article switcher implemented and pushed!');
+console.log('Mobile navigation unified across all pages and Homepage news integrated!');
