@@ -146,11 +146,11 @@ function processPage(file) {
   html = html.replace(/<footer[\s\S]*?<\/footer>/, footerHtml);
 
   // Search Integration
-  if (!html.includes('id="search-modal"')) {
-      html = html.replace('</body>', searchModalHtml + searchScriptTag + '</body>');
-  } else {
-      html = html.replace(/<div id="search-modal"[\s\S]*?<\/div>\s*<\/div>\s*<\/div>\s*<\/div>/, searchModalHtml);
-  }
+  // Robustly remove existing search blocks to prevent tag accumulation
+  html = html.replace(/<div id="search-modal"[\s\S]*?<script src="search\.js"[\s\S]*?<\/script>/, '');
+  
+  // Re-inject search components
+  html = html.replace('</body>', searchModalHtml + searchScriptTag + '</body>');
 
   fs.writeFileSync(file, html);
   console.log('Processed ' + file);
