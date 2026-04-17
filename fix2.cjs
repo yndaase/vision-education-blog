@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 const newsletterHtml = `
   <!-- Newsletter Section -->
@@ -12,7 +13,6 @@ const newsletterHtml = `
           <p class="text-lg md:text-xl text-gray-400 mb-10 font-medium">Join 2,000+ Ghanaian students and parents receiving weekly WASSCE tips and AI-powered study strategies.</p>
           
           <form id="newsletter-form" class="space-y-10">
-            <!-- Newsletter Role Slider -->
             <div class="flex justify-center flex-col items-center">
               <span class="text-white/40 text-[10px] font-black uppercase tracking-[0.2em] mb-4">Select Your Role</span>
               <div class="inline-flex p-1.5 bg-white/5 rounded-2xl border border-white/10 relative backdrop-blur-xl">
@@ -43,302 +43,245 @@ const newsletterHtml = `
     </div>
   </section>`;
 
+const globalHeadTags = `
+  <style>
+    :root { --navy: #05080f; --emerald: #10b981; --indigo: #6366f1; }
+    .bg-mesh { background-image: radial-gradient(at 0% 0%, rgba(16,185,129,0.05) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(99,102,241,0.05) 0px, transparent 50%); }
+    .grid-pattern { background-image: radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px); background-size: 32px 32px; }
+    .hero-glow { position: absolute; width: 400px; height: 400px; filter: blur(120px); opacity: 0.15; pointer-events: none; }
+  </style>
+`;
+
+const getHeader = (page) => {
+    return `
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-100 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-20">
+        <a href="index.html" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-indigo-500 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-lg group-hover:scale-110 transition-transform ring-4 ring-white">V</div>
+          <span class="font-black text-xl tracking-tighter text-navy group-hover:text-emerald-500 transition-colors">Vision Education</span>
+        </a>
+        <div class="flex items-center gap-8">
+          <nav class="hidden md:flex space-x-8 items-center">
+            <a href="index.html" class="text-navy hover:text-emerald-500 font-bold text-sm transition-all \${page === 'index.html' ? 'text-emerald-500' : ''}">Platform</a>
+            <a href="about.html" class="text-navy hover:text-emerald-500 font-bold text-sm transition-all \${page === 'about.html' ? 'text-emerald-500' : ''}">About</a>
+            <a href="articles.html" class="text-navy hover:text-emerald-500 font-bold text-sm transition-all \${page === 'articles.html' || page.includes('.html') && page !== 'index.html' && page !== 'news.html' && page !== 'about.html' ? 'text-emerald-500' : ''}">Articles</a>
+            <a href="news.html" class="text-navy hover:text-emerald-500 font-bold text-sm transition-all \${page === 'news.html' ? 'text-emerald-500' : ''}">News</a>
+          </nav>
+          <a href="https://visionedu.online" target="_blank" rel="noopener noreferrer" class="hidden sm:flex px-6 py-2.5 bg-navy text-white text-sm font-black rounded-xl hover:bg-emerald-500 hover:shadow-xl hover:shadow-emerald-500/20 transition-all active:scale-95 items-center gap-2">
+            Get Started
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>`;
+};
+
 const getMobileNav = (page) => {
     const isArticles = page === 'articles.html';
     return `
   <!-- Mobile Bottom Navigation -->
   <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden w-[90%] max-w-sm">
       <div class="bg-navy/90 backdrop-blur-xl rounded-[2rem] border border-white/10 p-2 shadow-2xl flex items-center justify-between gap-1">
-          ${isArticles ? `
+          \${isArticles ? \`
           <button onclick="filterArticles('all')" id="m-tab-all" class="flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all bg-emerald-500 text-navy whitespace-nowrap">All Items</button>
           <button onclick="filterArticles('student')" id="m-tab-student" class="flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all text-white/60 whitespace-nowrap">Students</button>
           <button onclick="filterArticles('parent')" id="m-tab-parent" class="flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all text-white/60 whitespace-nowrap">Parents</button>
           <div class="w-[1px] h-6 bg-white/10 mx-1"></div>
-          ` : `
-          <a href="index.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ${page === 'index.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">Home</a>
-          <a href="about.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ${page === 'about.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">About</a>
-          <a href="articles.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ${page === 'articles.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">Articles</a>
-          <a href="news.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ${page === 'news.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">News</a>
-          `}
-          <a href="${page === 'index.html' ? '#top' : 'index.html'}" class="p-3 text-white/40 hover:text-white transition-colors">
+          \` : \`
+          <a href="index.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all \${page === 'index.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">Home</a>
+          <a href="about.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all \${page === 'about.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">About</a>
+          <a href="articles.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all \${page === 'articles.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">Articles</a>
+          <a href="news.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all \${page === 'news.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">News</a>
+          \`}
+          <a href="\${page === 'index.html' ? '#top' : 'index.html'}" class="p-3 text-white/40 hover:text-white transition-colors">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
           </a>
       </div>
-  </div>`;
+  </div>\`;
 };
 
-const homepageNewsHtml = `
-  <!-- Latest Intelligence Section (Homepage) -->
-  <section id="latest-news" class="py-24 bg-gray-50 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
-        <div class="max-w-xl">
-          <h2 class="text-4xl md:text-5xl font-black text-navy mb-6 tracking-tighter">Latest <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-indigo-600">Intelligence</span></h2>
-          <p class="text-lg text-gray-500 font-medium leading-relaxed">Streaming real-time educational insights from Google News, analyzed for the Ghanaian classroom.</p>
-        </div>
-        <a href="news.html" class="px-8 py-3 bg-white border border-gray-200 rounded-2xl text-navy font-bold hover:border-emerald-500 transition-all flex items-center gap-2 group">
-          View All Intelligence
-          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-        </a>
-      </div>
-
-      <div id="home-news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 opacity-0 translate-y-10 transition-all duration-1000">
-        <!-- News items will be injected here -->
-        <div class="animate-pulse bg-white rounded-[2rem] h-[400px] border border-gray-100"></div>
-        <div class="animate-pulse bg-white rounded-[2rem] h-[400px] border border-gray-100"></div>
-        <div class="animate-pulse bg-white rounded-[2rem] h-[400px] border border-gray-100"></div>
-      </div>
-    </div>
-  </section>
-
-  <script>
-    async function fetchHomeNews() {
-      try {
-        const res = await fetch('/api/news');
-        const data = await res.json();
-        const grid = document.getElementById('home-news-grid');
-        
-        if (data.news && data.news.length > 0) {
-          grid.innerHTML = data.news.slice(0, 3).map(item => \`
-            <article onclick="window.open('\${item.link}', '_blank')" class="group cursor-pointer bg-white rounded-[2rem] border border-gray-100 p-8 hover:shadow-2xl transition-all duration-500 flex flex-col h-full border-b-4 hover:border-b-emerald-500">
-              <div class="flex items-center gap-3 mb-6">
-                <span class="px-4 py-1.5 bg-gray-50 text-navy text-[10px] font-black uppercase tracking-widest rounded-full">\$\{item.category\}</span>
-                <span class="text-gray-400 text-[10px] font-black uppercase tracking-widest">\$\{item.readTime\} READ</span>
-              </div>
-              <h3 class="text-2xl font-black text-navy mb-4 leading-[1.1] group-hover:text-emerald-600 transition-colors">\$\{item.title\}</h3>
-              <p class="text-gray-500 text-sm font-medium leading-relaxed mb-8 flex-1">\$\{item.summary.slice(0, 100)\}...</p>
-              <div class="flex items-center justify-between pt-6 border-t border-gray-50 group/link">
-                <span class="text-navy font-bold text-sm">Read Full Story</span>
-                <div class="w-10 h-10 rounded-full bg-navy text-white flex items-center justify-center group-hover/link:bg-emerald-500 group-hover/link:text-navy transition-all">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                </div>
-              </div>
-            </article>
-          \`).join('');
-          grid.classList.remove('opacity-0', 'translate-y-10');
-        }
-      } catch (err) {
-        console.error('Failed to fetch home news:', err);
-      }
-    }
-    window.addEventListener('scroll', () => {
-        const grid = document.getElementById('home-news-grid');
-        const rect = grid.getBoundingClientRect();
-        if(rect.top < window.innerHeight - 100) {
-            fetchHomeNews();
-        }
-    }, { once: true });
-  </script>
-`;
-
-const fixNav = (html) => {
-  return html.replace(
-    /<nav class="hidden md:flex space-x-8 items-center">[\s\S]*?<\/nav>/,
-    `<div class="flex items-center gap-4 md:gap-8">
-          <nav class="hidden md:flex space-x-8 items-center">
-            <a href="index.html" class="text-navy hover:text-vibrantBlue font-semibold text-sm transition-colors cursor-pointer">Platform</a>
-            <a href="about.html" class="text-navy hover:text-vibrantBlue font-semibold text-sm transition-colors cursor-pointer">About</a>
-            <a href="articles.html" class="text-navy hover:text-vibrantBlue font-semibold text-sm transition-colors cursor-pointer">Articles</a>
-            <a href="news.html" class="text-navy hover:text-vibrantBlue font-semibold text-sm transition-colors cursor-pointer">News</a>
-          </nav>
-          <a href="https://visionedu.online" target="_blank" rel="noopener noreferrer" class="px-4 py-2 md:px-5 md:py-2.5 bg-gradient-to-r from-emerald-500 to-indigo-500 text-white text-xs md:text-sm font-bold rounded-lg hover:shadow-lg hover:-translate-y-0.5 transition-all flex items-center gap-2">
-            Visit VisionEdu
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
-          </a>
-        </div>`
-  );
-};
-
-const fixNewsletter = (html) => {
-    if (html.includes('id="newsletter"')) {
-        return html.replace(/<section id="newsletter"[\s\S]*?<\/section>/, newsletterHtml);
-    } 
-    return html.replace(/<footer/, newsletterHtml + '\n\n<footer');
-};
-
-const fixFooter = (html) => {
-    return html.replace(/<footer class="bg-navy py-12/, '<footer class="bg-navy py-16');
-};
-
-// Process Index, About, News
-['index.html', 'about.html', 'news.html'].forEach(file => {
-  if (fs.existsSync(file)) {
-    let html = fs.readFileSync(file, 'utf8');
-    html = fixNav(html);
+const getPremiumHero = (title, subtitle) => \`
+  <section class="relative py-28 bg-navy overflow-hidden">
+    <div class="hero-glow bg-emerald-500 -top-40 -left-20"></div>
+    <div class="hero-glow bg-indigo-600 -bottom-40 -right-20"></div>
+    <div class="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:24px_24px]"></div>
     
-    // Inject News Section on Homepage
-    if (file === 'index.html' && !html.includes('id="latest-news"')) {
-        html = html.replace(/<section id="newsletter"/, homepageNewsHtml + '\n\n<section id="newsletter"');
-    }
-
-    html = fixNewsletter(html);
-    html = fixFooter(html);
-    
-    // Add Mobile Bar
-    const mobileBar = getMobileNav(file);
-    if (!html.includes('<!-- Mobile Bottom Navigation -->')) {
-        html = html.replace(/<\/body>/, mobileBar + '\n\n<script src="nav.js" defer></script>\n</body>');
-    }
-
-    if(file === 'about.html') {
-      html = html.replace('<a href="about.html" class="text-navy hover:text-vibrantBlue font-semibold text-sm transition-colors cursor-pointer">About</a>', '<a href="about.html" class="text-vibrantBlue font-semibold text-sm transition-colors cursor-pointer">About</a>');
-    }
-    if(file === 'news.html') {
-      html = html.replace('<a href="news.html" class="text-navy hover:text-vibrantBlue font-semibold text-sm transition-colors cursor-pointer">News</a>', '<a href="news.html" class="text-vibrantBlue">News</a>');
-    }
-    fs.writeFileSync(file, html);
-  }
-});
-
-// Articles Page (Unified Logic)
-const articlesHtml = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Articles | Vision Education</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Outfit', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'], },
-          colors: { navy: '#05080f', vibrantBlue: '#6366f1', lightGray: '#f8fafc', darkGray: '#94a3b8', emerald: '#10b981', },
-        }
-      }
-    }
-  </script>
-</head>
-<body class="bg-gray-50 font-sans text-navy antialiased pb-24 md:pb-0">
-  
-  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-20">
-        <a href="index.html" class="flex items-center gap-3">
-          <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-indigo-500 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg">V</div>
-          <span class="font-bold text-xl tracking-tight text-navy">Vision Education</span>
-        </a>
-        <div class="flex items-center gap-4 md:gap-8">
-          <nav class="hidden md:flex space-x-8 items-center">
-            <a href="index.html" class="text-navy hover:text-vibrantBlue font-semibold text-sm transition-colors cursor-pointer">Platform</a>
-            <a href="about.html" class="text-navy hover:text-vibrantBlue font-semibold text-sm transition-colors cursor-pointer">About</a>
-            <a href="articles.html" class="text-vibrantBlue font-semibold text-sm transition-colors cursor-pointer">Articles</a>
-            <a href="news.html" class="text-navy hover:text-vibrantBlue font-semibold text-sm transition-colors cursor-pointer">News</a>
-          </nav>
-          <a href="https://visionedu.online" target="_blank" rel="noopener noreferrer" class="px-4 py-2 md:px-5 md:py-2.5 bg-gradient-to-r from-emerald-500 to-indigo-500 text-white text-xs md:text-sm font-bold rounded-lg hover:shadow-lg hover:-translate-y-0.5 transition-all flex items-center gap-2">
-            Visit VisionEdu
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
-          </a>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-emerald-400 font-black text-[10px] uppercase tracking-[0.2em] mb-8">
+          Vision Educational Archive
         </div>
+        <h1 class="text-5xl md:text-7xl font-black text-white mb-8 tracking-tighter leading-[0.9]">
+          \${title}
+        </h1>
+        <p class="text-xl text-gray-400 font-medium leading-relaxed max-w-2xl">
+          \${subtitle}
+        </p>
       </div>
     </div>
-  </header>
+  </section>\`;
 
-  <section class="py-20 bg-white text-center border-b border-gray-100">
-    <div class="max-w-3xl mx-auto px-4">
-      <h1 class="text-4xl md:text-5xl font-extrabold text-navy tracking-tight mb-4">Latest <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-emerald-500">Insights</span></h1>
-      <p class="text-lg text-gray-500 leading-relaxed">
-        Explore research, syllabus breakdowns, and EdTech innovations shaping the future of Ghanaian education.
-      </p>
-    </div>
-  </section>
-
-  <section class="py-12 bg-gray-50 min-h-[600px]">
+const articlesGridSection = \`
+  <section class="py-24 bg-slate-50 relative grid-pattern">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Desktop Filters -->
+      <div class="hidden md:flex items-center justify-between mb-16 px-8 py-4 bg-white rounded-3xl border border-gray-100 shadow-sm">
+        <div class="flex items-center gap-8">
+          <button onclick="filterArticles('all')" id="tab-all" class="text-sm font-black uppercase tracking-widest text-emerald-500">All Insights</button>
+          <button onclick="filterArticles('student')" id="tab-student" class="text-sm font-black uppercase tracking-widest text-gray-400 hover:text-navy transition-colors">Students</button>
+          <button onclick="filterArticles('parent')" id="tab-parent" class="text-sm font-black uppercase tracking-widest text-gray-400 hover:text-navy transition-colors">Parents</button>
+        </div>
+        <div class="text-gray-400 font-mono text-xs">ARCHIVE_V2.0</div>
+      </div>
+
       <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <article data-category="student" onclick="location.href='core-math-2026.html'" class="article-card bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
-          <div class="h-48 bg-gradient-to-br from-indigo-500/20 to-emerald-500/20 relative flex items-center justify-center overflow-hidden">
-            <span class="relative z-10 font-bold text-indigo-700 text-xl tracking-widest uppercase opacity-30">EDUCATION</span>
+        <article data-category="student" onclick="location.href='core-math-2026.html'" class="article-card group bg-white rounded-[2.5rem] border border-gray-100 p-8 hover:shadow-2xl transition-all duration-500 flex flex-col cursor-pointer hover:-translate-y-2 border-b-4 hover:border-b-emerald-500">
+          <div class="flex items-center gap-3 mb-8">
+            <span class="px-4 py-1.5 bg-indigo-50 text-indigo-600 text-[10px] font-black uppercase tracking-widest rounded-full">Mathematics</span>
+            <span class="text-gray-400 text-[10px] font-black uppercase tracking-widest">5 MIN READ</span>
           </div>
-          <div class="p-8 flex flex-col flex-1">
-             <h3 class="text-xl font-bold text-navy mb-3 leading-snug">Decoding the 2026 Core Math Syllabus Changes</h3>
-             <p class="text-gray-500 text-sm leading-relaxed mb-6">An in-depth look at what the Chief Examiner expects from students.</p>
-          </div>
-        </article>
-        <article data-category="student" onclick="location.href='ai-test-prep.html'" class="article-card bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
-          <div class="h-48 bg-gray-900 relative flex items-center justify-center overflow-hidden">
-            <span class="relative z-10 font-bold text-emerald-500 text-2xl tracking-widest uppercase opacity-70">TECH</span>
-          </div>
-          <div class="p-8 flex flex-col flex-1">
-             <h3 class="text-xl font-bold text-navy mb-3 leading-snug">How AI is Flipping the Script on Test Prep</h3>
-             <p class="text-gray-500 text-sm leading-relaxed mb-6">Exploring how LLMs can act as personal tutors for WASSCE.</p>
+          <h3 class="text-2xl font-black text-navy mb-4 leading-tight group-hover:text-emerald-500 transition-colors">Decoding the 2026 Core Math Syllabus</h3>
+          <p class="text-gray-500 text-sm font-medium leading-relaxed mb-8 flex-1">An in-depth look at what the Chief Examiner expects from students in the next cycle.</p>
+          <div class="flex items-center justify-between pt-6 border-t border-gray-50 group/link">
+            <span class="text-navy font-bold text-sm">Read Insight</span>
+            <div class="w-10 h-10 rounded-full bg-navy text-white flex items-center justify-center group-hover/link:bg-emerald-500 group-hover/link:translate-x-1 transition-all">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </div>
           </div>
         </article>
-        <article data-category="parent" onclick="location.href='parent-guide.html'" class="article-card bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
-          <div class="h-48 bg-gradient-to-br from-orange-500/10 to-pink-500/10 relative flex items-center justify-center overflow-hidden">
-            <span class="relative z-10 font-bold text-orange-500 text-xl tracking-widest uppercase opacity-40">GUIDANCE</span>
+
+        <article data-category="student" onclick="location.href='ai-test-prep.html'" class="article-card group bg-white rounded-[2.5rem] border border-gray-100 p-8 hover:shadow-2xl transition-all duration-500 flex flex-col cursor-pointer hover:-translate-y-2 border-b-4 hover:border-b-indigo-500">
+          <div class="flex items-center gap-3 mb-8">
+            <span class="px-4 py-1.5 bg-emerald-50 text-emerald-600 text-[10px] font-black uppercase tracking-widest rounded-full">Technology</span>
+            <span class="text-gray-400 text-[10px] font-black uppercase tracking-widest">4 MIN READ</span>
           </div>
-          <div class="p-8 flex flex-col flex-1">
-             <h3 class="text-xl font-bold text-navy mb-3 leading-snug">A Parent's Guide to WASSCE Accountability</h3>
-             <p class="text-gray-500 text-sm leading-relaxed mb-6">How parents can use digital tools to monitor progress.</p>
+          <h3 class="text-2xl font-black text-navy mb-4 leading-tight group-hover:text-indigo-500 transition-colors">How AI is Flipping the Script on Test Prep</h3>
+          <p class="text-gray-500 text-sm font-medium leading-relaxed mb-8 flex-1">Exploring how LLMs can act as personal tutors for Ghanaian students preparing for WASSCE.</p>
+          <div class="flex items-center justify-between pt-6 border-t border-gray-50 group/link">
+            <span class="text-navy font-bold text-sm">Read Insight</span>
+            <div class="w-10 h-10 rounded-full bg-navy text-white flex items-center justify-center group-hover/link:bg-indigo-500 group-hover/link:translate-x-1 transition-all">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </div>
+          </div>
+        </article>
+
+        <article data-category="parent" onclick="location.href='parent-guide.html'" class="article-card group bg-white rounded-[2.5rem] border border-gray-100 p-8 hover:shadow-2xl transition-all duration-500 flex flex-col cursor-pointer hover:-translate-y-2 border-b-4 hover:border-b-orange-500">
+          <div class="flex items-center gap-3 mb-8">
+            <span class="px-4 py-1.5 bg-orange-50 text-orange-600 text-[10px] font-black uppercase tracking-widest rounded-full">Guidance</span>
+            <span class="text-gray-400 text-[10px] font-black uppercase tracking-widest">6 MIN READ</span>
+          </div>
+          <h3 class="text-2xl font-black text-navy mb-4 leading-tight group-hover:text-orange-500 transition-colors">A Parent's Guide to WASSCE Accountability</h3>
+          <p class="text-gray-500 text-sm font-medium leading-relaxed mb-8 flex-1">How parents can use digital tools to monitor progress without micromanaging.</p>
+          <div class="flex items-center justify-between pt-6 border-t border-gray-50 group/link">
+            <span class="text-navy font-bold text-sm">Read Insight</span>
+            <div class="w-10 h-10 rounded-full bg-navy text-white flex items-center justify-center group-hover/link:bg-orange-500 group-hover/link:translate-x-1 transition-all">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </div>
           </div>
         </article>
       </div>
     </div>
-  </section>
+  </section>\`;
 
-  ${getMobileNav('articles.html')}
-
-  <!-- Desktop Switcher -->
-  <div class="hidden md:block bg-gray-50 pb-20">
-    <div class="max-w-7xl mx-auto px-8">
-      <div class="flex items-center justify-center gap-6 py-10 border-t border-gray-200">
-        <div class="flex p-1.5 bg-white rounded-2xl shadow-sm border border-gray-100">
-          <button onclick="filterArticles('all')" id="tab-all" class="px-8 py-3 rounded-xl text-sm font-bold transition-all bg-navy text-white shadow-lg shadow-navy/20">All Insights</button>
-          <button onclick="filterArticles('student')" id="tab-student" class="px-8 py-3 rounded-xl text-sm font-bold transition-all text-gray-400 hover:text-navy">Student Hub</button>
-          <button onclick="filterArticles('parent')" id="tab-parent" class="px-8 py-3 rounded-xl text-sm font-bold transition-all text-gray-400 hover:text-navy">Parent Hub</button>
+const footerHtml = \`
+  <footer class="bg-navy py-20 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-16">
+        <div class="col-span-1 lg:col-span-2">
+            <a href="index.html" class="flex items-center gap-3 mb-8">
+              <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-indigo-500 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-lg ring-4 ring-white/10">V</div>
+              <span class="font-black text-2xl tracking-tighter text-white">Vision Education</span>
+            </a>
+            <p class="text-gray-400 font-medium leading-relaxed mb-8 max-w-sm">Democratizing world-class WASSCE preparation for every student in Ghana through the power of AI.</p>
+        </div>
+        <div>
+            <h4 class="text-white font-black text-xs uppercase tracking-[0.2em] mb-8">Resources</h4>
+            <nav class="flex flex-col gap-4">
+                <a href="index.html" class="text-gray-400 hover:text-emerald-500 font-bold transition-colors">Platform</a>
+                <a href="articles.html" class="text-gray-400 hover:text-emerald-500 font-bold transition-colors">Archive</a>
+                <a href="news.html" class="text-gray-400 hover:text-emerald-500 font-bold transition-colors">News</a>
+            </nav>
+        </div>
+        <div>
+            <h4 class="text-white font-black text-xs uppercase tracking-[0.2em] mb-8">Company</h4>
+            <nav class="flex flex-col gap-4">
+                <a href="about.html" class="text-gray-400 hover:text-emerald-500 font-bold transition-colors">Our Story</a>
+                <a href="mailto:mensuohyaw@gmail.com" class="text-gray-400 hover:text-emerald-500 font-bold transition-colors">Contact</a>
+            </nav>
+        </div>
+      </div>
+      <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-sm text-gray-500 font-bold">&copy; 2026 Yaw Ndaase Mensuoh. Built with passion in Ghana.</p>
+        <div class="flex gap-6">
+            <a href="#" class="text-gray-500 hover:text-white transition-colors"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg></a>
+            <a href="#" class="text-gray-500 hover:text-white transition-colors"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-3.204 0 3.584.012 3.584.07 4.849.149 3.225 1.664 4.771 4.919 4.919 1.266.058 1.644.07 4.85.07 3.204 0 3.584-.012 4.849-.07 3.26-.149 4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.012-3.584.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/></svg></a>
         </div>
       </div>
     </div>
-  </div>
+  </footer>\`;
 
-  ${newsletterHtml}
+// Master Processing Function
+function processPage(file) {
+  if (!fs.existsSync(file)) return;
+  
+  let html = fs.readFileSync(file, 'utf8');
+  const basename = path.basename(file);
+  const isIndividualArticle = !['index.html', 'about.html', 'news.html', 'articles.html'].includes(basename);
+  
+  // Inject Global Styles
+  if (!html.includes('bg-mesh')) {
+    html = html.replace('</head>', \`\${globalHeadTags}</head>\`);
+  }
 
-  <footer class="bg-navy py-12 border-t border-white/10">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-      <div class="flex justify-center mb-4">
-        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-emerald-500 flex items-center justify-center text-white font-bold">V</div>
-      </div>
-      <nav class="flex justify-center gap-8 mb-8 text-xs font-bold uppercase tracking-widest text-gray-500">
-          <a href="index.html" class="hover:text-white transition-colors">Platform</a>
-          <a href="about.html" class="hover:text-white transition-colors">About</a>
-          <a href="articles.html" class="text-white">Articles</a>
-          <a href="news.html" class="hover:text-white transition-colors">News</a>
-      </nav>
-      <p class="text-sm text-gray-400">&copy; 2026 Yaw Ndaase Mensuoh. Built for the students of Ghana.</p>
-    </div>
-  </footer>
+  // Unified Header Injection
+  const headerContent = getHeader(basename);
+  const headerRegex = /<header[\s\S]*?<\/header>/;
+  if (headerRegex.test(html)) {
+    html = html.replace(headerRegex, headerContent);
+  } else {
+    html = html.replace('<body>', \`<body>\${headerContent}\`);
+  }
 
-  <script src="nav.js" defer></script>
-  <script>
-    function filterArticles(category) {
-      const cards = document.querySelectorAll('.article-card');
-      const desktopTabs = { all: document.getElementById('tab-all'), student: document.getElementById('tab-student'), parent: document.getElementById('tab-parent') };
-      const mobileTabs = { all: document.getElementById('m-tab-all'), student: document.getElementById('m-tab-student'), parent: document.getElementById('m-tab-parent') };
+  // Unified Mobile Nav
+  const mobileNav = getMobileNav(basename);
+  if (!html.includes('<!-- Mobile Bottom Navigation -->')) {
+    html = html.replace('</body>', \`\${mobileNav}</body>\`);
+  } else {
+    html = html.replace(/<!-- Mobile Bottom Navigation -->[\s\S]*?<\/div>\s*<\/div>/, mobileNav);
+  }
+
+  // Specific Hero Handling
+  if (basename === 'articles.html') {
+      const hero = getPremiumHero("Latest Insights", "Explore research, syllabus breakdowns, and EdTech innovations shaping the future of Ghanaian education.");
+      html = html.replace(/<section class="py-20[\s\S]*?<\/section>/, hero);
       
-      [desktopTabs, mobileTabs].forEach(tabs => {
-          Object.keys(tabs).forEach(key => {
-            if(!tabs[key]) return;
-            tabs[key].classList.remove('bg-navy', 'text-white', 'shadow-lg', 'shadow-navy/20', 'bg-emerald-500', 'text-navy');
-            tabs[key].classList.add(tabs === mobileTabs ? 'text-white/60' : 'text-gray-400');
-          });
-          if(tabs[category]) {
-            tabs[category].classList.remove('text-white/60', 'text-gray-400');
-            if(tabs === mobileTabs) {
-                 tabs[category].classList.add('bg-emerald-500', 'text-navy');
-            } else {
-                 tabs[category].classList.add('bg-navy', 'text-white', 'shadow-lg', 'shadow-navy/20');
-            }
-          }
-      });
-      cards.forEach(card => {
-        card.style.display = (category === 'all' || card.getAttribute('data-category') === category) ? 'flex' : 'none';
-      });
-    }
-  </script>
-</body>
-</html>`;
+      // Update Grid Section for consistency
+      html = html.replace(/<section class="py-12[\s\S]*?<\/section>/, articlesGridSection);
+  }
 
-fs.writeFileSync('articles.html', articlesHtml);
-console.log('Mobile navigation unified across all pages and Homepage news integrated!');
+  // Newsletter & Footer
+  if (!html.includes('id="newsletter"')) {
+    html = html.replace('</footer>', \`\${newsletterHtml}</footer>\`);
+  } else {
+    html = html.replace(/<section id="newsletter"[\s\S]*?<\/section>/, newsletterHtml);
+  }
+
+  const footerRegex = /<footer[\s\S]*?<\/footer>/;
+  if (footerRegex.test(html)) {
+    html = html.replace(footerRegex, footerHtml);
+  }
+
+  fs.writeFileSync(file, html);
+  console.log(\`Processed \${file}\`);
+}
+
+// Execute on all core and article files
+const filesToProcess = [
+  'index.html', 'about.html', 'news.html', 'articles.html',
+  'core-math-2026.html', 'ai-test-prep.html', 'cs-integration.html', 'parent-guide.html'
+];
+
+filesToProcess.forEach(processPage);
+console.log('Site-wide theme overhaul and header fixes complete!');
