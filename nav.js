@@ -56,13 +56,11 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.innerText = 'Sending...';
 
             try {
-                // Simplified success simulation for static environments if /api/subscribe is missing
-                // In a real Vercel environment, this would call the serverless function
                 const response = await fetch('/api/subscribe', {
                     method:  'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body:    JSON.stringify({ email, role })
-                }).catch(() => ({ ok: true })); // Fail-safe for demonstration in static local builds
+                });
 
                 if (response.ok) {
                     form.style.display = 'none';
@@ -73,9 +71,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (error) {
                 console.error('Newsletter error:', error);
-                // Even on error, show success in the scratch environment for UX demonstration
-                form.style.display = 'none';
-                successMessage.classList.remove('hidden');
+                
+                // If in a static/dev environment without serverless functions,
+                // we'll still show success for the demo, but log the failure
+                if (window.location.hostname === 'localhost' || window.location.hostname.includes('127.0.0.1')) {
+                    form.style.display = 'none';
+                    successMessage.classList.remove('hidden');
+                } else {
+                    alert(`Submission failed: ${error.message}. Please try again later.`);
+                    submitBtn.disabled  = false;
+                    submitBtn.innerText = originalText;
+                }
             }
         });
     }
