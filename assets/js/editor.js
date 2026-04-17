@@ -186,14 +186,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Neural Polish (Simulated)
+    // AI Polish (Simulated)
     aiPolishBtn.addEventListener('click', () => {
         const originalText = aiPolishBtn.innerHTML;
         aiPolishBtn.innerHTML = '<span class="pulse-dot"></span> Analyzing...';
         aiPolishBtn.disabled = true;
 
         setTimeout(() => {
-            alert('Nvidia Nemotron-3 Super: "Your draft is structurally sound. I recommend adding more specific exam-focused examples to the third paragraph."');
+            alert('Vision AI: "Your draft is structurally sound. I recommend adding more specific exam-focused examples to the third paragraph."');
             aiPolishBtn.innerHTML = originalText;
             aiPolishBtn.disabled = false;
         }, 1500);
