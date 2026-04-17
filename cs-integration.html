@@ -55,55 +55,60 @@
       .bg-navy { border: 1px solid #ccc !important; }
     }
   </style>
+
+  <style>
+    :root { --navy: #05080f; --emerald: #10b981; --indigo: #6366f1; }
+    .bg-mesh { background-image: radial-gradient(at 0% 0%, rgba(16,185,129,0.05) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(99,102,241,0.05) 0px, transparent 50%); }
+    .grid-pattern { background-image: radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px); background-size: 32px 32px; }
+    .hero-glow { position: absolute; width: 400px; height: 400px; filter: blur(120px); opacity: 0.15; pointer-events: none; }
+  </style>
 </head>
 <body class="bg-gray-50 font-sans text-navy antialiased safe-bottom">
   
   <!-- Header -->
-  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-gray-100 transition-all duration-300">
+  
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-100 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-20">
-        <a href="/" class="flex items-center gap-3 group">
-          <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-110 transition-transform">V</div>
-          <span class="font-bold text-xl tracking-tight text-navy group-hover:text-vibrantBlue transition-colors">Vision Education</span>
+        <a href="index.html" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-indigo-500 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-lg group-hover:scale-110 transition-transform ring-4 ring-white">V</div>
+          <span class="font-black text-xl tracking-tighter text-navy group-hover:text-emerald-500 transition-colors">Vision Education</span>
         </a>
-        <nav class="hidden md:flex items-center gap-8">
-          <a href="https://visionedu.online" target="_blank" class="text-sm font-semibold text-gray-600 hover:text-navy transition-colors">Platform</a>
-          <a href="about" class="text-sm font-semibold text-gray-600 hover:text-navy transition-colors">About</a>
-          <a href="articles" class="text-sm font-semibold text-vibrantBlue">Articles</a>
-          <a href="https://visionedu.online" target="_blank" class="px-5 py-2.5 bg-navy text-white text-sm font-bold rounded-xl hover:bg-blue-600 transition-all shadow-md active:scale-95">Get Started</a>
-        </nav>
-        <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
-          <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-          <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-        </button>
-      </div>
-    </div>
-    <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-100 py-4 px-4 space-y-2">
-      <a href="https://visionedu.online" target="_blank" class="block py-3 px-4 text-gray-600 font-semibold hover:bg-gray-50 rounded-xl">Platform</a>
-      <a href="about" class="block py-3 px-4 text-gray-600 font-semibold hover:bg-gray-50 rounded-xl">About</a>
-      <a href="articles" class="block py-3 px-4 text-vibrantBlue font-bold bg-gray-50 rounded-xl">Articles</a>
-      <div class="pt-4">
-        <a href="https://visionedu.online" class="block w-full py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-center font-bold rounded-xl">Visit VisionEdu</a>
+        <div class="flex items-center gap-8">
+          <nav class="hidden md:flex space-x-8 items-center">
+            <a href="index.html" class="text-navy hover:text-emerald-500 font-bold text-sm transition-all ${page === 'index.html' ? 'text-emerald-500' : ''}">Platform</a>
+            <a href="about.html" class="text-navy hover:text-emerald-500 font-bold text-sm transition-all ${page === 'about.html' ? 'text-emerald-500' : ''}">About</a>
+            <a href="articles.html" class="text-navy hover:text-emerald-500 font-bold text-sm transition-all ${page === 'articles.html' || (page.includes('.html') && page !== 'index.html' && page !== 'news.html' && page !== 'about.html') ? 'text-emerald-500' : ''}">Articles</a>
+            <a href="news.html" class="text-navy hover:text-emerald-500 font-bold text-sm transition-all ${page === 'news.html' ? 'text-emerald-500' : ''}">News</a>
+          </nav>
+          <a href="https://visionedu.online" target="_blank" rel="noopener noreferrer" class="hidden sm:flex px-6 py-2.5 bg-navy text-white text-sm font-black rounded-xl hover:bg-emerald-500 hover:shadow-xl hover:shadow-emerald-500/20 transition-all active:scale-95 items-center gap-2">
+            Get Started
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+          </a>
+        </div>
       </div>
     </div>
   </header>
 
+  
   <!-- Mobile Bottom Navigation -->
-  <div class="md:hidden fixed bottom-0 left-0 right-0 z-[60] bg-white/80 backdrop-blur-xl border-t border-gray-100 pb-[env(safe-area-inset-bottom)]">
-    <div class="flex justify-around items-center h-16">
-      <a href="/" class="flex flex-col items-center gap-1 text-gray-400" aria-label="Home">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
-        <span class="text-[10px] font-bold uppercase tracking-widest">Home</span>
-      </a>
-      <a href="about" class="flex flex-col items-center gap-1 text-gray-400" aria-label="About">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-        <span class="text-[10px] font-bold uppercase tracking-widest">About</span>
-      </a>
-      <a href="articles" class="flex flex-col items-center gap-1 text-vibrantBlue" aria-label="Articles">
-        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2z"></path><path d="M14 4v4h4"></path><path d="M7 8h1"></path><path d="M7 12h6"></path><path d="M7 16h8"></path></svg>
-        <span class="text-[10px] font-bold uppercase tracking-widest">Articles</span>
-      </a>
-    </div>
+  <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden w-[90%] max-w-sm">
+      <div class="bg-navy/90 backdrop-blur-xl rounded-[2rem] border border-white/10 p-2 shadow-2xl flex items-center justify-between gap-1">
+          ${isArticles ? `
+          <button onclick="filterArticles('all')" id="m-tab-all" class="flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all bg-emerald-500 text-navy whitespace-nowrap">All Items</button>
+          <button onclick="filterArticles('student')" id="m-tab-student" class="flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all text-white/60 whitespace-nowrap">Students</button>
+          <button onclick="filterArticles('parent')" id="m-tab-parent" class="flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all text-white/60 whitespace-nowrap">Parents</button>
+          <div class="w-[1px] h-6 bg-white/10 mx-1"></div>
+          ` : `
+          <a href="index.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ${page === 'index.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">Home</a>
+          <a href="about.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ${page === 'about.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">About</a>
+          <a href="articles.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ${page === 'articles.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">Articles</a>
+          <a href="news.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ${page === 'news.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">News</a>
+          `}
+          <a href="${page === 'index.html' ? '#top' : 'index.html'}" class="p-3 text-white/40 hover:text-white transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </a>
+      </div>
   </div>
 
   <!-- Article Hero -->
@@ -221,20 +226,32 @@
   </div>
 
   <!-- Footer -->
-  <footer class="bg-navy py-16 border-t border-white/10">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-      <div class="flex items-center justify-center gap-3 mb-10">
-        <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-lg">V</div>
-        <span class="font-bold text-2xl text-white tracking-tight">Vision Education</span>
-      </div>
-      <nav class="flex flex-wrap justify-center gap-x-12 gap-y-6 mb-12">
-        <a href="https://visionedu.online" target="_blank" class="text-gray-400 hover:text-white font-semibold transition-colors">Platform</a>
-        <a href="about" class="text-gray-400 hover:text-white font-semibold transition-colors">About</a>
-        <a href="articles" class="text-white font-semibold transition-colors">Articles</a>
-        <a href="mailto:mensuohyaw@gmail.com" class="text-gray-400 hover:text-white font-semibold transition-colors">Contact</a>
-      </nav>
-      <div class="pt-12 border-t border-white/5">
-        <p class="text-gray-500 font-medium">&copy; 2026 Yaw Ndaase Mensuoh. All Rights Reserved.</p>
+  
+  <footer class="bg-navy py-20 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-16">
+        <div class="col-span-1 lg:col-span-2">
+            <a href="index.html" class="flex items-center gap-3 mb-8">
+              <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-indigo-500 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-lg ring-4 ring-white/10">V</div>
+              <span class="font-black text-2xl tracking-tighter text-white">Vision Education</span>
+            </a>
+            <p class="text-gray-400 font-medium leading-relaxed mb-8 max-w-sm">Democratizing world-class WASSCE preparation for every student in Ghana through the power of AI.</p>
+        </div>
+        <div>
+            <h4 class="text-white font-black text-xs uppercase tracking-[0.2em] mb-8">Resources</h4>
+            <nav class="flex flex-col gap-4">
+                <a href="index.html" class="text-gray-400 hover:text-emerald-500 font-bold transition-colors">Platform</a>
+                <a href="articles.html" class="text-gray-400 hover:text-emerald-500 font-bold transition-colors">Archive</a>
+                <a href="news.html" class="text-gray-400 hover:text-emerald-500 font-bold transition-colors">News</a>
+            </nav>
+        </div>
+        <div>
+            <h4 class="text-white font-black text-xs uppercase tracking-[0.2em] mb-8">Company</h4>
+            <nav class="flex flex-col gap-4">
+                <a href="about.html" class="text-gray-400 hover:text-emerald-500 font-bold transition-colors">Our Story</a>
+                <a href="mailto:mensuohyaw@gmail.com" class="text-gray-400 hover:text-emerald-500 font-bold transition-colors">Contact</a>
+            </nav>
+        </div>
       </div>
     </div>
   </footer>

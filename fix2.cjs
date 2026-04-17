@@ -63,10 +63,10 @@ const getHeader = (page) => {
         </a>
         <div class="flex items-center gap-8">
           <nav class="hidden md:flex space-x-8 items-center">
-            <a href="index.html" class="text-navy hover:text-emerald-500 font-bold text-sm transition-all ${page === 'index.html' ? 'text-emerald-500' : ''}">Platform</a>
-            <a href="about.html" class="text-navy hover:text-emerald-500 font-bold text-sm transition-all ${page === 'about.html' ? 'text-emerald-500' : ''}">About</a>
-            <a href="articles.html" class="text-navy hover:text-emerald-500 font-bold text-sm transition-all ${page === 'articles.html' || (page.includes('.html') && page !== 'index.html' && page !== 'news.html' && page !== 'about.html') ? 'text-emerald-500' : ''}">Articles</a>
-            <a href="news.html" class="text-navy hover:text-emerald-500 font-bold text-sm transition-all ${page === 'news.html' ? 'text-emerald-500' : ''}">News</a>
+            <a href="index.html" class="text-navy hover:text-emerald-500 font-bold text-sm transition-all \${page === 'index.html' ? 'text-emerald-500' : ''}">Platform</a>
+            <a href="about.html" class="text-navy hover:text-emerald-500 font-bold text-sm transition-all \${page === 'about.html' ? 'text-emerald-500' : ''}">About</a>
+            <a href="articles.html" class="text-navy hover:text-emerald-500 font-bold text-sm transition-all \${page === 'articles.html' || (page.includes('.html') && page !== 'index.html' && page !== 'news.html' && page !== 'about.html') ? 'text-emerald-500' : ''}">Articles</a>
+            <a href="news.html" class="text-navy hover:text-emerald-500 font-bold text-sm transition-all \${page === 'news.html' ? 'text-emerald-500' : ''}">News</a>
           </nav>
           <a href="https://visionedu.online" target="_blank" rel="noopener noreferrer" class="hidden sm:flex px-6 py-2.5 bg-navy text-white text-sm font-black rounded-xl hover:bg-emerald-500 hover:shadow-xl hover:shadow-emerald-500/20 transition-all active:scale-95 items-center gap-2">
             Get Started
@@ -84,18 +84,18 @@ const getMobileNav = (page) => {
   <!-- Mobile Bottom Navigation -->
   <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden w-[90%] max-w-sm">
       <div class="bg-navy/90 backdrop-blur-xl rounded-[2rem] border border-white/10 p-2 shadow-2xl flex items-center justify-between gap-1">
-          ${isArticles ? `
+          \${isArticles ? \`
           <button onclick="filterArticles('all')" id="m-tab-all" class="flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all bg-emerald-500 text-navy whitespace-nowrap">All Items</button>
           <button onclick="filterArticles('student')" id="m-tab-student" class="flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all text-white/60 whitespace-nowrap">Students</button>
           <button onclick="filterArticles('parent')" id="m-tab-parent" class="flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all text-white/60 whitespace-nowrap">Parents</button>
           <div class="w-[1px] h-6 bg-white/10 mx-1"></div>
-          ` : `
-          <a href="index.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ${page === 'index.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">Home</a>
-          <a href="about.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ${page === 'about.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">About</a>
-          <a href="articles.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px) font-black uppercase tracking-tighter transition-all ${page === 'articles.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">Articles</a>
-          <a href="news.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ${page === 'news.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">News</a>
-          `}
-          <a href="${page === 'index.html' ? '#top' : 'index.html'}" class="p-3 text-white/40 hover:text-white transition-colors">
+          \` : \`
+          <a href="index.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all \${page === 'index.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">Home</a>
+          <a href="about.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all \${page === 'about.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">About</a>
+          <a href="articles.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all \${page === 'articles.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">Articles</a>
+          <a href="news.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all \${page === 'news.html' ? 'bg-emerald-500 text-navy' : 'text-white/60'}">News</a>
+          \`}
+          <a href="\${page === 'index.html' ? '#top' : 'index.html'}" class="p-3 text-white/40 hover:text-white transition-colors">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
           </a>
       </div>
@@ -114,10 +114,10 @@ const getPremiumHero = (title, subtitle) => `
           Vision Educational Archive
         </div>
         <h1 class="text-5xl md:text-7xl font-black text-white mb-8 tracking-tighter leading-[0.9]">
-          ${title}
+          \${title}
         </h1>
         <p class="text-xl text-gray-400 font-medium leading-relaxed max-w-2xl">
-          ${subtitle}
+          \${subtitle}
         </p>
       </div>
     </div>
@@ -220,35 +220,35 @@ function processPage(file) {
   const basename = path.basename(file);
   
   if (!html.includes('bg-mesh')) {
-    html = html.replace('</head>', \`\${globalHeadTags}</head>\`);
+    html = html.replace('</head>', globalHeadTags + '</head>');
   }
 
   const headerContent = getHeader(basename);
-  html = html.replace(/<header[\\s\\S]*?<\\/header>/, headerContent);
+  html = html.replace(/<header[\s\S]*?<\/header>/, headerContent);
 
   const mobileNav = getMobileNav(basename);
   if (!html.includes('<!-- Mobile Bottom Navigation -->')) {
-    html = html.replace('</body>', \`\${mobileNav}</body>\`);
+    html = html.replace('</body>', mobileNav + '</body>');
   } else {
-    html = html.replace(/<!-- Mobile Bottom Navigation -->[\\s\\S]*?<\\/div>\\s*<\\/div>/, mobileNav);
+    html = html.replace(/<!-- Mobile Bottom Navigation -->[\s\S]*?<\/div>\s*<\/div>/, mobileNav);
   }
 
   if (basename === 'articles.html') {
       const hero = getPremiumHero("Latest Insights", "Explore research, syllabus breakdowns, and EdTech innovations shaping the future of Ghanaian education.");
-      html = html.replace(/<section class="py-20[\\s\\S]*?<\\/section>/, hero);
-      html = html.replace(/<section class="py-12[\\s\\S]*?<\\/section>/, articlesGridSection);
+      html = html.replace(/<section class="py-20[\s\S]*?<\/section>/, hero);
+      html = html.replace(/<section class="py-12[\s\S]*?<\/section>/, articlesGridSection);
   }
 
   if (!html.includes('id="newsletter"')) {
-    html = html.replace('</footer>', \`\${newsletterHtml}</footer>\`);
+    html = html.replace('</footer>', newsletterHtml + '</footer>');
   } else {
-    html = html.replace(/<section id="newsletter"[\\s\\S]*?<\\/section>/, newsletterHtml);
+    html = html.replace(/<section id="newsletter"[\s\S]*?<\/section>/, newsletterHtml);
   }
 
-  html = html.replace(/<footer[\\s\\S]*?<\\/footer>/, footerHtml);
+  html = html.replace(/<footer[\s\S]*?<\/footer>/, footerHtml);
 
   fs.writeFileSync(file, html);
-  console.log(\`Processed \${file}\`);
+  console.log('Processed ' + file);
 }
 
 const filesToProcess = [
