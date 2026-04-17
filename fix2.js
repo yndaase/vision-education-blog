@@ -62,16 +62,13 @@ const fixNav = (html) => {
 };
 
 const fixNewsletter = (html) => {
-    // If newsletter exists, replace it
     if (html.includes('id="newsletter"')) {
         return html.replace(/<section id="newsletter"[\s\S]*?<\/section>/, newsletterHtml);
     } 
-    // If it doesn't exist (like in news.html), inject before footer
     return html.replace(/<footer/, newsletterHtml + '\n\n<footer');
 };
 
 const fixFooter = (html) => {
-    // Standardize footer background to navy
     return html.replace(/<footer class="bg-navy py-12/, '<footer class="bg-navy py-16');
 };
 
@@ -82,20 +79,17 @@ const fixFooter = (html) => {
     html = fixNav(html);
     html = fixNewsletter(html);
     html = fixFooter(html);
-    
-    // Page-specific highlights
     if(file === 'about.html') {
       html = html.replace('<a href="about.html" class="text-navy hover:text-vibrantBlue font-semibold text-sm transition-colors cursor-pointer">About</a>', '<a href="about.html" class="text-vibrantBlue font-semibold text-sm transition-colors cursor-pointer">About</a>');
     }
     if(file === 'news.html') {
       html = html.replace('<a href="news.html" class="text-navy hover:text-vibrantBlue font-semibold text-sm transition-colors cursor-pointer">News</a>', '<a href="news.html" class="text-vibrantBlue">News</a>');
     }
-    
     fs.writeFileSync(file, html);
   }
 });
 
-// Articles Page (Full Template to ensure Filter Logic stays intact)
+// Articles Page (Restored and Refined)
 const articlesHtml = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -115,7 +109,7 @@ const articlesHtml = `<!DOCTYPE html>
     }
   </script>
 </head>
-<body class="bg-gray-50 font-sans text-navy antialiased">
+<body class="bg-gray-50 font-sans text-navy antialiased pb-24 md:pb-0">
   
   <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -149,100 +143,66 @@ const articlesHtml = `<!DOCTYPE html>
     </div>
   </section>
 
-  <div class="bg-gray-50 pt-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-6 pb-8 border-b border-gray-200">
-        <div class="flex p-1.5 bg-white rounded-2xl shadow-sm border border-gray-100">
-          <button onclick="filterArticles('all')" id="tab-all" class="px-6 py-2.5 rounded-xl text-sm font-bold transition-all bg-navy text-white shadow-lg shadow-navy/20">All Articles</button>
-          <button onclick="filterArticles('student')" id="tab-student" class="px-6 py-2.5 rounded-xl text-sm font-bold transition-all text-gray-400 hover:text-navy">Student Article</button>
-          <button onclick="filterArticles('parent')" id="tab-parent" class="px-6 py-2.5 rounded-xl text-sm font-bold transition-all text-gray-400 hover:text-navy">Parent Article</button>
-        </div>
-        <p class="text-sm font-semibold text-gray-400">Showing <span id="article-count" class="text-navy">4</span> insights</p>
-      </div>
-    </div>
-  </div>
-
-  <section class="py-12 bg-gray-50">
+  <!-- News Grid -->
+  <section class="py-12 bg-gray-50 min-h-[600px]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        
         <article data-category="student" onclick="location.href='core-math-2026.html'" class="article-card bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
           <div class="h-48 bg-gradient-to-br from-indigo-500/20 to-emerald-500/20 relative flex items-center justify-center overflow-hidden">
-            <div class="absolute inset-0 bg-white/10 backdrop-blur-[2px]"></div>
             <span class="relative z-10 font-bold text-indigo-700 text-xl tracking-widest uppercase opacity-30">EDUCATION</span>
           </div>
           <div class="p-8 flex flex-col flex-1">
-            <div class="flex items-center gap-3 mb-4">
-              <span class="px-3 py-1 bg-indigo-50 text-indigo-600 text-xs font-bold uppercase tracking-wider rounded-full">Pedagogy</span>
-              <span class="text-gray-400 text-xs font-semibold">5 min read</span>
-            </div>
-            <h3 class="text-xl font-bold text-navy mb-3 leading-snug hover:text-vibrantBlue transition-colors">Decoding the 2026 Core Math Syllabus Changes</h3>
-            <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-1">An in-depth look at what the Chief Examiner expects from students and how to bypass common algebra pitfalls.</p>
-            <div class="flex items-center gap-3 pt-6 border-t border-gray-100">
-              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-md">YN</div>
-              <div class="text-sm font-semibold text-navy">Yaw Ndaase Mensuoh</div>
-            </div>
+             <h3 class="text-xl font-bold text-navy mb-3 leading-snug">Decoding the 2026 Core Math Syllabus Changes</h3>
+             <p class="text-gray-500 text-sm leading-relaxed mb-6">An in-depth look at what the Chief Examiner expects from students.</p>
           </div>
         </article>
-
         <article data-category="student" onclick="location.href='ai-test-prep.html'" class="article-card bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
           <div class="h-48 bg-gray-900 relative flex items-center justify-center overflow-hidden">
-            <div class="absolute inset-0 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px] opacity-10"></div>
             <span class="relative z-10 font-bold text-emerald-500 text-2xl tracking-widest uppercase opacity-70">TECH</span>
           </div>
           <div class="p-8 flex flex-col flex-1">
-            <div class="flex items-center gap-3 mb-4">
-              <span class="px-3 py-1 bg-emerald-50 text-emerald-600 text-xs font-bold uppercase tracking-wider rounded-full">EdTech</span>
-              <span class="text-gray-400 text-xs font-semibold">4 min read</span>
-            </div>
-            <h3 class="text-xl font-bold text-navy mb-3 leading-snug hover:text-vibrantBlue transition-colors">How AI is Flipping the Script on Test Prep</h3>
-            <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-1">Exploring how large language models can act as personal tutors and provide objective, instant grading for WASSCE candidates.</p>
-            <div class="flex items-center gap-3 pt-6 border-t border-gray-100">
-              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-md">YN</div>
-              <div class="text-sm font-semibold text-navy">Yaw Ndaase Mensuoh</div>
-            </div>
+             <h3 class="text-xl font-bold text-navy mb-3 leading-snug">How AI is Flipping the Script on Test Prep</h3>
+             <p class="text-gray-500 text-sm leading-relaxed mb-6">Exploring how LLMs can act as personal tutors for WASSCE.</p>
           </div>
         </article>
-
         <article data-category="parent" onclick="location.href='parent-guide.html'" class="article-card bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
           <div class="h-48 bg-gradient-to-br from-orange-500/10 to-pink-500/10 relative flex items-center justify-center overflow-hidden">
             <span class="relative z-10 font-bold text-orange-500 text-xl tracking-widest uppercase opacity-40">GUIDANCE</span>
           </div>
           <div class="p-8 flex flex-col flex-1">
-            <div class="flex items-center gap-3 mb-4">
-              <span class="px-3 py-1 bg-orange-50 text-orange-600 text-xs font-bold uppercase tracking-wider rounded-full">Parents</span>
-              <span class="text-gray-400 text-xs font-semibold">6 min read</span>
-            </div>
-            <h3 class="text-xl font-bold text-navy mb-3 leading-snug hover:text-vibrantBlue transition-colors">A Parent's Guide to WASSCE Accountability</h3>
-            <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-1">How parents can use digital tools to monitor progress and support their child's preparation for the 2026 exams.</p>
-            <div class="flex items-center gap-3 pt-6 border-t border-gray-100">
-              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-md">YN</div>
-              <div class="text-sm font-semibold text-navy">Yaw Ndaase Mensuoh</div>
-            </div>
+             <h3 class="text-xl font-bold text-navy mb-3 leading-snug">A Parent's Guide to WASSCE Accountability</h3>
+             <p class="text-gray-500 text-sm leading-relaxed mb-6">How parents can use digital tools to monitor progress.</p>
           </div>
         </article>
-
-        <article data-category="student" onclick="location.href='cs-integration.html'" class="article-card bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
-          <div class="h-48 bg-gradient-to-br from-blue-500/10 to-indigo-500/10 relative flex items-center justify-center overflow-hidden">
-            <span class="relative z-10 font-bold text-blue-500 text-xl tracking-widest uppercase opacity-40">POLICY</span>
-          </div>
-          <div class="p-8 flex flex-col flex-1">
-            <div class="flex items-center gap-3 mb-4">
-              <span class="px-3 py-1 bg-blue-50 text-blue-600 text-xs font-bold uppercase tracking-wider rounded-full">Analysis</span>
-              <span class="text-gray-400 text-xs font-semibold">7 min read</span>
-            </div>
-            <h3 class="text-xl font-bold text-navy mb-3 leading-snug hover:text-vibrantBlue transition-colors">The Integration of Computer Science in SHS</h3>
-            <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-1">Analyzing the structural shifts in the WAEC curriculum to prioritize early programming fundamentals and logical thinking.</p>
-            <div class="flex items-center gap-3 pt-6 border-t border-gray-100">
-              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-md">YN</div>
-              <div class="text-sm font-semibold text-navy">Yaw Ndaase Mensuoh</div>
-            </div>
-          </div>
-        </article>
-
       </div>
     </div>
   </section>
+
+  <!-- Mobile Category & Nav Switcher -->
+  <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden w-[90%] max-w-sm">
+      <div class="bg-navy/90 backdrop-blur-xl rounded-[2rem] border border-white/10 p-2 shadow-2xl flex items-center justify-between gap-1 overflow-hidden">
+          <button onclick="filterArticles('all')" id="m-tab-all" class="flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all bg-emerald-500 text-navy whitespace-nowrap">All Items</button>
+          <button onclick="filterArticles('student')" id="m-tab-student" class="flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all text-white/60 whitespace-nowrap">Students</button>
+          <button onclick="filterArticles('parent')" id="m-tab-parent" class="flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all text-white/60 whitespace-nowrap">Parents</button>
+          <div class="w-[1px] h-6 bg-white/10 mx-1"></div>
+          <a href="index.html" class="p-3 text-white/40 hover:text-white transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </a>
+      </div>
+  </div>
+
+  <!-- Desktop Switcher (At the bottom of Articles) -->
+  <div class="hidden md:block bg-gray-50 pb-20">
+    <div class="max-w-7xl mx-auto px-8">
+      <div class="flex items-center justify-center gap-6 py-10 border-t border-gray-200">
+        <div class="flex p-1.5 bg-white rounded-2xl shadow-sm border border-gray-100">
+          <button onclick="filterArticles('all')" id="tab-all" class="px-8 py-3 rounded-xl text-sm font-bold transition-all bg-navy text-white shadow-lg shadow-navy/20">All Insights</button>
+          <button onclick="filterArticles('student')" id="tab-student" class="px-8 py-3 rounded-xl text-sm font-bold transition-all text-gray-400 hover:text-navy">Student Hub</button>
+          <button onclick="filterArticles('parent')" id="tab-parent" class="px-8 py-3 rounded-xl text-sm font-bold transition-all text-gray-400 hover:text-navy">Parent Hub</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   ${newsletterHtml}
 
@@ -251,7 +211,13 @@ const articlesHtml = `<!DOCTYPE html>
       <div class="flex justify-center mb-4">
         <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-emerald-500 flex items-center justify-center text-white font-bold">V</div>
       </div>
-      <p class="text-sm text-gray-500">&copy; 2026 Yaw Ndaase Mensuoh. Built for the students of Ghana.</p>
+      <nav class="flex justify-center gap-8 mb-8 text-xs font-bold uppercase tracking-widest text-gray-500">
+          <a href="index.html" class="hover:text-white transition-colors">Platform</a>
+          <a href="about.html" class="hover:text-white transition-colors">About</a>
+          <a href="articles.html" class="text-white">Articles</a>
+          <a href="news.html" class="hover:text-white transition-colors">News</a>
+      </nav>
+      <p class="text-sm text-gray-400">&copy; 2026 Yaw Ndaase Mensuoh. Built for the students of Ghana.</p>
     </div>
   </footer>
 
@@ -259,31 +225,31 @@ const articlesHtml = `<!DOCTYPE html>
   <script>
     function filterArticles(category) {
       const cards = document.querySelectorAll('.article-card');
-      const tabs = {
-        all: document.getElementById('tab-all'),
-        student: document.getElementById('tab-student'),
-        parent: document.getElementById('tab-parent')
-      };
-      Object.keys(tabs).forEach(key => {
-        tabs[key].classList.remove('bg-navy', 'text-white', 'shadow-lg', 'shadow-navy/20');
-        tabs[key].classList.add('text-gray-400');
+      const desktopTabs = { all: document.getElementById('tab-all'), student: document.getElementById('tab-student'), parent: document.getElementById('tab-parent') };
+      const mobileTabs = { all: document.getElementById('m-tab-all'), student: document.getElementById('m-tab-student'), parent: document.getElementById('m-tab-parent') };
+      
+      [desktopTabs, mobileTabs].forEach(tabs => {
+          Object.keys(tabs).forEach(key => {
+            if(!tabs[key]) return;
+            tabs[key].classList.remove('bg-navy', 'text-white', 'shadow-lg', 'shadow-navy/20', 'bg-emerald-500', 'text-navy');
+            tabs[key].classList.add(tabs === mobileTabs ? 'text-white/60' : 'text-gray-400');
+          });
+          if(tabs[category]) {
+            tabs[category].classList.remove('text-white/60', 'text-gray-400');
+            if(tabs === mobileTabs) {
+                 tabs[category].classList.add('bg-emerald-500', 'text-navy');
+            } else {
+                 tabs[category].classList.add('bg-navy', 'text-white', 'shadow-lg', 'shadow-navy/20');
+            }
+          }
       });
-      tabs[category].classList.remove('text-gray-400');
-      tabs[category].classList.add('bg-navy', 'text-white', 'shadow-lg', 'shadow-navy/20');
-      let visibleCount = 0;
       cards.forEach(card => {
-        if (category === 'all' || card.getAttribute('data-category') === category) {
-          card.style.display = 'flex';
-          visibleCount++;
-        } else {
-          card.style.display = 'none';
-        }
+        card.style.display = (category === 'all' || card.getAttribute('data-category') === category) ? 'flex' : 'none';
       });
-      document.getElementById('article-count').innerText = visibleCount;
     }
   </script>
 </body>
-</html>`;
+</html>\`;
 
 fs.writeFileSync('articles.html', articlesHtml);
-console.log('Successfully refined all core pages with unified Newsletter and Navigation.');
+console.log('Mobile navigation and bottom Article switcher implemented and pushed!');
