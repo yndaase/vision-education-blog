@@ -104,9 +104,6 @@ function processPage(file) {
 
   html = html.replace(/<footer[\s\S]*?<\/footer>/, footerHtml);
 
-  // Final cleanup of any potential leftover template tags
-  html = html.replace(/\$\{.*?\}/g, '');
-
   fs.writeFileSync(file, html);
   console.log('Processed ' + file);
 }

@@ -102,13 +102,13 @@
 
         function renderNews(news) {
             newsGrid.innerHTML = news.map((item, index) => `
-                <div onclick="window.open('', '_blank')" class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
+                <div onclick="window.open('${item.link}', '_blank')" class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer">
                     <div class="flex justify-between items-center mb-6">
-                        <span class="px-3 py-1 bg-indigo-50 text-indigo-600 text-[10px] font-bold uppercase tracking-wider rounded-full"></span>
-                        <span class="text-gray-400 text-xs font-semibold"> read</span>
+                        <span class="px-3 py-1 bg-indigo-50 text-indigo-600 text-[10px] font-bold uppercase tracking-wider rounded-full">${item.category}</span>
+                        <span class="text-gray-400 text-xs font-semibold">${item.readTime} read</span>
                     </div>
-                    <h3 class="text-xl font-bold text-navy mb-4 leading-snug hover:text-vibrantBlue transition-colors"></h3>
-                    <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-1"></p>
+                    <h3 class="text-xl font-bold text-navy mb-4 leading-snug hover:text-vibrantBlue transition-colors">${item.title}</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-1">${item.summary}</p>
                     <div class="pt-6 border-t border-gray-100 flex items-center justify-between">
                         <span class="text-[10px] font-mono text-gray-400 uppercase tracking-tighter text-blue-500">Read on Google News</span>
                         <div class="text-indigo-600">
