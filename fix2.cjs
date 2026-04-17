@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const newsletterHtml = '<section id="newsletter" class="py-24 bg-navy px-4"><div class="max-w-4xl mx-auto bg-[#0a0f1a] rounded-[3rem] p-12 text-center border border-white/10 shadow-2xl relative overflow-hidden"><div class="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-indigo-500/10"></div><div class="relative z-10"><h2 class="text-3xl md:text-4xl font-black text-white mb-6">Stay Ahead of the Curve</h2><p class="text-gray-400 mb-10">Join 2,000+ students receiving weekly WASSCE tips.</p><form id="newsletter-form" class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto"><input type="email" placeholder="Email address" required class="flex-1 px-6 py-4 rounded-2xl bg-white/5 border border-white/10 text-white focus:border-emerald-500 outline-none transition-all"><button type="submit" class="px-10 py-4 bg-emerald-500 text-navy font-black rounded-2xl hover:bg-emerald-400 transition-all shadow-xl shadow-emerald-500/20">Subscribe</button></form></div></div></section>';
+const newsletterHtml = '<section id="newsletter" class="py-24 bg-navy px-4"><div class="max-w-4xl mx-auto bg-[#0a0f1a] rounded-[3rem] p-12 text-center border border-white/10 shadow-2xl relative overflow-hidden"><div class="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-indigo-500/10"></div><div class="relative z-10"><h2 class="text-3xl md:text-4xl font-black text-white mb-6">Stay Ahead of the Curve</h2><p class="text-gray-400 mb-10">Join 2,000+ students receiving weekly WASSCE tips.</p><form id="newsletter-form" class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto"><input type="email" placeholder="Email address" required class="flex-1 px-6 py-4 rounded-2xl bg-white/5 border border-white/10 text-white focus:border-emerald-500 outline-none transition-all"><button type="submit" class="px-10 py-4 bg-emerald-500 text-white font-black rounded-2xl hover:bg-emerald-400 transition-all shadow-xl shadow-emerald-500/20">Subscribe</button></form></div></div></section>';
 
 const globalHeadTags = '<style>:root { --navy: #05080f; --emerald: #10b981; --indigo: #6366f1; } .bg-mesh { background-image: radial-gradient(at 0% 0%, rgba(16,185,129,0.05) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(99,102,241,0.05) 0px, transparent 50%); } .grid-pattern { background-image: radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px); background-size: 32px 32px; } .hero-glow { position: absolute; width: 400px; height: 400px; filter: blur(120px); opacity: 0.15; pointer-events: none; }</style>';
 
@@ -47,7 +47,7 @@ const getMobileNav = (page) => {
         '<a href="articles.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ' + (page === 'articles.html' ? 'bg-emerald-500 text-navy' : 'text-white/60') + '">Articles</a>' +
         '<a href="news.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ' + (page === 'news.html' ? 'bg-emerald-500 text-navy' : 'text-white/60') + '">News</a>';
 
-    return '<!-- Mobile Bottom Navigation --><div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden w-[90%] max-w-sm"><div class="bg-navy/90 backdrop-blur-xl rounded-[2rem] border border-white/10 p-2 shadow-2xl flex items-center justify-between gap-1">' +
+    return '<!-- Mobile Bottom Navigation --><div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden w-[90%] max-sm:w-[95%] max-w-sm"><div class="bg-navy/90 backdrop-blur-xl rounded-[2rem] border border-white/10 p-2 shadow-2xl flex items-center justify-between gap-1">' +
         navItems +
         '<a href="' + (page === 'index.html' ? '#top' : 'index.html') + '" class="p-3 text-white/40 hover:text-white transition-colors"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>' +
         '</div></div>';
@@ -84,6 +84,7 @@ function processPage(file) {
   const headerContent = getHeader(basename);
   html = html.replace(/<header[\s\S]*?<\/header>/, headerContent);
 
+  const mobileNav = getMobileNav(basename);
   if (html.includes('<!-- Mobile Bottom Navigation -->')) {
     // Robust cleanup: Match the comment and EVERYTHING until the next major block
     html = html.replace(/<!-- Mobile Bottom Navigation -->[\s\S]*?(?=<header|<section|<footer|<script|<\/body|$)/, mobileNav);
@@ -115,4 +116,4 @@ function processPage(file) {
 
 const filesToProcess = ['index.html', 'about.html', 'news.html', 'articles.html', 'core-math-2026.html', 'ai-test-prep.html', 'cs-integration.html', 'parent-guide.html'];
 filesToProcess.forEach(processPage);
-console.log('Stray Tag Cleanup & theme update complete.');
+console.log('Newsletter UI Fix & site-wide update complete.');
