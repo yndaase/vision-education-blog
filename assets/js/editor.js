@@ -33,6 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Action buttons
     const clearBtn = document.getElementById('clearBtn');
     const saveBtn = document.getElementById('saveBtn');
+    const focusToggle = document.getElementById('focusToggle');
+    const aiPolishBtn = document.getElementById('aiPolishBtn');
 
     // State
     let autoSaveTimeout;
@@ -65,6 +67,30 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error(e);
         }
     }
+
+    // Sync Scrolling
+    let isScrollingEditor = false;
+    let isScrollingPreview = false;
+
+    editor.addEventListener('scroll', () => {
+        if (isScrollingPreview) {
+            isScrollingPreview = false;
+            return;
+        }
+        isScrollingEditor = true;
+        const scrollPercentage = editor.scrollTop / (editor.scrollHeight - editor.clientHeight);
+        preview.scrollTop = scrollPercentage * (preview.scrollHeight - preview.clientHeight);
+    });
+
+    preview.addEventListener('scroll', () => {
+        if (isScrollingEditor) {
+            isScrollingEditor = false;
+            return;
+        }
+        isScrollingPreview = true;
+        const scrollPercentage = preview.scrollTop / (preview.scrollHeight - preview.clientHeight);
+        editor.scrollTop = scrollPercentage * (editor.scrollHeight - editor.clientHeight);
+    });
 
     // Update word count and reading time
     function updateStats() {
@@ -112,7 +138,66 @@ document.addEventListener('DOMContentLoaded', function() {
         editor.selectionStart = newPos;
         editor.selectionEnd = newPos;
         editor.focus();
+        
+        updatePreview();
+        updateStats();
+        scheduleAutoSave();
     }
+
+    // Focus Mode Toggle
+    focusToggle.addEventListener('click', () => {
+        document.body.classList.toggle('focus-mode');
+        focusToggle.classList.toggle('active');
+    });
+
+    // Keyboard Shortcuts
+    editor.addEventListener('keydown', (e) => {
+        if (e.ctrlKey || e.metaKey) {
+            switch (e.key.toLowerCase()) {
+                case 'b':
+                    e.preventDefault();
+                    boldBtn.click();
+                    break;
+                case 'i':
+                    e.preventDefault();
+                    italicBtn.click();
+                    break;
+                case 'h':
+                    e.preventDefault();
+                    headerBtn.click();
+                    break;
+                case 'k':
+                    e.preventDefault();
+                    linkBtn.click();
+                    break;
+                case 's':
+                    e.preventDefault();
+                    autoSave();
+                    break;
+            }
+        }
+        if (e.altKey && e.key.toLowerCase() === 'f') {
+            e.preventDefault();
+            focusToggle.click();
+        }
+        if (e.altKey && e.key.toLowerCase() === 'n') {
+            e.preventDefault();
+            aiPolishBtn.click();
+        }
+    });
+
+    // Neural Polish (Simulated)
+    aiPolishBtn.addEventListener('click', () => {
+        const originalText = aiPolishBtn.innerHTML;
+        aiPolishBtn.innerHTML = '<span class="pulse-dot"></span> Analyzing...';
+        aiPolishBtn.disabled = true;
+
+        setTimeout(() => {
+            alert('Nvidia Nemotron-3 Super: "Your draft is structurally sound. I recommend adding more specific exam-focused examples to the third paragraph."');
+            aiPolishBtn.innerHTML = originalText;
+            aiPolishBtn.disabled = false;
+        }, 1500);
+    });
 
     // Toolbar button handlers
     boldBtn.addEventListener('click', () => {
