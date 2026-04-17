@@ -84,10 +84,9 @@ function processPage(file) {
   const headerContent = getHeader(basename);
   html = html.replace(/<header[\s\S]*?<\/header>/, headerContent);
 
-  const mobileNav = getMobileNav(basename);
   if (html.includes('<!-- Mobile Bottom Navigation -->')) {
-    // Aggressive cleanup: Match the comment and everything until the next major block or multiple stray divs
-    html = html.replace(/<!-- Mobile Bottom Navigation -->[\s\S]*?(?:<\/div>\s*)+/, mobileNav);
+    // Robust cleanup: Match the comment and EVERYTHING until the next major block
+    html = html.replace(/<!-- Mobile Bottom Navigation -->[\s\S]*?(?=<header|<section|<footer|<script|<\/body|$)/, mobileNav);
   } else {
     html = html.replace('</body>', mobileNav + '</body>');
   }
