@@ -3,32 +3,9 @@
   "trailingSlash": false,
   "redirects": [
     {
-      "source": "/",
-      "has": [
-        {
-          "type": "host",
-          "value": "partners.visionedu.site"
-        }
-      ],
-      "destination": "https://partners.visionedu.site/partners",
-      "permanent": false
-    },
-    {
       "source": "/partners",
-      "has": [
-        {
-          "type": "host",
-          "value": "visionedu.site"
-        }
-      ],
       "destination": "https://partners.visionedu.site",
       "permanent": true
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/assets/:path*",
-      "destination": "/assets/:path*"
     }
   ]
 }
