@@ -10,7 +10,17 @@
           "value": "partners.visionedu.site"
         }
       ],
-      "destination": "/partners"
+      "destination": "/partners.html"
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "partners.visionedu.site"
+        }
+      ],
+      "destination": "/:path*"
     }
   ],
   "redirects": [
