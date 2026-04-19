@@ -10,7 +10,7 @@
           "value": "partners.visionedu.site"
         }
       ],
-      "destination": "/partners",
+      "destination": "https://partners.visionedu.site/partners",
       "permanent": false
     },
     {
