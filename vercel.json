@@ -12,5 +12,12 @@
       ],
       "destination": "/partners"
     }
+  ],
+  "redirects": [
+    {
+      "source": "/partners",
+      "destination": "https://partners.visionedu.site",
+      "permanent": true
+    }
   ]
 }
