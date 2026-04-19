@@ -16,6 +16,12 @@
   "redirects": [
     {
       "source": "/partners",
+      "has": [
+        {
+          "type": "host",
+          "value": "visionedu.site"
+        }
+      ],
       "destination": "https://partners.visionedu.site",
       "permanent": true
     }
