@@ -1,7 +1,7 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
-  "rewrites": [
+  "redirects": [
     {
       "source": "/",
       "has": [
@@ -10,24 +10,9 @@
           "value": "partners.visionedu.site"
         }
       ],
-      "destination": "/partners.html"
+      "destination": "/partners",
+      "permanent": false
     },
-    {
-      "source": "/assets/:path*",
-      "destination": "/assets/:path*"
-    },
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "partners.visionedu.site"
-        }
-      ],
-      "destination": "/partners.html"
-    }
-  ],
-  "redirects": [
     {
       "source": "/partners",
       "has": [
@@ -38,6 +23,12 @@
       ],
       "destination": "https://partners.visionedu.site",
       "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/assets/:path*",
+      "destination": "/assets/:path*"
     }
   ]
 }
