@@ -43,7 +43,7 @@ export default async function handler(req, res) {
         'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: 'Vision Education <welcome@visionedu.online>',
+        from: 'Vision Education <welcome@visionedu.site>',
         to: [email],
         reply_to: 'mensuohyaw@gmail.com',
         subject: subject,
@@ -85,7 +85,7 @@ export default async function handler(req, res) {
                   ${bulletPoints}
                 </ul>
                 <div class="button-container">
-                  <a href="https://visionedu.online" class="button">Visit the Platform</a>
+                  <a href="https://visionedu.site" class="button">Visit the Platform</a>
                 </div>
                 <div class="signature">
                   Best regards,<br>
@@ -95,7 +95,7 @@ export default async function handler(req, res) {
               </div>
               <div class="footer">
                 <div class="legal">
-                  You are receiving this because you signed up for updates via visionedu.online.<br>
+                  You are receiving this because you signed up for updates via visionedu.site.<br>
                   Vision Education — Accra, Ghana.
                 </div>
               </div>
