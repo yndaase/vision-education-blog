@@ -7,34 +7,18 @@
       "has": [
         {
           "type": "host",
-          "value": "partners.visionedu.site"
+          "value": "(partners.visionedu.site|www.partners.visionedu.site)"
         }
       ],
       "destination": "/partners.html"
     },
     {
       "source": "/",
-      "has": [
-        {
-          "type": "host",
-          "value": "visionedu.site"
-        }
-      ],
       "destination": "/platform.html"
     },
     {
       "source": "/assets/:path*",
       "destination": "/assets/:path*"
-    },
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "partners.visionedu.site"
-        }
-      ],
-      "destination": "/partners.html"
     }
   ],
   "redirects": [
@@ -43,7 +27,7 @@
       "has": [
         {
           "type": "host",
-          "value": "visionedu.site"
+          "value": "(visionedu.site|www.visionedu.site)"
         }
       ],
       "destination": "https://partners.visionedu.site",
