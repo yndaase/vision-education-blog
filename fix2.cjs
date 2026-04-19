@@ -16,13 +16,13 @@ const getHeader = (page) => {
     return '<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-100 transition-all duration-300">' +
     '<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">' +
       '<div class="flex justify-between items-center h-20">' +
-        '<a href="index.html" class="flex items-center gap-3 group">' +
+        '<a href="https://visionedu.site" class="flex items-center gap-3 group">' +
           '<div class="w-10 h-10 bg-navy rounded-xl flex items-center justify-center text-emerald-500 font-black text-xl shadow-lg ring-4 ring-navy/5 group-hover:scale-110 transition-transform">V</div>' +
           '<span class="font-black text-xl tracking-tighter text-navy group-hover:text-emerald-500 transition-all">Vision Education</span>' +
         '</a>' +
         '<div class="flex items-center gap-6 md:gap-8">' +
           '<nav class="hidden md:flex space-x-8 items-center">' +
-            '<a href="index.html" class="' + isPlatformActive + ' hover:text-emerald-500 font-bold text-sm transition-all">Platform</a>' +
+            '<a href="https://visionedu.site" class="' + isPlatformActive + ' hover:text-emerald-500 font-bold text-sm transition-all">Platform</a>' +
             '<a href="about.html" class="' + isAboutActive + ' hover:text-emerald-500 font-bold text-sm transition-all">About</a>' +
             '<a href="articles.html" class="' + isArticlesActive + ' hover:text-emerald-500 font-bold text-sm transition-all">Articles</a>' +
             '<a href="news.html" class="' + isNewsActive + ' hover:text-emerald-500 font-bold text-sm transition-all">News</a>' +
@@ -50,7 +50,7 @@ const getMobileNav = (page) => {
         '<button onclick="filterArticles(\'student\')" id="m-tab-student" class="flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all text-white/60 whitespace-nowrap">Students</button>' +
         '<button onclick="filterArticles(\'parent\')" id="m-tab-parent" class="flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all text-white/60 whitespace-nowrap">Parents</button>' +
         '<div class="w-[1px] h-6 bg-white/10 mx-1"></div>' :
-        '<a href="index.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ' + (page === 'index.html' ? 'bg-emerald-500 text-white' : 'text-white/60') + '">Home</a>' +
+        '<a href="https://visionedu.site" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ' + (page === 'index.html' ? 'bg-emerald-500 text-white' : 'text-white/60') + '">Home</a>' +
         '<a href="about.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ' + (page === 'about.html' ? 'bg-emerald-500 text-white' : 'text-white/60') + '">About</a>' +
         '<a href="articles.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ' + (page === 'articles.html' ? 'bg-emerald-500 text-white' : 'text-white/60') + '">Articles</a>' +
         '<a href="news.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ' + (page === 'news.html' ? 'bg-emerald-500 text-white' : 'text-white/60') + '">News</a>';
