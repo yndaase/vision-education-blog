@@ -1,6 +1,6 @@
-const { AzureOpenAI } = require('openai');
+import { AzureOpenAI } from 'openai';
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   // CORS Headers
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -30,33 +30,34 @@ module.exports = async (req, res) => {
   const azureVersion = "2025-01-01-preview";
 
   if (!azureKey) {
-    return res.status(500).json({ error: 'AZURE_OPENAI_KEY is not configured in the environment' });
+    console.error('Missing AZURE_OPENAI_KEY');
+    return res.status(500).json({ error: 'AI service configuration missing. Please check back later.' });
   }
 
-  const client = new AzureOpenAI({
-    endpoint: azureEndpoint,
-    apiKey: azureKey,
-    apiVersion: azureVersion,
-  });
-
-  const systemMessage = {
-    role: "system",
-    content: `You are Vision Intelligence (Pro), the Senior WASSCE Academic Assistant for Vision Education. 
-    Your goal is to provide high-accuracy, supportive, and encouraging academic tutoring for Ghanaian students.
-    
-    EXPERT RULES:
-    1. Focus on the WASSCE / WAEC curriculum (Core Mathematics, English, Integrated Science, Social Studies).
-    2. Use clear, simple language but remain professional (Senior Mentor tone).
-    3. For Mathematics: Always use LaTeX for formulas (e.g., $x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$).
-    4. Provide "Visionary Insights": Pro-tips that help students avoid common exam traps.
-    5. If asked about non-educational topics, gently steer the conversation back to learning or career guidance.
-    6. Always identify as an AI built for Vision Education.
-    
-    Current Date: ${new Date().toLocaleDateString()}
-    Platform: Vision Education (visionedu.site)`
-  };
-
   try {
+    const client = new AzureOpenAI({
+      endpoint: azureEndpoint,
+      apiKey: azureKey,
+      apiVersion: azureVersion,
+    });
+
+    const systemMessage = {
+      role: "system",
+      content: `You are Vision Intelligence (Pro), the Senior WASSCE Academic Assistant for Vision Education. 
+      Your goal is to provide high-accuracy, supportive, and encouraging academic tutoring for Ghanaian students.
+      
+      EXPERT RULES:
+      1. Focus on the WASSCE / WAEC curriculum (Core Mathematics, English, Integrated Science, Social Studies).
+      2. Use clear, simple language but remain professional (Senior Mentor tone).
+      3. For Mathematics: Always use LaTeX for formulas (e.g., $x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$).
+      4. Provide "Visionary Insights": Pro-tips that help students avoid common exam traps.
+      5. If asked about non-educational topics, gently steer the conversation back to learning or career guidance.
+      6. Always identify as an AI built for Vision Education.
+      
+      Current Date: ${new Date().toLocaleDateString()}
+      Platform: Vision Education (visionedu.site)`
+    };
+
     const response = await client.chat.completions.create({
       model: azureDeployment,
       messages: [systemMessage, ...messages],
@@ -68,7 +69,7 @@ module.exports = async (req, res) => {
     return res.status(200).json({ message: aiMessage });
 
   } catch (error) {
-    console.error('AI Chat Error:', error);
-    return res.status(500).json({ error: 'AI failed to respond. Please try again.' });
+    console.error('AI Chat Error:', error.message);
+    return res.status(500).json({ error: 'Vision AI is currently updating. Please try again in a few moments.' });
   }
-};
+}
