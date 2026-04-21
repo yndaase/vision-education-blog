@@ -286,6 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(reg => console.log('SW registered', reg))
                 .catch(err => console.warn('SW failed', err));
         });
+    }
     // ─────────────────────────────────────────
     // Vision AI Chatbot Injection
     // ─────────────────────────────────────────
