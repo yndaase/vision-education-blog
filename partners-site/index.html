@@ -230,14 +230,17 @@
               <input type="email" id="p-email" required placeholder="email@brand.com" class="w-full px-6 py-4 rounded-2xl bg-white/5 border border-white/10 text-white focus:border-emerald-500 outline-none transition-all">
             </div>
           </div>
-          <div>
+          <div class="relative">
             <label class="block text-xs font-black uppercase tracking-widest text-emerald-500 mb-3">Partnership Interest</label>
-            <select id="p-interest" class="w-full px-6 py-4 rounded-2xl bg-white/5 border border-white/10 text-white focus:border-emerald-500 outline-none transition-all appearance-none cursor-pointer">
-              <option>Sponsored Content</option>
-              <option>Platform Integration</option>
-              <option>Podcast Sponsorship</option>
-              <option>Corporate Social Responsibility</option>
+            <select id="p-interest" class="w-full px-6 py-4 rounded-2xl bg-white/10 border border-white/10 text-white focus:border-emerald-500 outline-none appearance-none cursor-pointer pr-12 transition-all">
+              <option class="bg-[#0a0f1a] text-white">Sponsored Content</option>
+              <option class="bg-[#0a0f1a] text-white">Platform Integration</option>
+              <option class="bg-[#0a0f1a] text-white">Podcast Sponsorship</option>
+              <option class="bg-[#0a0f1a] text-white">Corporate Social Responsibility</option>
             </select>
+            <div class="absolute right-6 top-[3.3rem] pointer-events-none text-emerald-500">
+              <svg class="w-5 h-5 flex" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </div>
           </div>
           <div>
             <label class="block text-xs font-black uppercase tracking-widest text-emerald-500 mb-3">Brief Vision</label>
