@@ -9,7 +9,7 @@
             position: fixed;
             bottom: 2rem;
             right: 2rem;
-            z-index: 9999;
+            z-index: 2147483647;
             font-family: 'Outfit', sans-serif;
         }
 
@@ -222,8 +222,10 @@
     `;
 
     const styleSheet = document.createElement("style");
-    styleSheet.innerText = styles;
+    styleSheet.appendChild(document.createTextNode(styles));
     document.head.appendChild(styleSheet);
+
+    console.log("Vision Intelligence Pro Chatbot Initializing...");
 
     // 2. Create UI Elements
     const container = document.createElement('div');
@@ -257,7 +259,11 @@
             </svg>
         </div>
     `;
-    document.body.appendChild(container);
+    if (document.body) {
+        document.body.appendChild(container);
+    } else {
+        window.addEventListener('DOMContentLoaded', () => document.body.appendChild(container));
+    }
 
     // 3. Logic
     const fab = document.getElementById('chat-fab');

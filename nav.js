@@ -1,3 +1,9 @@
+    // Vision AI Chatbot Injection (Global)
+    const chatScript = document.createElement('script');
+    chatScript.src = '/assets/js/chat.js'; // Use absolute path
+    chatScript.defer = true;
+    document.body.appendChild(chatScript);
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // ─────────────────────────────────────────
@@ -287,13 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 .catch(err => console.warn('SW failed', err));
         });
     }
-    // ─────────────────────────────────────────
-    // Vision AI Chatbot Injection
-    // ─────────────────────────────────────────
-    const chatScript = document.createElement('script');
-    chatScript.src = 'assets/js/chat.js';
-    chatScript.defer = true;
-    document.body.appendChild(chatScript);
+    }
 });
 
 
