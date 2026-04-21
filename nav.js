@@ -225,30 +225,56 @@ document.addEventListener('DOMContentLoaded', () => {
     const shareBtn = document.getElementById('share-btn');
     if (shareBtn) {
         shareBtn.addEventListener('click', async () => {
+            const shareData = {
+                title: document.title,
+                text: document.querySelector('meta[name="description"]')?.content || 'Check out this article from Vision Education',
+                url: window.location.href,
+            };
+
+            // 1. Try Native Share (Mobile)
             if (navigator.share) {
                 try {
-                    await navigator.share({
-                        title: document.title,
-                        text: document.querySelector('meta[name="description"]')?.content || 'Check out this article from Vision Education',
-                        url: window.location.href,
-                    });
+                    await navigator.share(shareData);
+                    return; // Success
                 } catch (err) {
-                    if (err.name !== 'AbortError') {
-                        console.log('Error sharing:', err);
-                    }
-                }
-            } else {
-                // Fallback: copy to clipboard
-                try {
-                    await navigator.clipboard.writeText(window.location.href);
-                    const originalHTML = shareBtn.innerHTML;
-                    shareBtn.innerHTML = `<svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Copied!`;
-                    setTimeout(() => { shareBtn.innerHTML = originalHTML; }, 2000);
-                } catch (err) {
-                    console.error('Failed to copy link', err);
+                    if (err.name !== 'AbortError') console.error('Share failed:', err);
                 }
             }
+
+            // 2. Try Clipboard API (Modern Desktop)
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(shareData.url);
+                    showCopySuccess(shareBtn);
+                    return;
+                }
+            } catch (err) {
+                console.warn('Clipboard API failed, trying fallback');
+            }
+
+            // 3. Absolute Fallback (Invisible Input)
+            try {
+                const input = document.createElement('input');
+                input.value = shareData.url;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                showCopySuccess(shareBtn);
+            } catch (err) {
+                alert('Please copy the URL to share: ' + shareData.url);
+            }
         });
+    }
+
+    function showCopySuccess(btn) {
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = `<svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Copied!`;
+        btn.classList.add('border-emerald-500/50');
+        setTimeout(() => { 
+            btn.innerHTML = originalHTML; 
+            btn.classList.remove('border-emerald-500/50');
+        }, 2000);
     }
 
     // ─────────────────────────────────────────
