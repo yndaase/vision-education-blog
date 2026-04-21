@@ -286,7 +286,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(reg => console.log('SW registered', reg))
                 .catch(err => console.warn('SW failed', err));
         });
-    }
+    // ─────────────────────────────────────────
+    // Vision AI Chatbot Injection
+    // ─────────────────────────────────────────
+    const chatScript = document.createElement('script');
+    chatScript.src = 'assets/js/chat.js';
+    chatScript.defer = true;
+    document.body.appendChild(chatScript);
 });
 
 

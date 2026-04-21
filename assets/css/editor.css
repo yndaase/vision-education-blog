@@ -285,6 +285,7 @@ body.focus-mode .header-actions {
 @media (max-width: 768px) {
     .editor-wrapper {
         grid-template-columns: 1fr;
+    }
 }
 /* Model Badge */
 .model-badge {
