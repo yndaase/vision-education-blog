@@ -219,20 +219,20 @@
       <p class="text-xl text-gray-400 mb-12 font-medium">Join us in democratizing WASSCE excellence and elevating Ghanaian talent.</p>
       
       <div class="bg-[#0a0f1a] rounded-[3rem] p-12 border border-white/10 shadow-2xl">
-        <form class="space-y-6 text-left">
+        <form id="partner-form" class="space-y-6 text-left">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label class="block text-xs font-black uppercase tracking-widest text-emerald-500 mb-3">Partner Name</label>
-              <input type="text" placeholder="Your Brand / Company" class="w-full px-6 py-4 rounded-2xl bg-white/5 border border-white/10 text-white focus:border-emerald-500 outline-none transition-all">
+              <input type="text" id="p-name" required placeholder="Your Brand / Company" class="w-full px-6 py-4 rounded-2xl bg-white/5 border border-white/10 text-white focus:border-emerald-500 outline-none transition-all">
             </div>
             <div>
               <label class="block text-xs font-black uppercase tracking-widest text-emerald-500 mb-3">Contact Email</label>
-              <input type="email" placeholder="email@brand.com" class="w-full px-6 py-4 rounded-2xl bg-white/5 border border-white/10 text-white focus:border-emerald-500 outline-none transition-all">
+              <input type="email" id="p-email" required placeholder="email@brand.com" class="w-full px-6 py-4 rounded-2xl bg-white/5 border border-white/10 text-white focus:border-emerald-500 outline-none transition-all">
             </div>
           </div>
           <div>
             <label class="block text-xs font-black uppercase tracking-widest text-emerald-500 mb-3">Partnership Interest</label>
-            <select class="w-full px-6 py-4 rounded-2xl bg-white/5 border border-white/10 text-white focus:border-emerald-500 outline-none transition-all appearance-none cursor-pointer">
+            <select id="p-interest" class="w-full px-6 py-4 rounded-2xl bg-white/5 border border-white/10 text-white focus:border-emerald-500 outline-none transition-all appearance-none cursor-pointer">
               <option>Sponsored Content</option>
               <option>Platform Integration</option>
               <option>Podcast Sponsorship</option>
@@ -241,10 +241,25 @@
           </div>
           <div>
             <label class="block text-xs font-black uppercase tracking-widest text-emerald-500 mb-3">Brief Vision</label>
-            <textarea placeholder="How would you like to build with us?" rows="4" class="w-full px-6 py-4 rounded-2xl bg-white/5 border border-white/10 text-white focus:border-emerald-500 outline-none transition-all"></textarea>
+            <textarea id="p-vision" required placeholder="How would you like to build with us?" rows="4" class="w-full px-6 py-4 rounded-2xl bg-white/5 border border-white/10 text-white focus:border-emerald-500 outline-none transition-all"></textarea>
           </div>
           <button type="submit" class="w-full py-5 bg-emerald-500 text-navy font-black rounded-2xl hover:bg-emerald-400 transition-all shadow-xl shadow-emerald-500/20 active:scale-95 text-lg cursor-pointer">Submit Partnership Inquiry</button>
         </form>
+
+        <script>
+          document.getElementById('partner-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('p-name').value;
+            const email = document.getElementById('p-email').value;
+            const interest = document.getElementById('p-interest').value;
+            const vision = document.getElementById('p-vision').value;
+            
+            const subject = encodeURIComponent(`Partnership Inquiry: ${interest} - ${name}`);
+            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nInterest: ${interest}\n\nVision:\n${vision}`);
+            
+            window.location.href = `mailto:hello@visionedu.site?subject=${subject}&body=${body}`;
+          });
+        </script>
       </div>
     </div>
   </section>
