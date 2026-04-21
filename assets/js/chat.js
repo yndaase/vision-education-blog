@@ -316,7 +316,7 @@
         submitBtn.disabled = true;
 
         try {
-            const response = await fetch('/api/chat', {
+            const response = await fetch('https://www.visionedu.site/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ messages: history })
