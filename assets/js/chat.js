@@ -6,10 +6,10 @@
     // 1. Inject Styles
     const styles = `
         #vision-chat-container {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            z-index: 2147483647;
+            position: fixed !important;
+            bottom: 2rem !important;
+            right: 2rem !important;
+            z-index: 2147483647 !important;
             font-family: 'Outfit', sans-serif;
         }
 

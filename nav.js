@@ -1,8 +1,15 @@
-    // Vision AI Chatbot Injection (Global)
-    const chatScript = document.createElement('script');
-    chatScript.src = '/assets/js/chat.js'; // Use absolute path
-    chatScript.defer = true;
-    document.body.appendChild(chatScript);
+    // Vision AI Chatbot Injection (Global Failsafe)
+    function injectChat() {
+        if (document.body) {
+            const chatScript = document.createElement('script');
+            chatScript.src = '/assets/js/chat.js';
+            chatScript.defer = true;
+            document.body.appendChild(chatScript);
+        } else {
+            setTimeout(injectChat, 10);
+        }
+    }
+    injectChat();
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -292,7 +299,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(reg => console.log('SW registered', reg))
                 .catch(err => console.warn('SW failed', err));
         });
-    }
     }
 });
 
