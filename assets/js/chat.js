@@ -228,6 +228,8 @@
     console.log("Vision Intelligence Pro Chatbot Initializing...");
 
     // 2. Create UI Elements
+    if (document.getElementById('vision-chat-container')) return;
+    
     const container = document.createElement('div');
     container.id = 'vision-chat-container';
     container.innerHTML = `
