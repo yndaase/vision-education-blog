@@ -2,7 +2,7 @@
     function injectChat() {
         if (document.body) {
             const chatScript = document.createElement('script');
-            chatScript.src = 'https://www.visionedu.site/assets/js/chat.js';
+            chatScript.src = '/assets/js/chat.js';
             chatScript.defer = true;
             document.body.appendChild(chatScript);
         } else {
