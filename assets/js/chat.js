@@ -213,6 +213,9 @@
         }
 
         @media (max-width: 500px) {
+            #vision-chat-container {
+                bottom: 6rem !important;
+            }
             #chat-window {
                 width: calc(100vw - 40px);
                 right: -20px;

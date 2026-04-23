@@ -43,7 +43,7 @@
   },
   {
     "title": "Education News",
-    "description": "Trending Education News",
+    "description": "Education \n                    Trends.",
     "category": "Intelligence",
     "url": "news.html"
   },
@@ -52,5 +52,11 @@
     "description": "A comprehensive guide for parents on supporting their children through the 2026 WASSCE using AI-powered study habits and leadership.",
     "category": "Guide",
     "url": "parent-guide.html"
+  },
+  {
+    "title": "Partners & Brands",
+    "description": "Official media kit and partnership portal for Vision Education. Discover how your brand can collaborate with Ghana's leading AI-powered educational platform.",
+    "category": "Guide",
+    "url": "partners.html"
   }
 ]

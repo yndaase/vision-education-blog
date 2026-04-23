@@ -53,6 +53,7 @@ const getMobileNav = (page) => {
         '<a href="https://visionedu.site" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ' + (page === 'index.html' ? 'bg-emerald-500 text-white' : 'text-white/60') + '">Home</a>' +
         '<a href="about.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ' + (page === 'about.html' ? 'bg-emerald-500 text-white' : 'text-white/60') + '">About</a>' +
         '<a href="articles.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ' + (page === 'articles.html' ? 'bg-emerald-500 text-white' : 'text-white/60') + '">Articles</a>' +
+        '<a href="https://partners.visionedu.site" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ' + (page === 'partners.html' ? 'bg-emerald-500 text-white' : 'text-white/60') + '">Partners</a>' +
         '<a href="news.html" class="flex-1 py-3 px-2 text-center rounded-2xl text-[10px] font-black uppercase tracking-tighter transition-all ' + (page === 'news.html' ? 'bg-emerald-500 text-white' : 'text-white/60') + '">News</a>';
 
     return '<!-- Mobile Bottom Navigation --><div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden w-[90%] max-sm:w-[95%] max-w-sm"><div class="bg-navy/90 backdrop-blur-xl rounded-[2rem] border border-white/10 p-2 shadow-2xl flex items-center justify-between gap-1">' +
