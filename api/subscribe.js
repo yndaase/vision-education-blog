@@ -95,7 +95,7 @@ export default async function handler(req, res) {
               </div>
               <div class="footer">
                 <div class="legal">
-                  You are receiving this because you signed up for updates via visionedu.online.<br>
+                  You are receiving this because you signed up for updates via visionedu.site.<br>
                   Vision Education — Accra, Ghana.
                 </div>
               </div>
