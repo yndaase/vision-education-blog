@@ -49,8 +49,8 @@ export default async function handler(req, res) {
     return res.status(200).json({ 
       news: [
         {
-          title: "Syllabus Update: 2026 WASSCE Preparations Peak",
-          summary: "Examiners suggest a shift towards practical logic applications in Core Mathematics for the 2026 cohort.",
+          title: "Syllabus Update: Upcoming WASSCE Preparations Peak",
+          summary: "Examiners suggest a shift towards practical logic applications in Core Mathematics for the next cohort.",
           category: "SYLLABUS",
           readTime: "2 min"
         },

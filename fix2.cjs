@@ -79,7 +79,7 @@ const getPremiumHero = (title, subtitle) => {
 
 const seamlessSwitcher = '<div class="hidden md:flex items-center justify-center mb-16"><div class="inline-flex p-1.5 bg-white rounded-[2rem] shadow-xl shadow-navy/5 border border-gray-100 backdrop-blur-xl"><button onclick="filterArticles(\'all\')" id="tab-all" class="px-10 py-3.5 rounded-[1.5rem] text-xs font-black uppercase tracking-widest transition-all bg-navy text-white shadow-lg shadow-navy/20">All Insights</button><button onclick="filterArticles(\'student\')" id="tab-student" class="px-10 py-3.5 rounded-[1.5rem] text-xs font-black uppercase tracking-widest transition-all text-gray-400 hover:text-navy">Student Hub</button><button onclick="filterArticles(\'parent\')" id="tab-parent" class="px-10 py-3.5 rounded-[1.5rem] text-xs font-black uppercase tracking-widest transition-all text-gray-400 hover:text-navy">Parent Hub</button></div></div>';
 
-const footerHtml = '<footer class="bg-navy py-20 border-t border-white/5"><div class="max-w-7xl mx-auto px-4 text-center text-gray-400 font-bold text-sm">&copy; 2026 Vision Education. All rights reserved.</div></footer>';
+const footerHtml = '<footer class="bg-navy py-20 border-t border-white/5"><div class="max-w-7xl mx-auto px-4 text-center text-gray-400 font-bold text-sm">&copy; Vision Education. All rights reserved.</div></footer>';
 
 const searchScriptTag = '<script src="search.js" defer></script>';
 
