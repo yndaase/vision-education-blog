@@ -1,14 +1,14 @@
 {
-  "core-math-2026.html": {
+  "core-math.html": {
     "insights": [
-      "Focus on Numerical Reasoning: 2026 Shift.",
+      "Focus on Numerical Reasoning: Syllabus Shift.",
       "3D Geometry visualization is now high-priority.",
       "Step-by-step expression is critical for full marks."
     ],
     "difficulty": 4,
     "frequency": "High",
     "quiz": {
-      "question": "Which topic is seeing a significant shift in focus for the 2026 Core Math exam?",
+      "question": "Which topic is seeing a significant shift in focus for the Core Math exam?",
       "options": [
         "Basic Algebra",
         "Numerical Reasoning",
@@ -16,7 +16,7 @@
         "Quadratic Equations"
       ],
       "answer": 1,
-      "explanation": "The 2026 examiners are leaning heavily into interpreting real-world data and applying mathematical models."
+      "explanation": "The examiners are leaning heavily into interpreting real-world data and applying mathematical models."
     }
   },
   "ai-test-prep.html": {

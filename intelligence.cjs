@@ -17,7 +17,7 @@ if (azureKey) {
   });
 }
 
-const articles = ['core-math-2026.html', 'ai-test-prep.html', 'cs-integration.html', 'parent-guide.html'];
+const articles = ['core-math.html', 'ai-test-prep.html', 'cs-integration.html', 'parent-guide.html'];
 const intelligenceData = {};
 
 async function generateIntelligence(file) {
@@ -70,7 +70,7 @@ async function generateIntelligence(file) {
 
 function getMockData(file) {
   const mocks = {
-    'core-math-2026.html': {
+    'core-math.html': {
       insights: [
         "Focus on Numerical Reasoning: 2026 Shift.",
         "3D Geometry visualization is now high-priority.",
