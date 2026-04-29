@@ -60,10 +60,10 @@ document.addEventListener('keydown', (e) => {
 function updateSelection(results) {
     results.forEach((el, idx) => {
         if (idx === selectedIndex) {
-            el.classList.add('bg-white/5', 'border-emerald-500/50');
+            el.classList.add('bg-white/5', 'border-emerald/50');
             el.scrollIntoView({ block: 'nearest' });
         } else {
-            el.classList.remove('bg-white/5', 'border-emerald-500/50');
+            el.classList.remove('bg-white/5', 'border-emerald/50');
         }
     });
 }
@@ -87,10 +87,10 @@ document.getElementById('search-input').addEventListener('input', (e) => {
     resultsContainer.innerHTML = filtered.map((item, idx) => `
         <a href="${item.url}" class="search-result-item block p-4 rounded-2xl border border-white/5 transition-all hover:bg-white/5 group">
             <div class="flex items-center justify-between mb-1">
-                <span class="text-[10px] font-black uppercase tracking-widest text-emerald-500">${item.category}</span>
-                <svg class="w-4 h-4 text-white/20 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="3" stroke-linecap="round"></path></svg>
+                <span class="text-[10px] font-black uppercase tracking-widest text-emerald">${item.category}</span>
+                <svg class="w-4 h-4 text-white/20 group-hover:text-emerald transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="3" stroke-linecap="round"></path></svg>
             </div>
-            <h4 class="text-white font-bold group-hover:text-emerald-400 transition-colors">${item.title}</h4>
+            <h4 class="text-white font-bold group-hover:text-emerald-light transition-colors">${item.title}</h4>
             <p class="text-xs text-gray-500 line-clamp-1">${item.description}</p>
         </a>
     `).join('');
