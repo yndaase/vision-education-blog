@@ -1,4 +1,4 @@
-import { AzureOpenAI } from 'openai';
+import OpenAI from 'openai';
 
 export default async function handler(req, res) {
   // CORS Headers
@@ -24,21 +24,21 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Messages array is required' });
   }
 
-  const azureKey = process.env.AZURE_OPENAI_KEY;
-  const azureEndpoint = process.env.AZURE_OPENAI_ENDPOINT || "https://models.inference.ai.azure.com";
-  const azureDeployment = process.env.AZURE_OPENAI_DEPLOYMENT || "gpt-4o";
-  const azureVersion = "2025-01-01-preview";
+  const groqKey = process.env.GROQ_API_KEY || process.env.AZURE_OPENAI_KEY;
+  const groqBaseURL = process.env.GROQ_BASE_URL || 'https://api.groq.com/openai/v1';
+  const groqModel = process.env.GROQ_MODEL || 'llama-3.3-70b-versatile';
 
-  if (!azureKey) {
-    console.error('Missing AZURE_OPENAI_KEY');
-    return res.status(500).json({ error: 'AI service configuration missing. Please check back later.' });
+  if (!groqKey) {
+    console.error('Missing GROQ_API_KEY');
+    return res.status(500).json({ 
+      error: 'AI service configuration missing. Please ensure GROQ_API_KEY is configured in your environment.' 
+    });
   }
 
   try {
-    const client = new AzureOpenAI({
-      endpoint: azureEndpoint,
-      apiKey: azureKey,
-      apiVersion: azureVersion,
+    const client = new OpenAI({
+      apiKey: groqKey,
+      baseURL: groqBaseURL,
     });
 
     const systemMessage = {
@@ -49,7 +49,7 @@ export default async function handler(req, res) {
       EXPERT RULES:
       1. Focus on the WASSCE / WAEC curriculum (Core Mathematics, English, Integrated Science, Social Studies).
       2. Use clear, simple language but remain professional (Senior Mentor tone).
-      3. For Mathematics: Always use LaTeX for formulas (e.g., $x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$).
+      3. For Mathematics: Always use LaTeX for formulas (e.g., $x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$).
       4. Provide "Visionary Insights": Pro-tips that help students avoid common exam traps.
       5. If asked about non-educational topics, gently steer the conversation back to learning or career guidance.
       6. Always identify as an AI built for Vision Education.
@@ -59,17 +59,19 @@ export default async function handler(req, res) {
     };
 
     const response = await client.chat.completions.create({
-      model: azureDeployment,
+      model: groqModel,
       messages: [systemMessage, ...messages],
       temperature: 0.7,
-      max_tokens: 1000,
+      max_tokens: 1024,
     });
 
     const aiMessage = response.choices[0].message;
     return res.status(200).json({ message: aiMessage });
 
   } catch (error) {
-    console.error('AI Chat Error:', error.message);
-    return res.status(500).json({ error: 'Vision AI is currently updating. Please try again in a few moments.' });
+    console.error('Groq AI Chat Error:', error.message);
+    return res.status(500).json({ 
+      error: error.message || 'Vision AI is currently updating. Please try again in a few moments.' 
+    });
   }
 }

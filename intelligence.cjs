@@ -1,19 +1,17 @@
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
-const { AzureOpenAI } = require('openai');
+const OpenAI = require('openai');
 
-const azureKey = process.env.AZURE_OPENAI_KEY;
-const azureEndpoint = process.env.AZURE_OPENAI_ENDPOINT || "https://models.inference.ai.azure.com";
-const azureDeployment = process.env.AZURE_OPENAI_DEPLOYMENT || "gpt-4o";
-const azureVersion = "2025-01-01-preview";
+const groqKey = process.env.GROQ_API_KEY || process.env.AZURE_OPENAI_KEY;
+const groqBaseURL = process.env.GROQ_BASE_URL || 'https://api.groq.com/openai/v1';
+const groqModel = process.env.GROQ_MODEL || 'llama-3.3-70b-versatile';
 
-let azureClient = null;
-if (azureKey) {
-  azureClient = new AzureOpenAI({
-    endpoint: azureEndpoint,
-    apiKey: azureKey,
-    apiVersion: azureVersion,
+let groqClient = null;
+if (groqKey) {
+  groqClient = new OpenAI({
+    apiKey: groqKey,
+    baseURL: groqBaseURL,
   });
 }
 
@@ -28,8 +26,8 @@ async function generateIntelligence(file) {
 
   console.log(`Generating intelligence for: ${file}...`);
 
-  if (!azureClient) {
-    console.warn(`No AZURE_OPENAI_KEY found. Using mock data for ${file}.`);
+  if (!groqClient) {
+    console.warn(`No GROQ_API_KEY found. Using mock data for ${file}.`);
     return getMockData(file);
   }
 
@@ -53,10 +51,11 @@ async function generateIntelligence(file) {
   STRICT JSON ONLY.`;
 
   try {
-    const response = await azureClient.chat.completions.create({
-      model: azureDeployment,
+    const response = await groqClient.chat.completions.create({
+      model: groqModel,
       messages: [{ role: "user", content: prompt }],
-      temperature: 0.3
+      temperature: 0.3,
+      response_format: { type: "json_object" }
     });
     
     let text = response.choices[0].message.content.trim();
@@ -72,17 +71,17 @@ function getMockData(file) {
   const mocks = {
     'core-math.html': {
       insights: [
-        "Focus on Numerical Reasoning: 2026 Shift.",
+        "Focus on Numerical Reasoning: Syllabus Shift.",
         "3D Geometry visualization is now high-priority.",
         "Step-by-step expression is critical for full marks."
       ],
       difficulty: 4,
       frequency: "High",
       quiz: {
-        question: "Which topic is seeing a significant shift in focus for the 2026 Core Math exam?",
+        question: "Which topic is seeing a significant shift in focus for the Core Math exam?",
         options: ["Basic Algebra", "Numerical Reasoning", "Circle Theorems", "Quadratic Equations"],
         answer: 1,
-        explanation: "The 2026 examiners are leaning heavily into interpreting real-world data and applying mathematical models."
+        explanation: "The examiners are leaning heavily into interpreting real-world data and applying mathematical models."
       }
     },
     'ai-test-prep.html': {
@@ -99,10 +98,50 @@ function getMockData(file) {
         answer: 1,
         explanation: "AI provides immediate and unbiased feedback on student performance metrics."
       }
+    },
+    'cs-integration.html': {
+      insights: [
+        "Algorithmic thinking prepares students for modern computing challenges.",
+        "Logic frameworks bridge mathematics and digital problem-solving.",
+        "Simulation tools allow hardware-independent learning across Ghana."
+      ],
+      difficulty: 3,
+      frequency: "Medium",
+      quiz: {
+        question: "Why is computational thinking and logic critical for Ghanaian students in the modern WASSCE curriculum?",
+        options: [
+          "It replaces the need to learn Core Mathematics",
+          "It fosters algorithmic problem-solving for both software and real-world challenges",
+          "It guarantees free high-end hardware for every school",
+          "It eliminates the need for practical examinations"
+        ],
+        answer: 1,
+        explanation: "Computational thinking equips students to decompose complex challenges into algorithmic steps, bridging theoretical math with global tech readiness."
+      }
+    },
+    'parent-guide.html': {
+      insights: [
+        "Parental emotional support directly correlates with exam performance.",
+        "Establishing consistent study routines prevents last-minute cramming stress.",
+        "Monitoring real-time diagnostic scores helps identify weak topics early."
+      ],
+      difficulty: 2,
+      frequency: "High",
+      quiz: {
+        question: "What is the most effective way parents can support their child preparing for the WASSCE?",
+        options: [
+          "Encouraging structured study schedules and providing positive academic reinforcement",
+          "Forbidding the use of all technology including educational tools",
+          "Taking mock exams on behalf of the student",
+          "Restricting sleep to fewer than 4 hours a night"
+        ],
+        answer: 0,
+        explanation: "Parents provide the emotional and environmental anchor, balancing disciplined study routines with encouraging guidance."
+      }
     }
   };
   return mocks[file] || {
-    insights: ["AI extracted insight 1", "AI extracted insight 2", "AI extracted insight 3"],
+    insights: ["Key syllabus insight 1", "Key syllabus insight 2", "Key syllabus insight 3"],
     difficulty: 3,
     frequency: "Medium",
     quiz: {

@@ -321,7 +321,13 @@
         submitBtn.disabled = true;
 
         try {
-            const response = await fetch('https://www.visionedu.site/api/chat', {
+            const isSubdomain = window.location.hostname.startsWith('partners.') ||
+                (!window.location.hostname.includes('visionedu.site') &&
+                 window.location.hostname !== 'localhost' &&
+                 !window.location.hostname.includes('127.0.0.1'));
+            const chatUrl = isSubdomain ? 'https://www.visionedu.site/api/chat' : '/api/chat';
+
+            const response = await fetch(chatUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ messages: history })
@@ -334,7 +340,7 @@
                 addMessage(data.message.content, 'ai');
                 history.push(data.message);
             } else {
-                addMessage("I'm having trouble connecting right now. Please try again later.", 'ai');
+                addMessage(data.error || "I'm having trouble connecting right now. Please try again later.", 'ai');
             }
         } catch (error) {
             console.error('Chat error:', error);
