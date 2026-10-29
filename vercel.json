@@ -3,23 +3,56 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "(bday.visionedu.site|www.bday.visionedu.site)"
+        }
+      ],
+      "destination": "/bday.html",
+      "permanent": false
+    },
+    {
       "source": "/partners",
+      "has": [
+        {
+          "type": "host",
+          "value": "(visionedu.site|www.visionedu.site)"
+        }
+      ],
       "destination": "https://partners.visionedu.site",
       "permanent": true
     },
     {
       "source": "/bday",
+      "has": [
+        {
+          "type": "host",
+          "value": "(visionedu.site|www.visionedu.site)"
+        }
+      ],
       "destination": "https://bday.visionedu.site",
       "permanent": true
     }
   ],
   "rewrites": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "(bday.visionedu.site|www.bday.visionedu.site)"
+        }
+      ],
+      "destination": "/bday.html"
+    },
+    {
       "source": "/:path*",
       "has": [
         {
           "type": "host",
-          "value": "bday.visionedu.site"
+          "value": "(bday.visionedu.site|www.bday.visionedu.site)"
         }
       ],
       "destination": "/bday.html"
