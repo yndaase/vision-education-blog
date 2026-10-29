@@ -6,6 +6,23 @@
       "source": "/partners",
       "destination": "https://partners.visionedu.site",
       "permanent": true
+    },
+    {
+      "source": "/bday",
+      "destination": "https://bday.visionedu.site",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "bday.visionedu.site"
+        }
+      ],
+      "destination": "/bday.html"
     }
   ]
 }
